@@ -1,0 +1,3 @@
+#!/bin/sh
+mkdir -p aux m4
+autoreconf -i -s -f
