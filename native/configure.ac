@@ -1,20 +1,70 @@
 AC_INIT([storm-native-libs], [1.0.0], andrea.ceccanti@cnaf.infn.it)
+AC_PREFIX_DEFAULT([/usr])
+
 AC_CONFIG_AUX_DIR([./aux])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR(src/genericfs.hpp)
+AC_CONFIG_SRCDIR(common/genericfs.hpp)
 AM_INIT_AUTOMAKE
 
 AC_COPYRIGHT([Copyright (c) 2004-2013 Istituto Nazionale di Fisica Nucleare 
 See LICENCE file for details
 ])
 
+AC_ARG_WITH(java_home,
+    [   --with-java_home=JAVA_HOME    Sets the JAVA_HOME. It is needed to find jni.h],
+    [with_java_home="$withval"],
+    AC_MSG_ERROR([Please set JAVA_HOME with the --with-java_home option]))
+
+JNI_CFLAGS="-I$with_java_home/include -I$with_java_home/include/linux"
+
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
+AC_PROG_INSTALL
+AC_CHECK_PROG(SWIG,swig,[yes],AC_MSG_ERROR(Cannot find swig.))
 
-# AX_PKG_SWIG(2.0.19, [], [ AC_MSG_ERROR( [SWIG not found] ) ])
+## CHECK JNI HEADERS
+CPPFLAGS_SAVE=$CPPFLAGS
+CPPFLAGS=$JNI_CFLAGS
+AC_CHECK_HEADER([jni.h], [have_jni=yes], [have_jni=no], [])
+CPPFLAGS=$CPPFLAGS_SAVE
+
+if test x$have_jni = xno; then
+    AC_MSG_FAILURE([jni.h not found.])
+fi
+
+## Check libacl-devel
+AC_CHECK_HEADER([sys/acl.h], 
+    [], 
+    [AC_MSG_ERROR("Could not find acl.h. Please install the libacl-devel package.")],
+    [])
+
+AC_CHECK_HEADER([acl/libacl.h], 
+    [], 
+    [AC_MSG_ERROR("Could not find libacl.h. Please install the libacl-devel package.")],
+    [])
+
+AC_CHECK_LIB([acl],
+    [acl_create_entry],
+    [],
+    [AC_MSG_ERROR("Error checking libacl. Please install the libacl-devel package.")]
+    )
 
 
-AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+AC_CHECK_HEADER([lcmaps/lcmaps.h],
+    [],
+    [AC_MSG_ERROR("Could not find lcmaps.h. Please install the lcmaps-interface package.")],
+    [])
+
+## Check lcmaps-without-gsi
+PKG_CHECK_MODULES([LCMAPS],[lcmaps-return-poolindex-without-gsi])
+
+AC_SUBST(JNI_CFLAGS)
+AC_CONFIG_FILES([Makefile 
+                 common/Makefile
+                 posixapi/Makefile
+                 gpfsmock/Makefile
+                 gpfsapi/Makefile
+                 cutil/Makefile
+                 lcmapsutil/Makefile])
 AC_OUTPUT

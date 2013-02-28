@@ -17,7 +17,11 @@
 typedef unsigned long alloc_size_t;
 
 #include "fs_errors.hpp"
-#include "posixfs_acl.hpp"
+#include "fs_acl.hpp"
+
+// Separate abstract interface definition from 
+// posix specific implementation
+// #include "posixfs_acl.hpp"
 
 #include <string>
 #include <stdexcept>
