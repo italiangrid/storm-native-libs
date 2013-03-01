@@ -1,3 +1,13 @@
-./COPYING
-./INSTALL
-./m4
+/COPYING
+/INSTALL
+/m4
+/aclocal.m4
+/config.status
+/configure
+/COPYING
+/INSTALL
+/libtool
+/Makefile
+/Makefile.in
+/aux
+/autom4te.cache
