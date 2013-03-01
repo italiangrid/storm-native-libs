@@ -1,3 +1,0 @@
-# SWIG interfaces
-
-TBD.

@@ -17,6 +17,23 @@ AC_ARG_WITH(java_home,
 
 JNI_CFLAGS="-I$with_java_home/include -I$with_java_home/include/linux"
 
+## Limit build to Java stubs, i.e. don't compile native libraries
+AC_ARG_ENABLE([stubs],
+    [ --enable-stubs   Builds only java library stubs ],
+    [ case "$enableval" in
+        yes) stubs_only="yes" ;;
+        no)  stubs_only="no" ;;
+        *)  AC_MSG_ERROR([bad value ${enableval} for --enable-stubs. Accepted values: yes, no.]) ;;
+      esac],
+    [stubs_only="no"])
+
+AM_CONDITIONAL([BUILD_ALL], [test x"$stubs_only" = x"no"])
+
+if test x"$stubs_only" = x"yes"; then
+    AC_MSG_NOTICE([Building only java stubs as requested.])
+fi
+
+
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
@@ -32,6 +49,8 @@ CPPFLAGS=$CPPFLAGS_SAVE
 if test x$have_jni = xno; then
     AC_MSG_FAILURE([jni.h not found.])
 fi
+
+if test x"$stubs_only" = x"no"; then
 
 ## Check libacl-devel
 AC_CHECK_HEADER([sys/acl.h], 
@@ -59,7 +78,10 @@ AC_CHECK_HEADER([lcmaps/lcmaps.h],
 ## Check lcmaps-without-gsi
 PKG_CHECK_MODULES([LCMAPS],[lcmaps-return-poolindex-without-gsi])
 
+fi
+
 AC_SUBST(JNI_CFLAGS)
+
 AC_CONFIG_FILES([Makefile 
                  common/Makefile
                  posixapi/Makefile

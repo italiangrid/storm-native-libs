@@ -1,5 +1,10 @@
 ACLOCAL_AMFLAGS=-I m4
+
+if BUILD_ALL
 SUBDIRS = common posixapi gpfsmock gpfsapi cutil lcmapsutil
+else
+SUBDIRS = posixapi gpfsapi
+endif
 
 distclean-local:
 	rm -f configure aclocal.m4 
