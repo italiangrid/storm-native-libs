@@ -30,19 +30,42 @@
     </plugins>
   </build>
   <dependencies>
-    
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
-    
+
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>local-staging</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <distributionManagement>
+        <repository>
+          <id>cnaf-releases</id>
+          <name>CNAF releases</name>
+          <url>http://radiohead.cnaf.infn.it:8081/nexus/content/repositories/cnaf-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+          <id>cnaf-snapshots</id>
+          <name>CNAF snapshots</name>
+          <url>http://radiohead.cnaf.infn.it:8081/nexus/content/repositories/cnaf-snapshots/</url>
+        </snapshotRepository>
+
+      </distributionManagement>
+    </profile>
+  </profiles>
 </project>
