@@ -10,12 +10,29 @@ AC_COPYRIGHT([Copyright (c) 2004-2013 Istituto Nazionale di Fisica Nucleare
 See LICENCE file for details
 ])
 
-AC_ARG_WITH(java_home,
-    [   --with-java_home=JAVA_HOME    Sets the JAVA_HOME. It is needed to find jni.h],
-    [with_java_home="$withval"],
-    AC_MSG_ERROR([Please set JAVA_HOME with the --with-java_home option]))
+AC_ARG_WITH(jni_location,
+	[  --with-jni_location=JNI_LOCATION	Sets the location where jni.h.],
+	[with_jni_location="$withval"],
+	[])
 
-JNI_CFLAGS="-I$with_java_home/include -I$with_java_home/include/linux"
+AC_ARG_WITH(java_home,
+    [  --with-java_home=JAVA_HOME    Sets the java home. It is needed to find jni.h],
+    [with_java_home="$withval"],
+	[])
+
+if test x"$with_jni_location" = x; then
+	if test x"$with_java_home" = x; then
+		AC_MSG_ERROR([Please set Java home with the --with-java_home option, or the jni.h location with the --with-jni_location option])
+	fi
+fi
+
+if test -n "$with_jni_location"; then
+	JNI_CFLAGS="-I$with_jni_location"
+fi
+
+if test -n "$with_java_home"; then
+	JNI_CFLAGS="-I$with_java_home/include -I$with_java_home/include/linux"
+fi
 
 ## Limit build to Java stubs, i.e. don't compile native libraries
 AC_ARG_ENABLE([stubs],
@@ -38,7 +55,12 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
-AC_CHECK_PROG(SWIG,swig,[yes],AC_MSG_ERROR(Cannot find swig.))
+
+AC_CHECK_PROG(SWIG,swig,["yes"],["no"])
+
+if test x"$SWIG" = xno; then
+	AC_MSG_ERROR(Cannot find swig.)
+fi
 
 ## CHECK JNI HEADERS
 CPPFLAGS_SAVE=$CPPFLAGS
