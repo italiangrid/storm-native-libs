@@ -5,7 +5,7 @@ STUBS_DIR=$(top_builddir)/../src/main/java/it/grid/storm/filesystem/swig
 if BUILD_ALL
 lib_LTLIBRARIES = libposixapi_interface.la
 
-libposixapi_interface_la_CXXFLAGS= $(JNI_CFLAGS) -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I$(top_builddir)/common/
+libposixapi_interface_la_CXXFLAGS= -O0 -ggdb $(JNI_CFLAGS) -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I$(top_builddir)/common/
 
 libposixapi_interface_la_SOURCES= \
     posixapi_interface_wrap.cxx \
