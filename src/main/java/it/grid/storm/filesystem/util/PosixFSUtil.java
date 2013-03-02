@@ -23,7 +23,7 @@ public class PosixFSUtil {
 		fs = new posixfs(mountPoint);
 		long freeSpace = fs.get_free_space();
 		
-		System.out.format("Free space on FS mounted on %s in bytes: %d", mountPoint, freeSpace);
+		System.out.format("Free space on FS mounted on %s in bytes: %d\n", mountPoint, freeSpace);
 		
 		File f = new File(file);
 		if (!f.exists()){
