@@ -10,6 +10,9 @@ public class PosixFSUtil {
 	public PosixFSUtil(String[] args) {
 		if (args.length == 0)
 			mountPoint = "/";
+		else
+			mountPoint = args[0];
+		
 		fs = new posixfs(mountPoint);
 		long freeSpace = fs.get_free_space();
 		
