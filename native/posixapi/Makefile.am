@@ -6,7 +6,13 @@ if BUILD_ALL
 lib_LTLIBRARIES = libposixapi_interface.la
 
 libposixapi_interface_la_CPPFLAGS=$(JNI_CFLAGS) -I$(top_builddir)/common/
-libposixapi_interface_la_CXXFLAGS=-DDEBUG -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
+libposixapi_interface_la_CXXFLAGS=-DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
+
+if DEBUG
+libposixapi_interface_la_CXXFLAGS+=-DDEBUG
+else
+libposixapi_interface_la_CXXFLAGS+=-DNDEBUG
+endif
 
 libposixapi_interface_la_SOURCES= \
     posixapi_interface_wrap.cxx \

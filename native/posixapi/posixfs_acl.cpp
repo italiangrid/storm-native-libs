@@ -127,18 +127,6 @@ posixfs_acl::to_permission_t(const unsigned short perm)
 }
 
 
-/** Make a new instance of the same class of this object.
- *
- * <p> Needed in @c load_delete_permission() to instanciate the right
- * kind of object for classes inheriting from this one.
- */
-fs_acl*
-posixfs_acl::new_same_class() const
-{
-  return new posixfs_acl();
-}
-
-
 /** Load the ACL resulting from the UNIX permission bits.  This is
  *  really part of the @c load() code, that is factored out for
  *  readability.
@@ -188,46 +176,45 @@ posixfs_acl::load_delete_permission(const string& pathname)
       throw_error(errno, pathname, "stat");
     }
 
-    fs_acl* parent_acl = new_same_class();
-    parent_acl->load(dirname, false); // avoid recursion up to root dir.
+    posixfs_acl parent_acl;
+    parent_acl.load(dirname, false); // avoid recursion up to root dir.
 
     if (statbuf.st_mode & S_ISVTX) {
       // "sticky" bit set, only owner can delete
-      if(parent_acl->has_user_perm(get_owner_uid())
-         && (parent_acl->get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD))
+      if(parent_acl.has_user_perm(get_owner_uid())
+         && (parent_acl.get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD))
         grant_owner_perm(PERM_DELETE_CHILD);
 
-      if(parent_acl->get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD)
+      if(parent_acl.get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD)
         grant_user_perm (get_owner_uid(), PERM_DELETE);
     }
     else {
       // no "sticky" bit, everyone having write access to parent dir can delete.
-      if(parent_acl->has_user_perm(get_owner_uid())
-         && (parent_acl->get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD))
+      if(parent_acl.has_user_perm(get_owner_uid())
+         && (parent_acl.get_user_effective_perm(get_owner_uid()) & PERM_DELETE_CHILD))
         grant_owner_perm(PERM_DELETE);
 
-      if(parent_acl->has_group_perm(get_owner_uid())
-         && (parent_acl->get_group_effective_perm(get_group_owner_gid()) & PERM_DELETE_CHILD))
+      if(parent_acl.has_group_perm(get_owner_uid())
+         && (parent_acl.get_group_effective_perm(get_group_owner_gid()) & PERM_DELETE_CHILD))
         grant_group_owner_perm(PERM_DELETE);
 
-      for (user_acl_t::const_iterator i = parent_acl->user_acl_begin();
-           i != parent_acl->user_acl_end();
+      for (user_acl_t::const_iterator i = parent_acl.user_acl_begin();
+           i != parent_acl.user_acl_end();
            ++i)
-        if(parent_acl->has_user_perm(i->first)
-           && (parent_acl->get_user_effective_perm(i->first) & PERM_DELETE_CHILD))
+        if(parent_acl.has_user_perm(i->first)
+           && (parent_acl.get_user_effective_perm(i->first) & PERM_DELETE_CHILD))
           grant_user_perm (i->first, PERM_DELETE);
 
-      for (group_acl_t::const_iterator i = parent_acl->group_acl_begin();
-           i != parent_acl->group_acl_end();
+      for (group_acl_t::const_iterator i = parent_acl.group_acl_begin();
+           i != parent_acl.group_acl_end();
            ++i)
-        if(parent_acl->has_group_perm(i->first)
-           && (parent_acl->get_group_effective_perm(i->first) & PERM_DELETE_CHILD))
+        if(parent_acl.has_group_perm(i->first)
+           && (parent_acl.get_group_effective_perm(i->first) & PERM_DELETE_CHILD))
           grant_group_perm (i->first, PERM_DELETE);
 
       if (statbuf.st_mode & S_IWOTH)
         grant_other_perm(PERM_DELETE);
     }
-    delete parent_acl;
   }
 }
 

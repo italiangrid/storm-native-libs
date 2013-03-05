@@ -68,15 +68,11 @@ protected:
       ACL. */
   virtual void load_delete_permission(const std::string& pathname);
 
-  /** Make a new instance of the same class of this object. */
-  virtual fs_acl *new_same_class() const;
-
   /** Throw an exception based on the @c errno system error code. */
   virtual void  throw_error(const int err, 
                             const std::string& pathname, 
                             const char* const funcname = "") const;
 #endif // #ifndef SWIG
 };
-
 
 #endif // #ifndef __POSIXFS_ACL_H

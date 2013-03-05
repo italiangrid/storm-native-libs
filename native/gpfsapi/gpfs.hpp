@@ -58,27 +58,12 @@ namespace fs {
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
 
-    /** Return a new instance of an %fs_acl subclass suitable for
-        manipulating the ACLs on this filesystem. */
-    virtual fs_acl * new_acl() const
+    virtual fs_acl_ptr new_acl() const
       throw(fs::error);
 
   }; // class gpfs
-
   
 }; // namespace fs
 
-
-
-// --- inlined implementation --- //
-
-/** Factory method: Return a new instance of an fs::gpfs23_acl class
-    that is suitable for manipulating ACLs on this filesystem. */
-inline fs_acl*
-fs::gpfs::new_acl() const
-  throw(fs::error)
-{
-  return new gpfs31_acl();
-}
 
 #endif // #ifndef __GPFS_H

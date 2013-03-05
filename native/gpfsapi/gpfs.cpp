@@ -256,3 +256,11 @@ fs::gpfs::get_exact_last_modification_time (const std::string& pathname)
   xgpfs_stat (pathname, st); /* dereference symlinks */
   return st.st_mtime;
 }
+
+fs::fs_acl_ptr 
+fs::gpfs::new_acl () const
+  throw(fs::error)
+{
+   fs_acl_ptr p(new gpfs31_acl);
+   return p;
+}

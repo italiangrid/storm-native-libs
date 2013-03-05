@@ -34,29 +34,13 @@ namespace fs {
       posixfs(const std::string& mntpath)
       throw(fs::acl_not_supported, fs::error);
 
-    /** Return a new instance of an fs_acl (sub)class suitable for
-        manipulating the ACLs on this filesystem. */
-    virtual fs_acl *new_acl() const
+      virtual fs_acl_ptr new_acl() const
       throw(fs::error);
-
   }; // class posixfs
-
   
 }; // namespace fs
 
 
-
-// --- inlined implementation --- //
-
-/** Factory method: Return a new instance of a fs_acl (sub)class that
-    is suitable for manipulating ACLs on this filesystem.  Actually,
-    POSIXFS implements the Linux kernel POSIX ACL supoprt. */
-inline fs_acl*
-fs::posixfs::new_acl() const
-  throw(fs::error)
-{
-  return new posixfs_acl();
-}
 
 
 #endif // #ifndef __POSIXFS_HPP

@@ -26,9 +26,11 @@ typedef unsigned long alloc_size_t;
 #include <string>
 #include <stdexcept>
 #include <sys/types.h>
-
+#include <tr1/memory>
 
 namespace fs {
+
+  typedef std::tr1::shared_ptr<fs_acl> fs_acl_ptr;
 
   /** Encapsulates common filesystem operations on a generic (POSIX)
       filesystem. */
@@ -75,7 +77,7 @@ namespace fs {
      
     /** Return a new instance of an %fs_acl subclass suitable for
         manipulating the ACLs on this filesystem. */
-    virtual fs_acl *new_acl() const
+    virtual fs_acl_ptr new_acl() const
       throw(fs::error) = 0;
 
   private:

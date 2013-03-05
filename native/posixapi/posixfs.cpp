@@ -42,7 +42,6 @@ static const char* const RCSID="$Id: posixfs.cpp,v 1.1 2006/05/26 09:24:58 amess
 
 
 
-// --- exported functions --- //
 
 /** Constructor, taking pathname of the filesystem mount point.
  * 
@@ -80,5 +79,11 @@ fs::posixfs::posixfs (const std::string& mntpath)
   acl_free(acl);
 }
 
-
+fs::fs_acl_ptr
+fs::posixfs::new_acl() const
+  throw(fs::error)
+{
+  fs_acl_ptr p(new posixfs_acl);
+  return p;
+}
 

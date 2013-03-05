@@ -1,12 +1,18 @@
 noinst_LTLIBRARIES = libstormfscommon.la
 
-libstormfscommon_la_CXXFLAGS = -DDEBUG -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+libstormfscommon_la_CXXFLAGS = -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+
+if DEBUG
+libstormfscommon_la_CXXFLAGS+= -DDEBUG
+else
+libstormfscommon_la_CXXFLAGS+= -DNDEBUG
+endif
+
 libstormfscommon_la_SOURCES= \
 	fs_acl.cpp \
 	fs_errors.cpp \
 	genericfs.cpp \
 	path.cpp \
-	sigchld.cpp \
 	string_to_number.cpp \
 	users_and_groups.cpp \
 	util.cpp \

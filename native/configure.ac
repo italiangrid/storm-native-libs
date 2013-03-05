@@ -36,7 +36,7 @@ fi
 
 ## Limit build to Java stubs, i.e. don't compile native libraries
 AC_ARG_ENABLE([stubs],
-    [ --enable-stubs   Builds only java library stubs ],
+    [  --enable-stubs   Builds only java library stubs ],
     [ case "$enableval" in
         yes) stubs_only="yes" ;;
         no)  stubs_only="no" ;;
@@ -50,6 +50,16 @@ if test x"$stubs_only" = x"yes"; then
     AC_MSG_NOTICE([Building only java stubs as requested.])
 fi
 
+AC_ARG_ENABLE([debug],
+   [  --enable-debug    Enable debug information ],
+   [ case "$enableval" in
+        yes) debug_enabled="yes" ;;
+        no) debug_enabled="no" ;;
+        *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug. Accepted values: yes, no.]) ;;
+    esac],
+    [debug_enabled="no"])
+
+AM_CONDITIONAL([DEBUG], [ test x"$debug_enabled" = x"yes" ])
 
 AC_PROG_CXX
 AC_PROG_CC

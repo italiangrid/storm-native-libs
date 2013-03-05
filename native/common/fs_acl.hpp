@@ -487,9 +487,6 @@ class fs_acl {
 
  protected:
 
-  /** Make a new instance of the same class of this object. */
-  virtual fs_acl *new_same_class() const {return NULL;};
-
   /** Set the file owner's UID and permission bits.  If the permission
    *  bits are not specified via the @a perm parameter, then they are
    *  reset to @c PERM_NONE. 

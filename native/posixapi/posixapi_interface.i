@@ -160,7 +160,6 @@ uid_t getuid(void);
 %}
 %include "posixfs.hpp"
 
-
 // fs_acl: abstract base class for ACL manipulation
 //
 // only the subset of the full interface that is needed

@@ -7,17 +7,20 @@ if BUILD_ALL
 lib_LTLIBRARIES = libgpfsapi_interface.la
 
 libgpfsapi_interface_la_CPPFLAGS=-I$(top_builddir)/common -I$(top_builddir)/gpfsmock -I$(top_builddir)/posixapi $(JNI_CFLAGS)
-libgpfsapi_interface_la_CXXFLAGS= -DDEBUG -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
+libgpfsapi_interface_la_CXXFLAGS= -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
+
+if DEBUG
+libgpfsapi_interface_la_CXXFLAGS+= -DDEBUG
+else
+libgpfsapi_interface_la_CXXFLAGS+= -DNDEBUG
+endif
+
 libgpfsapi_interface_la_LIBADD= $(top_builddir)/gpfsmock/libgpfs.la $(top_builddir)/common/libstormfscommon.la
 
 libgpfsapi_interface_la_SOURCES= \
-	gpfs23_acl.hpp \
-	gpfs23.hpp \
 	gpfs31_acl.hpp \
-	gpfs.hpp \
-	gpfs23_acl.cpp \
-	gpfs23.cpp \
 	gpfs31_acl.cpp \
+	gpfs.hpp \
 	gpfs.cpp
 
 endif

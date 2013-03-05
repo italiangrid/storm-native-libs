@@ -85,30 +85,8 @@ LOAD_NATIVE_LIB_IN_JNICLASS(gpfsapi_interface)
 %}
 %include "gpfs31_acl.hpp"
 
-
-// gpfs23.hpp: interface for GPFS operations
-// (GPFS version 2.3).
-//
 %import "genericfs.hpp"
-%{
-#include "gpfs23.hpp"
-%}
-%include "gpfs23.hpp"
-
-// gpfs23_acl: class for ACL manipulation using GPFS' 
-// "mmgetacl" and "mmputacl" commands
-//
-// only the subset of the full interface that is needed
-// for the Java part is defined here; notably, only the public
-// part of the class needs to be exposed to SWIG.
-//
 
 // parent classes need to be known to SWIG
 %import "fs_acl.hpp"
 %import "posixfs_acl.hpp"
-
-%{
-#include "gpfs23_acl.hpp"
-%}
-%include "gpfs23_acl.hpp"
-
