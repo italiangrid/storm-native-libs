@@ -45,6 +45,19 @@ AC_ARG_ENABLE([regen],
 
 AM_CONDITIONAL([FORCE_REGEN], [test x"$force_regen" = x"yes"])
 
+if test x"$force_regen" = x"yes"; then
+    AC_MSG_NOTICE([Removing committed SWIG C++ stubs as --enable-regen forces SWIG stubs generation.])
+    ## Remove C++ Swig Stubs
+    rm -f posixapi/*_wrap.cxx
+    rm -f gpfsapi/*_wrap.cxx
+
+    AC_CHECK_PROG(SWIG,swig,["yes"],["no"])
+
+    if test x"$SWIG" = xno; then
+	    AC_MSG_ERROR(Cannot find swig.)
+    fi
+fi
+
 ## Limit build to Java stubs, i.e. don't compile native libraries
 AC_ARG_ENABLE([stubs],
     [  --enable-stubs   Builds only java library stubs ],
@@ -77,11 +90,6 @@ AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 
-AC_CHECK_PROG(SWIG,swig,["yes"],["no"])
-
-if test x"$SWIG" = xno; then
-	AC_MSG_ERROR(Cannot find swig.)
-fi
 
 ## CHECK JNI HEADERS
 CPPFLAGS_SAVE=$CPPFLAGS

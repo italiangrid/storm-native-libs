@@ -1,7 +1,7 @@
 COPYING
 INSTALL
-m4
 aclocal.m4
+m4
 config.status
 configure
 COPYING
