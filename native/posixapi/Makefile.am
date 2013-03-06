@@ -24,14 +24,11 @@ libposixapi_interface_la_SOURCES= \
 libposixapi_interface_la_LIBADD= $(top_builddir)/common/libstormfscommon.la
 endif
 
-posixapi_interface_wrap.cxx: posixapi_interface.i 
+posixapi_interface_wrap.cxx: posixapi_interface.i
 	@echo "Generating posixapi Java stubs in $(STUBS_DIR)"
 	if [ ! -d $(STUBS_DIR) ]; then mkdir -p $(STUBS_DIR); fi
-	swig -c++ -java -I../common -package $(JAVA_PACKAGE) -Wall -outdir $(STUBS_DIR) -o posixapi_interface_wrap.cxx posixapi_interface.i
-
-clean-local:
-	rm -rf build
-	rm -f posixapi_interface_wrap.cxx
+	rm -rf $(STUBS_DIR)/*.java
+	swig -c++ -java -I$(top_builddir)/common -package $(JAVA_PACKAGE) -Wall -outdir $(STUBS_DIR) -o posixapi_interface_wrap.cxx posixapi_interface.i
 
 distclean-local:
 	rm -rf Makefile.in

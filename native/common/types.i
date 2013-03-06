@@ -20,3 +20,11 @@ typedef int acl_perm_t;
 // map std::string to Java String
 %include "std_string.i"
 
+#define SWIG_SHARED_PTR_SUBNAMESPACE tr1
+%include <std_shared_ptr.i>
+%shared_ptr(fs_acl)
+
+%include "pass_vector_by_value_java.i"
+JAVA_STD_VECTOR(gid_t, jint, Int, Int)
+
+%include "enumtypeunsafe.swg"

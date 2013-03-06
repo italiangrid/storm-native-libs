@@ -30,9 +30,5 @@ gpfsapi_interface_wrap.cxx: gpfsapi_interface.i
 	if [ ! -d $(STUBS_DIR) ]; then mkdir -p $(STUBS_DIR); fi
 	swig -c++ -java -I$(top_builddir)/posixapi -I$(top_builddir)/common -package $(JAVA_PACKAGE) -Wall -outdir $(STUBS_DIR) -o gpfsapi_interface_wrap.cxx gpfsapi_interface.i
 
-clean-local:
-	rm -rf build
-	rm -f gpfsapi_interface_wrap.cxx
-
 distclean-local:
 	rm -rf Makefile.in

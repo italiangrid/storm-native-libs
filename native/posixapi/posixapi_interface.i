@@ -16,11 +16,8 @@
 
 %module posixapi_interface
 
-
-// ---- use Java language constants ---- //
-//
+%include <std_string.i>
 %javaconst(1); 
-
 
 
 // ---- load native code in JNI class initialization ---- //
@@ -32,12 +29,7 @@
 %include load_native_lib_in_jniclass.i
 LOAD_NATIVE_LIB_IN_JNICLASS(posixapi_interface)
 
-
-
-// --- standard types mapping --- //
-
 %include "types.i"
-
 
 // --- exception handling --- //
 // 
@@ -109,8 +101,6 @@ LOAD_NATIVE_LIB_IN_JNICLASS(posixapi_interface)
   return $null;
 }
 
-
-
 // --- interface definition --- //
 //
 // This section contains the code for which a wrapping interface will
@@ -144,15 +134,19 @@ uid_t geteuid(void);
 uid_t getuid(void);
 
 
+// fs_acl
+%{
+#include "fs_acl.hpp"
+%}
+%include "fs_acl.hpp"
 
-// genericfs: interface for generic POSIX filesystem operations
-//
+// generic_fs 
 %{
 #include "genericfs.hpp"
 %}
 %include "genericfs.hpp"
 
-// posixfs: interface for generic POSIX filesystem with ACL operations
+// posixfs
 //
 %import "genericfs.hpp"
 %{
@@ -160,27 +154,10 @@ uid_t getuid(void);
 %}
 %include "posixfs.hpp"
 
-// fs_acl: abstract base class for ACL manipulation
-//
-// only the subset of the full interface that is needed
-// for the Java part is defined here; notably, only the public
-// part of the class needs to be exposed to SWIG.
-//
-%include "pass_vector_by_value_java.i"
-JAVA_STD_VECTOR(gid_t, jint, Int, Int)
+%shared_ptr(posixfs_acl)
 
-// wrap fs_acl::permission_flags as integer constants
-%include "enumtypeunsafe.swg"
-
-%{
-#include "fs_acl.hpp"
-%}
-%include "fs_acl.hpp"
-
-
-// posixfs_acl: class for ACL manipulation using POSIX libacl.so
-//
 %{
 #include "posixfs_acl.hpp"
 %}
 %include "posixfs_acl.hpp"
+

@@ -80,12 +80,6 @@ class gpfs31_acl : public posixfs_acl {
       ACL. */
   virtual void load_delete_permission(const std::string& pathname);
 
-  /** Make a new instance of the same class of this object.
-   *
-   * Needed in @c load_delete_permission() to instanciate the right
-   * kind of object for classes inheriting from this one.
-   */
-  virtual fs_acl* new_same_class() const;
   
 #endif // #ifndef SWIG
 

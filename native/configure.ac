@@ -34,6 +34,17 @@ if test -n "$with_java_home"; then
 	JNI_CFLAGS="-I$with_java_home/include -I$with_java_home/include/linux"
 fi
 
+AC_ARG_ENABLE([regen],
+    [  --enable-regen  Regenerate C++ and Java SWIG stubs ],
+    [ case "$enableval" in
+        yes) force_regen="yes" ;;
+        no)  force_regen="no" ;;
+        *)  AC_MSG_ERROR([bad value ${enableval} for --enable-regen. Accepted values: yes, no.]) ;;
+      esac],
+    [force_regen="no"])
+
+AM_CONDITIONAL([FORCE_REGEN], [test x"$force_regen" = x"yes"])
+
 ## Limit build to Java stubs, i.e. don't compile native libraries
 AC_ARG_ENABLE([stubs],
     [  --enable-stubs   Builds only java library stubs ],

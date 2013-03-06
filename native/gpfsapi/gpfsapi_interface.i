@@ -15,70 +15,28 @@
 // -----------------------------------------------------------------------
 
 %module gpfsapi_interface
-
-
-// ---- use Java language constants ---- //
-//
 %javaconst(1); 
 
-
-
-// ---- load native code in JNI class initialization ---- //
-//
-// This pragma will instruct SWIG code to load
-// the native code library when the JNI-proxy class
-// is loaded by the JVM.
-//
 %include load_native_lib_in_jniclass.i
 LOAD_NATIVE_LIB_IN_JNICLASS(gpfsapi_interface)
 
-
-
-// --- standard types mapping --- //
-
 %include "types.i"
-
-
-
-// --- exception handling --- //
-
-// include standard SWIG exception code
 %include "exception.i"
 
-// fs_errors: exception classes 
-//
 %{
 #include "fs_errors.hpp"
 %}
 %import "fs_errors.hpp"
 
-
-
-// --- interface definition --- //
-//
-// This section contains the code for which a wrapping interface will
-// be generated.
-//
-
-// all wrapped objects are read-only, from the Java point of view
 %immutable;
 
-       
-// gpfs.hpp: interface for GPFS operations
-// (GPFS version 3.1).
-//
-%import "genericfs.hpp"
-%{
-#include "gpfs.hpp"
-%}
-%include "gpfs.hpp"
-
-// gpfs31_acl: class for ACL manipulation using GPFS'
-// library functions (GPFS v3.1).
-
-// parent classes need to be known to SWIG
 %import "fs_acl.hpp"
+
+%shared_ptr(posixfs_acl)
+
 %import "posixfs_acl.hpp"
+
+%shared_ptr(gpfs31_acl)
 
 %{
 #include "gpfs31_acl.hpp"
@@ -86,7 +44,7 @@ LOAD_NATIVE_LIB_IN_JNICLASS(gpfsapi_interface)
 %include "gpfs31_acl.hpp"
 
 %import "genericfs.hpp"
-
-// parent classes need to be known to SWIG
-%import "fs_acl.hpp"
-%import "posixfs_acl.hpp"
+%{
+#include "gpfs.hpp"
+%}
+%include "gpfs.hpp"
