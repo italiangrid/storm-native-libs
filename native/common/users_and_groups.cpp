@@ -39,6 +39,7 @@ RCSID = "$Id: users_and_groups.cpp,v 1.8 2006/03/29 16:32:56 rmurri Exp $";
 #include <unistd.h>
 
 
+namespace fs {
 
 /* --- module-local functions --- */
 
@@ -238,4 +239,6 @@ groupname_from_gid (const gid_t gid)
   }
   else 
     return std::string(grp.gr_name);
+}
+
 }

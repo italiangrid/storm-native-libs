@@ -45,4 +45,20 @@ public class posixapi_interface {
     return posixapi_interfaceJNI.getuid();
   }
 
+  public static int uid_from_username(String name) {
+    return posixapi_interfaceJNI.uid_from_username(name);
+  }
+
+  public static int gid_from_groupname(String name) {
+    return posixapi_interfaceJNI.gid_from_groupname(name);
+  }
+
+  public static String username_from_uid(int uid) {
+    return posixapi_interfaceJNI.username_from_uid(uid);
+  }
+
+  public static String groupname_from_gid(int gid) {
+    return posixapi_interfaceJNI.groupname_from_gid(gid);
+  }
+
 }

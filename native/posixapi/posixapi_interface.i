@@ -161,3 +161,10 @@ uid_t getuid(void);
 %}
 %include "posixfs_acl.hpp"
 
+// User and groups utils
+%{
+#include <stdexcept>
+#include "users_and_groups.hpp"
+%}
+%include "users_and_groups.hpp"
+

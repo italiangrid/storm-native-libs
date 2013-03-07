@@ -130,6 +130,12 @@ public class posixapi_interfaceJNI {
   public final static native int posixfs_acl_to_permission_t(int jarg1);
   public final static native int posixfs_acl_from_permission_t(int jarg1);
   public final static native void delete_posixfs_acl(long jarg1);
+  public final static native int uid_from_username(String jarg1);
+  public final static native int gid_from_groupname(String jarg1);
+  public final static native String username_from_uid(int jarg1);
+  public final static native String groupname_from_gid(int jarg1);
+  public final static native long new_not_found(String jarg1);
+  public final static native void delete_not_found(long jarg1);
   public final static native long system_error_SWIGUpcast(long jarg1);
   public final static native long acl_not_supported_SWIGUpcast(long jarg1);
   public final static native long invalid_path_SWIGUpcast(long jarg1);

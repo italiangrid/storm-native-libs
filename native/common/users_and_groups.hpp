@@ -25,7 +25,7 @@
 #include <string>
 #include <stdexcept>
 
-
+namespace fs {
 /** Return the UID associated with the given user name, or throw an
 	exception if not found. */
 uid_t uid_from_username (const std::string& name)
@@ -54,5 +54,5 @@ public:
   not_found(const std::string& msg) : std::runtime_error(msg) { }
 };
   
-
+}
 #endif /* #ifndef __USERS_AND_GROUPS_H */

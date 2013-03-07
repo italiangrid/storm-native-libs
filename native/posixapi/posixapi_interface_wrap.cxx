@@ -406,6 +406,10 @@ struct SWIG_null_deleter {
 #define SWIG_NO_NULL_DELETER_SWIG_POINTER_OWN
 
 
+#include <stdexcept>
+#include "users_and_groups.hpp"
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -2558,6 +2562,152 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
   smartarg1 = *(std::tr1::shared_ptr<  posixfs_acl > **)&jarg1;
   arg1 = (posixfs_acl *)(smartarg1 ? smartarg1->get() : 0); 
   (void)arg1; delete smartarg1;
+}
+
+
+SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_uid_1from_1username(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jint jresult = 0 ;
+  std::string *arg1 = 0 ;
+  uid_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  try {
+    result = (uid_t)fs::uid_from_username((std::string const &)*arg1);
+  }
+  catch(fs::system_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::system_error exception thrown");
+    return 0; 
+  }
+  catch(std::runtime_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::runtime_error exception thrown");
+    return 0; 
+  }
+  
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_gid_1from_1groupname(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jint jresult = 0 ;
+  std::string *arg1 = 0 ;
+  gid_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  try {
+    result = (gid_t)fs::gid_from_groupname((std::string const &)*arg1);
+  }
+  catch(fs::system_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::system_error exception thrown");
+    return 0; 
+  }
+  catch(std::runtime_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::runtime_error exception thrown");
+    return 0; 
+  }
+  
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_username_1from_1uid(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jstring jresult = 0 ;
+  uid_t arg1 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (uid_t)jarg1; 
+  try {
+    result = fs::username_from_uid(arg1);
+  }
+  catch(fs::system_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::system_error exception thrown");
+    return 0; 
+  }
+  
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_groupname_1from_1gid(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jstring jresult = 0 ;
+  gid_t arg1 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (gid_t)jarg1; 
+  try {
+    result = fs::groupname_from_gid(arg1);
+  }
+  catch(fs::system_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::system_error exception thrown");
+    return 0; 
+  }
+  
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_new_1not_1found(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::not_found *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::not_found *)new fs::not_found((std::string const &)*arg1);
+  *(fs::not_found **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_delete_1not_1found(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::not_found *arg1 = (fs::not_found *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::not_found **)&jarg1; 
+  delete arg1;
 }
 
 
