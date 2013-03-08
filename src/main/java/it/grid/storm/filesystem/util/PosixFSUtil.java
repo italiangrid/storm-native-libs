@@ -2,11 +2,13 @@ package it.grid.storm.filesystem.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 
 import it.grid.storm.filesystem.swig.fs_acl;
 import it.grid.storm.filesystem.swig.posixapi_interface;
 import it.grid.storm.filesystem.swig.posixfs;
+import it.grid.storm.filesystem.swig.storm_xattrs;
 import static it.grid.storm.filesystem.swig.fs_acl.permission_flags.*;
 
 public class PosixFSUtil {
@@ -22,7 +24,10 @@ public class PosixFSUtil {
 		GET_EXACT_LAST_MODIFICATION_TIME,
 		TRUNCATE,
 		PRINT_ACL,
-		SET_ACL;
+		SET_ACL,
+		PRINT_ATTRS,
+		SET_ATTR,
+		REMOVE_ATTR;
 	}
 	
 	private void fileSanityChecks(String fileName) throws FileNotFoundException{
@@ -46,8 +51,6 @@ public class PosixFSUtil {
 	}
 	
 	private boolean test(int bits, int permission){
-		
-		String binaryString = Integer.toBinaryString(bits);
 		int result = bits & permission;
 		
 		return (result == permission);
@@ -166,7 +169,12 @@ public class PosixFSUtil {
 			fileSanityChecks(args[1]);
 			printACL(args[1]);
 			break;
-		
+			
+		case PRINT_ATTRS:
+			argsLengthCheck(args, 2, "print-attrs <filename>");
+			fileSanityChecks(args[1]);
+			printAttrs(args[1]);
+			break;
 		default:
 			throw new IllegalArgumentException("Unsupported command! "+args[0]);
 		}
@@ -174,6 +182,17 @@ public class PosixFSUtil {
 		System.exit(0);
 		
 	}
+	private void printAttrs(String file) {
+		
+		List<String> attrNames = storm_xattrs.get_xattr_names(file);
+		
+		for (String attrName: attrNames){
+			
+			String attrValue = storm_xattrs.get_xattr_value(file, attrName);
+			System.out.format("%s : %s\n", attrName, attrValue);
+		}
+	}
+
 	public PosixFSUtil(String[] args) throws FileNotFoundException {
 		
 		if (args.length < 1){
