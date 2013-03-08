@@ -469,6 +469,38 @@ SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_g
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_xattr_1is_1set(JNIEnv *jenv, jclass jcls, jstring jarg1, jstring jarg2) {
+  jboolean jresult = 0 ;
+  std::string *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)fs::xattr_is_set((std::string const &)*arg1,(std::string const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_set_1xattr_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1, jstring jarg2) {
   std::string *arg1 = 0 ;
   std::string *arg2 = 0 ;

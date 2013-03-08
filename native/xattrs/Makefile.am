@@ -4,6 +4,7 @@ STUBS_DIR=$(top_builddir)/../src/main/java/it/grid/storm/filesystem/swig
 
 if BUILD_ALL
 lib_LTLIBRARIES = libstorm-xattrs.la
+noinst_PROGRAMS = test-xattrs
 
 libstorm_xattrs_la_CPPFLAGS = $(JNI_CFLAGS)
 
@@ -17,6 +18,11 @@ libstorm_xattrs_la_SOURCES= \
     storm_xattrs_wrap.cxx \
     extended_attrs.cpp \
     extended_attrs.hpp
+
+test_xattrs_SOURCES = \
+    test_xattrs.cpp
+
+test_xattrs_LDADD = libstorm-xattrs.la
 endif
 
 

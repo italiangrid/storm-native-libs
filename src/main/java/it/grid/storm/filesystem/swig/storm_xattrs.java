@@ -17,6 +17,10 @@ public class storm_xattrs {
     return storm_xattrsJNI.get_xattr_value(path, attr_name);
   }
 
+  public static boolean xattr_is_set(String path, String attr_name) {
+    return storm_xattrsJNI.xattr_is_set(path, attr_name);
+  }
+
   public static void set_xattr(String path, String name) {
     storm_xattrsJNI.set_xattr__SWIG_0(path, name);
   }

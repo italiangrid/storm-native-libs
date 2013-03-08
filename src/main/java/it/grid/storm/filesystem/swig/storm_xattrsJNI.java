@@ -32,6 +32,7 @@ public class storm_xattrsJNI {
 
   public final static native long get_xattr_names(String jarg1);
   public final static native String get_xattr_value(String jarg1, String jarg2);
+  public final static native boolean xattr_is_set(String jarg1, String jarg2);
   public final static native void set_xattr__SWIG_0(String jarg1, String jarg2);
   public final static native void set_xattr__SWIG_1(String jarg1, String jarg2, String jarg3);
   public final static native void remove_xattr(String jarg1, String jarg2);
