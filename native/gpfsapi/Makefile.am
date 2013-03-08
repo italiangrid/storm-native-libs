@@ -27,7 +27,6 @@ endif
 	
 gpfsapi_interface_wrap.cxx: gpfsapi_interface.i
 	@echo "Generating gpfsapi Java stubs in $(STUBS_DIR)"
-	if [ ! -d $(STUBS_DIR) ]; then mkdir -p $(STUBS_DIR); fi
 	swig -c++ -java -I$(top_builddir)/posixapi -I$(top_builddir)/common -package $(JAVA_PACKAGE) -Wall -outdir $(STUBS_DIR) -o gpfsapi_interface_wrap.cxx gpfsapi_interface.i
 
 distclean-local:

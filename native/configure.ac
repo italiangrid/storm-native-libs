@@ -50,6 +50,7 @@ if test x"$force_regen" = x"yes"; then
     ## Remove C++ Swig Stubs
     rm -f posixapi/*_wrap.cxx
     rm -f gpfsapi/*_wrap.cxx
+    rm -f xattrs/*_wrap.cxx
 
     AC_CHECK_PROG(SWIG,swig,["yes"],["no"])
 
@@ -103,6 +104,18 @@ fi
 
 if test x"$stubs_only" = x"no"; then
 
+## Check libattr-devel
+AC_CHECK_HEADER([attr/xattr.h], 
+    [], 
+    [AC_MSG_ERROR("Could not find xattr.h. Please install the libattr-devel package.")],
+    [])
+
+AC_CHECK_LIB([attr],
+     [getxattr],
+     [],
+     [AC_MSG_ERROR("Error checking libattr. Please install the libacl-devel package.")]
+     )
+
 ## Check libacl-devel
 AC_CHECK_HEADER([sys/acl.h], 
     [], 
@@ -136,6 +149,7 @@ AC_SUBST(JNI_CFLAGS)
 AC_CONFIG_FILES([Makefile 
                  common/Makefile
                  posixapi/Makefile
+                 xattrs/Makefile
                  gpfsmock/Makefile
                  gpfsapi/Makefile
                  cutil/Makefile

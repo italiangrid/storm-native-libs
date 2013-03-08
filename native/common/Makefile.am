@@ -25,7 +25,7 @@ libstormfscommon_la_SOURCES= \
 	users_and_groups.hpp \
 	util.hpp \
     helper_command.cpp \
-    helper_command.hpp
+    helper_command.hpp 
 	
 distclean-local:
 	rm -rf Makefile.in

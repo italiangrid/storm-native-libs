@@ -26,8 +26,6 @@ endif
 
 posixapi_interface_wrap.cxx: posixapi_interface.i
 	@echo "Generating posixapi Java stubs in $(STUBS_DIR)"
-	if [ ! -d $(STUBS_DIR) ]; then mkdir -p $(STUBS_DIR); fi
-	rm -rf $(STUBS_DIR)/*.java
 	swig -c++ -java -I$(top_builddir)/common -package $(JAVA_PACKAGE) -Wall -outdir $(STUBS_DIR) -o posixapi_interface_wrap.cxx posixapi_interface.i
 
 distclean-local:

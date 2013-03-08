@@ -125,7 +125,7 @@ int SWIG_JavaVectorIn##JFUNCNAME (JNIEnv *jenv, JNITYPE **jarr,
   if (!*jarr)
     return 0; 
  try {
-   //*output_container =  new std::vector<CTYPE>;
+   // *output_container =  new std::vector<CTYPE>;
    VECTOR_JAVA_CONTAINER_PREALLOC(*output_container,sz);
  }
  catch (std::bad_alloc err) {

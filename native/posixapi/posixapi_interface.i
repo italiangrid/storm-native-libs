@@ -168,3 +168,9 @@ uid_t getuid(void);
 %}
 %include "users_and_groups.hpp"
 
+// Extended attrs utils
+// %{
+// #include "extended_attrs.hpp"
+// %}
+// %include "extended_attrs.hpp"
+

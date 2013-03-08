@@ -277,7 +277,7 @@ int SWIG_JavaVectorInInt (JNIEnv *jenv, jint **jarr,
   if (!*jarr)
     return 0; 
  try {
-   //*output_container =  new std::vector<gid_t>;
+   // *output_container =  new std::vector<gid_t>;
    (*output_container).reserve(sz);
  }
  catch (std::bad_alloc err) {
