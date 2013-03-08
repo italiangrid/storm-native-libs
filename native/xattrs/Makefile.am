@@ -3,17 +3,17 @@ JAVA_PACKAGE=it.grid.storm.filesystem.swig
 STUBS_DIR=$(top_builddir)/../src/main/java/it/grid/storm/filesystem/swig
 
 if BUILD_ALL
-lib_LTLIBRARIES = libstormxattrs.la
+lib_LTLIBRARIES = libstorm-xattrs.la
 
-libstormxattrs_la_CPPFLAGS = $(JNI_CFLAGS)
+libstorm_xattrs_la_CPPFLAGS = $(JNI_CFLAGS)
 
 if DEBUG
-libstormxattrs_la_CXXFLAFS =  -DDEBUG
+libstorm_xattrs_la_CXXFLAFS =  -DDEBUG
 else
-libstormxattrs_la_CXXFLAFS =  -DNDEBUG
+libstorm_xattrs_la_CXXFLAFS =  -DNDEBUG
 endif
 
-libstormxattrs_la_SOURCES= \
+libstorm_xattrs_la_SOURCES= \
     storm_xattrs_wrap.cxx \
     extended_attrs.cpp \
     extended_attrs.hpp

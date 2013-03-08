@@ -23,7 +23,7 @@ public class storm_xattrsJNI {
 
   static {
     try {
-        System.loadLibrary("storm_xattrs");
+        System.loadLibrary("storm-xattrs");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. \n" + e);
       System.exit(1);
