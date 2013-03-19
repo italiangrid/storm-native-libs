@@ -1,6 +1,7 @@
 #include <iostream>
 #include "extended_attrs.hpp"
 #include <stdexcept>
+#include <cstdlib>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ main(int argc, char* argv[]){
 
         if (argc < 4){
             cerr << "usage: test_xattr <file> <attr_name> <attr_value>" << endl;
-            exit(1);
+            ::exit(1);
         }
         
         string file  = argv[1];
@@ -49,7 +50,7 @@ main(int argc, char* argv[]){
     }catch(const std::exception& ex){
         
         cerr << ex.what() << endl;
-        exit(1);
+        ::exit(1);
     }
 
 }
