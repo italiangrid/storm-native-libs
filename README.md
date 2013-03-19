@@ -1,4 +1,4 @@
-StoRM backend service
+StoRM native libs
 ===============================
 
 Native libraries used by the StoRM backend to access underlying file system functionality.
