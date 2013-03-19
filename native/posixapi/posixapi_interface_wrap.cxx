@@ -2012,6 +2012,31 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJ
 }
 
 
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_genericfs_1get_1number_1of_1blocks(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  fs::genericfs *arg1 = (fs::genericfs *) 0 ;
+  std::string *arg2 = 0 ;
+  size_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::genericfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (size_t)(arg1)->get_number_of_blocks((std::string const &)*arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_genericfs_1get_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jlong jresult = 0 ;
   fs::genericfs *arg1 = (fs::genericfs *) 0 ;
@@ -2201,6 +2226,37 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
   
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_genericfs_1change_1group_1ownership(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
+  fs::genericfs *arg1 = (fs::genericfs *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::genericfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->change_group_ownership((std::string const &)*arg2,(std::string const &)*arg3);
 }
 
 

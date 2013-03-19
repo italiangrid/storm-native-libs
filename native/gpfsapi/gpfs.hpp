@@ -57,6 +57,9 @@ namespace fs {
         On success, zero is returned. On error, -1 is returned, and errno is set appropriately.  */
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
+    
+    /** Returns the number of blocks allocated to the file. **/
+    virtual size_t get_number_of_blocks(const std::string& filename);
 
     virtual fs_acl_ptr new_acl() const
       throw(fs::error);

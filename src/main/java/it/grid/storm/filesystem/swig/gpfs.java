@@ -55,6 +55,10 @@ public class gpfs extends genericfs {
     return gpfsapi_interfaceJNI.gpfs_truncate_file(swigCPtr, this, filename, desired_size);
   }
 
+  public long get_number_of_blocks(String filename) {
+    return gpfsapi_interfaceJNI.gpfs_get_number_of_blocks(swigCPtr, this, filename);
+  }
+
   public fs_acl new_acl() {
     long cPtr = gpfsapi_interfaceJNI.gpfs_new_acl(swigCPtr, this);
     return (cPtr == 0) ? null : new fs_acl(cPtr, true);

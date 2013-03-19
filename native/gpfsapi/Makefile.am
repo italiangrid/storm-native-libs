@@ -3,10 +3,10 @@ JAVA_PACKAGE=it.grid.storm.filesystem.swig
 STUBS_DIR=$(top_builddir)/../src/main/java/it/grid/storm/filesystem/swig
 
 if BUILD_ALL
-
+if BUILD_GPFS
 lib_LTLIBRARIES = libgpfsapi_interface.la
 
-libgpfsapi_interface_la_CPPFLAGS=-I$(top_builddir)/common -I$(top_builddir)/gpfsmock -I$(top_builddir)/posixapi $(JNI_CFLAGS)
+libgpfsapi_interface_la_CPPFLAGS=-I$(top_builddir)/common -I$(top_builddir)/posixapi $(JNI_CFLAGS) $(GPFS_CFLAGS)
 libgpfsapi_interface_la_CXXFLAGS= -DHAVE_STDIO_FILEBUF -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
 
 if DEBUG
@@ -15,7 +15,7 @@ else
 libgpfsapi_interface_la_CXXFLAGS+= -DNDEBUG
 endif
 
-libgpfsapi_interface_la_LIBADD= $(top_builddir)/gpfsmock/libgpfs.la $(top_builddir)/common/libstormfscommon.la
+libgpfsapi_interface_la_LIBADD=$(top_builddir)/common/libstormfscommon.la $(GPFS_LIBS)
 
 libgpfsapi_interface_la_SOURCES= \
 	gpfs31_acl.hpp \
@@ -23,6 +23,7 @@ libgpfsapi_interface_la_SOURCES= \
 	gpfs.hpp \
 	gpfs.cpp
 
+endif
 endif
 	
 gpfsapi_interface_wrap.cxx: gpfsapi_interface.i

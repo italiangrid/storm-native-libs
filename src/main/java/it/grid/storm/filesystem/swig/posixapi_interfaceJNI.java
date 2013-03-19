@@ -114,11 +114,13 @@ public class posixapi_interfaceJNI {
   public final static native int[] fs_acl_get_gid_list(long jarg1, fs_acl jarg1_);
   public final static native void delete_genericfs(long jarg1);
   public final static native long genericfs_get_free_space(long jarg1, genericfs jarg1_) throws it.grid.storm.filesystem.FilesystemError;
+  public final static native long genericfs_get_number_of_blocks(long jarg1, genericfs jarg1_, String jarg2);
   public final static native long genericfs_get_size(long jarg1, genericfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long genericfs_get_last_modification_time(long jarg1, genericfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long genericfs_get_exact_size(long jarg1, genericfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long genericfs_get_exact_last_modification_time(long jarg1, genericfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native int genericfs_truncate_file(long jarg1, genericfs jarg1_, String jarg2, long jarg3) throws it.grid.storm.filesystem.FilesystemError;
+  public final static native void genericfs_change_group_ownership(long jarg1, genericfs jarg1_, String jarg2, String jarg3);
   public final static native long genericfs_new_acl(long jarg1, genericfs jarg1_) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long new_posixfs(String jarg1) throws it.grid.storm.filesystem.AclNotSupported, it.grid.storm.filesystem.FilesystemError;
   public final static native long posixfs_new_acl(long jarg1, posixfs jarg1_) throws it.grid.storm.filesystem.FilesystemError;

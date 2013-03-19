@@ -31,12 +31,13 @@ const char* const RCSID="$Id: genericfs.cpp,v 1.10 2007/04/17 10:30:16 lmagnoni 
 #include "util.hpp"
 
 #include <cassert>
-#include <errno.h>
+#include <cerrno>
 #include <sstream>
 #include <cstdlib>
 #include <sys/stat.h>
 #include <sys/statvfs.h>
 #include <unistd.h>
+#include <grp.h>
 
 /* POSIX.1e ACL support */
 #include <sys/types.h>
@@ -93,14 +94,69 @@ fs::genericfs::get_size (const std::string& path)
     // throw @c std::logic_error
     {
       std::ostringstream msg;
-      msg << "gpfs_get_size(" << path
+      msg << "get_size(" << path
           << "): argument is a directory;"
         "cannot return size of a directory.";
       throw std::logic_error(msg.str());
     }
 }
 
+/**
+* Returns the number of blocks allocated to a file passed as
+* argument.
 
+* @param path the file for which blocks are to be returned
+* @return     the number of blocks allocated to the file
+*
+* @throw logic:error, if the file is not a regular file
+**/
+size_t
+fs::genericfs::get_number_of_blocks(const std::string& path){
+
+   struct stat64 st;
+   xstat(path,st);
+
+   if (S_ISREG(st.st_mode)){
+       return st.st_blocks;
+   }else {
+       
+      std::ostringstream msg;
+      msg << "get_number_of_blocks(" << path
+          << "): argument is a directory;"
+        "cannot return allocated blocks for a directory.";
+      throw std::logic_error(msg.str());
+
+   }
+}
+
+
+void
+fs::genericfs::change_group_ownership(const std::string& filename, 
+    const std::string& groupname){
+
+    struct group *gr = getgrnam(groupname.c_str());
+
+    if (gr == 0){
+        std::ostringstream msg;
+        msg << "change_group_ownership("
+            << filename 
+            << ","
+            << groupname << "): groupname was not found.";
+
+        throw std::logic_error(msg.str());
+    }
+
+    int ret = chown(filename.c_str(), -1, gr->gr_gid);
+
+    if (chown(filename.c_str(), -1, gr->gr_gid)){
+        std::ostringstream msg;
+        msg << "Error setting file '" << filename
+            << "' group ownership to group '" 
+            << groupname << "'.";
+
+        throw system_error(msg.str(), errno);
+    }
+}
 /**
  * Return the last modification time (as UNIX epoch value) of the
  * passed file or directory.

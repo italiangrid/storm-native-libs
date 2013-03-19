@@ -43,6 +43,7 @@ public class gpfsapi_interfaceJNI {
   public final static native long gpfs_get_exact_size(long jarg1, gpfs jarg1_, String jarg2);
   public final static native long gpfs_get_exact_last_modification_time(long jarg1, gpfs jarg1_, String jarg2);
   public final static native int gpfs_truncate_file(long jarg1, gpfs jarg1_, String jarg2, long jarg3);
+  public final static native long gpfs_get_number_of_blocks(long jarg1, gpfs jarg1_, String jarg2);
   public final static native long gpfs_new_acl(long jarg1, gpfs jarg1_);
   public final static native void delete_gpfs(long jarg1);
   public final static native long gpfs31_acl_SWIGSmartPtrUpcast(long jarg1);

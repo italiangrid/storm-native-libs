@@ -196,11 +196,29 @@ fs::gpfs::get_exact_size (const std::string& filename)
       // should not be called with a directory name,
       // throw @c std::logic_error
       std::ostringstream msg;
-      msg << "gpfs_get_size(" << filename 
+      msg << "gpfs::get_size(" << filename 
           << "): argument is a directory;" 
         "cannot return size of a directory.";
       throw std::logic_error(msg.str());
     }
+}
+
+size_t
+fs::gpfs::get_number_of_blocks(const std::string& filename){
+  
+  stat64_t st;
+  xgpfs_stat (filename, st);
+
+  if (S_ISREG(st.st_mode)){
+      return st.st_blocks;
+  }else{
+
+      std::ostringstream msg;
+      msg << "gpfs::get_number_of_blocks(" << filename 
+          << "): argument is a directory;" 
+        "cannot return the number of allocated blocks for a directory.";
+      throw std::logic_error(msg.str());
+  }
 }
 
 /**

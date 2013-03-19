@@ -39,6 +39,10 @@ public class genericfs {
     return posixapi_interfaceJNI.genericfs_get_free_space(swigCPtr, this);
   }
 
+  public long get_number_of_blocks(String filename) {
+    return posixapi_interfaceJNI.genericfs_get_number_of_blocks(swigCPtr, this, filename);
+  }
+
   public long get_size(String filename) throws it.grid.storm.filesystem.FilesystemError {
     return posixapi_interfaceJNI.genericfs_get_size(swigCPtr, this, filename);
   }
@@ -57,6 +61,10 @@ public class genericfs {
 
   public int truncate_file(String filename, long desired_size) throws it.grid.storm.filesystem.FilesystemError {
     return posixapi_interfaceJNI.genericfs_truncate_file(swigCPtr, this, filename, desired_size);
+  }
+
+  public void change_group_ownership(String filename, String groupname) {
+    posixapi_interfaceJNI.genericfs_change_group_ownership(swigCPtr, this, filename, groupname);
   }
 
   public fs_acl new_acl() throws it.grid.storm.filesystem.FilesystemError {

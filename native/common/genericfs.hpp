@@ -47,6 +47,9 @@ namespace fs {
         bytes). */
     virtual size_t get_free_space () throw(fs::error);
   
+    /** Returns the number of blocks allocated to the file. **/
+    virtual size_t get_number_of_blocks(const std::string& filename);
+
     /** Return the named file size in bytes; cached information may be
         returned, which can be not up-to-date. */
     virtual size_t get_size (const std::string& filename) 
@@ -74,6 +77,9 @@ namespace fs {
         On success, zero is returned. On error, an exception is thrown.  */
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
+
+    /** Changes the group ownership for the given file **/
+    virtual void change_group_ownership(const std::string& filename, const std::string& groupname);
      
     /** Return a new instance of an %fs_acl subclass suitable for
         manipulating the ACLs on this filesystem. */

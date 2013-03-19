@@ -755,6 +755,31 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
 }
 
 
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_gpfs_1get_1number_1of_1blocks(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  fs::gpfs *arg1 = (fs::gpfs *) 0 ;
+  std::string *arg2 = 0 ;
+  size_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (size_t)(arg1)->get_number_of_blocks((std::string const &)*arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_gpfs_1new_1acl(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   fs::gpfs *arg1 = (fs::gpfs *) 0 ;
