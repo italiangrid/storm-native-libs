@@ -18,6 +18,7 @@ endif
 libgpfsapi_interface_la_LIBADD=$(top_builddir)/common/libstormfscommon.la $(top_builddir)/posixapi/libposixapi_interface.la $(GPFS_LIBS)
 
 libgpfsapi_interface_la_SOURCES= \
+    gpfsapi_interface_wrap.cxx \
 	gpfs31_acl.hpp \
 	gpfs31_acl.cpp \
 	gpfs.hpp \
