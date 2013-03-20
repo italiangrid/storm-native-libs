@@ -15,7 +15,7 @@ else
 libgpfsapi_interface_la_CXXFLAGS+= -DNDEBUG
 endif
 
-libgpfsapi_interface_la_LIBADD=$(top_builddir)/common/libstormfscommon.la $(GPFS_LIBS)
+libgpfsapi_interface_la_LIBADD=$(top_builddir)/common/libstormfscommon.la $(top_builddir)/posixapi/libposixapi_interface.la $(GPFS_LIBS)
 
 libgpfsapi_interface_la_SOURCES= \
 	gpfs31_acl.hpp \
