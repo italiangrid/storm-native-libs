@@ -50,6 +50,8 @@ public class posixapi_interfaceJNI {
   public final static native void delete_permission_denied(long jarg1);
   public final static native long new_wrong_filesystem_type(String jarg1);
   public final static native void delete_wrong_filesystem_type(long jarg1);
+  public final static native long new_quota_not_supported(String jarg1);
+  public final static native void delete_quota_not_supported(long jarg1);
   public final static native int chmod(String jarg1, int jarg2);
   public final static native int chown(String jarg1, int jarg2, int jarg3);
   public final static native int creat(String jarg1, int jarg2);
@@ -143,6 +145,7 @@ public class posixapi_interfaceJNI {
   public final static native long invalid_path_SWIGUpcast(long jarg1);
   public final static native long permission_denied_SWIGUpcast(long jarg1);
   public final static native long wrong_filesystem_type_SWIGUpcast(long jarg1);
+  public final static native long quota_not_supported_SWIGUpcast(long jarg1);
   public final static native long posixfs_SWIGUpcast(long jarg1);
   public final static native long posixfs_acl_SWIGSmartPtrUpcast(long jarg1);
 }

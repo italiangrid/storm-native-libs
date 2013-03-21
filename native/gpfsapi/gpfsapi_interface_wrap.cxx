@@ -583,6 +583,103 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
 }
 
 
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1info_1fileset_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  result = (std::string *) & ((arg1)->fileset_name);
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1info_1fileset_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  result = (int) ((arg1)->fileset_id);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1info_1block_1usage_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  long long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  result = (long long) ((arg1)->block_usage);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1info_1block_1hard_1limit_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  long long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  result = (long long) ((arg1)->block_hard_limit);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1info_1block_1soft_1limit_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  long long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  result = (long long) ((arg1)->block_soft_limit);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1quota_1info(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  fs::gpfs_fileset_quota_info *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (fs::gpfs_fileset_quota_info *)new fs::gpfs_fileset_quota_info();
+  *(fs::gpfs_fileset_quota_info **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1quota_1info(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::gpfs_fileset_quota_info *arg1 = (fs::gpfs_fileset_quota_info *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::gpfs_fileset_quota_info **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1gpfs(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jlong jresult = 0 ;
   std::string *arg1 = 0 ;
@@ -776,6 +873,56 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   result = (size_t)(arg1)->get_number_of_blocks((std::string const &)*arg2);
   jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_gpfs_1is_1quota_1enabled(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  fs::gpfs *arg1 = (fs::gpfs *) 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)(arg1)->is_quota_enabled((std::string const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_gpfs_1get_1fileset_1quota_1info(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  fs::gpfs *arg1 = (fs::gpfs *) 0 ;
+  std::string *arg2 = 0 ;
+  fs::quota_info result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::gpfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (arg1)->get_fileset_quota_info((std::string const &)*arg2);
+  *(fs::quota_info **)&jresult = new fs::quota_info((const fs::quota_info &)result); 
   return jresult;
 }
 

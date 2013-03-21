@@ -689,6 +689,38 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
 }
 
 
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_new_1quota_1not_1supported(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::quota_not_supported *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::quota_not_supported *)new fs::quota_not_supported((std::string const &)*arg1);
+  *(fs::quota_not_supported **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_delete_1quota_1not_1supported(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::quota_not_supported *arg1 = (fs::quota_not_supported *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::quota_not_supported **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_chmod(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2) {
   jint jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -2804,6 +2836,14 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJ
     (void)jenv;
     (void)jcls;
     *(fs::error **)&baseptr = *(fs::wrong_filesystem_type **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_quota_1not_1supported_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::quota_not_supported **)&jarg1;
     return baseptr;
 }
 

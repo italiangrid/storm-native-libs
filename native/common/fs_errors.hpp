@@ -124,7 +124,13 @@ namespace fs {
     wrong_filesystem_type(const std::string& reason) : error(reason) {}
   };
 
-}; // namespace fs
+  /** Thrown when an operation that requires quota to be enabled on a filesystem
+      founds that quota is not supported for that filesystem */
+  class quota_not_supported : public error {
+    public:
+      quota_not_supported(const std::string& reason) : error(reason) {}
+  };
 
+}; // namespace fs
 
 #endif //  __FS_ERRORS_H
