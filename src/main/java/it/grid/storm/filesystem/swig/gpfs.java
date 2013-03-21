@@ -59,6 +59,14 @@ public class gpfs extends genericfs {
     return gpfsapi_interfaceJNI.gpfs_get_number_of_blocks(swigCPtr, this, filename);
   }
 
+  public boolean is_quota_enabled(String fileset_root) {
+    return gpfsapi_interfaceJNI.gpfs_is_quota_enabled(swigCPtr, this, fileset_root);
+  }
+
+  public quota_info get_fileset_quota_info(String fileset_root) {
+    return new quota_info(gpfsapi_interfaceJNI.gpfs_get_fileset_quota_info(swigCPtr, this, fileset_root), true);
+  }
+
   public fs_acl new_acl() {
     long cPtr = gpfsapi_interfaceJNI.gpfs_new_acl(swigCPtr, this);
     return (cPtr == 0) ? null : new fs_acl(cPtr, true);

@@ -25,9 +25,28 @@
 #include <string>
 #include <stdexcept>
 #include <sys/types.h>
+#include <gpfs.h>
 
 
 namespace fs {
+
+  typedef struct gpfs_fileset_quota_info {
+    /** The fileset name **/
+    std::string fileset_name;
+    
+    /** The fileset id **/
+    int fileset_id;
+
+    /** The used blocks **/
+    long long block_usage;
+
+    /** The quota hard limit **/
+    long long block_hard_limit;
+
+    /** The quota soft limit **/
+    long long block_soft_limit;
+
+  } quota_info;
 
   /** Interface to GPFS-specific functions. */
   class gpfs : public fs::genericfs {
@@ -53,7 +72,7 @@ namespace fs {
     virtual time_t get_exact_last_modification_time (const std::string& pathname)
       throw(fs::error);
 
-	/** Truncate the specified file to the desired size in bytes.
+	  /** Truncate the specified file to the desired size in bytes.
         On success, zero is returned. On error, -1 is returned, and errno is set appropriately.  */
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
@@ -61,11 +80,17 @@ namespace fs {
     /** Returns the number of blocks allocated to the file. **/
     virtual size_t get_number_of_blocks(const std::string& filename);
 
+    /** Checks whether quota is enabled on the fileset rooted at fileset_root **/
+    bool is_quota_enabled(const std::string& fileset_root);
+
+    /** Returns quota information for the fileset root at fileset_root **/
+    quota_info get_fileset_quota_info(const std::string& fileset_root);
+
     virtual fs_acl_ptr new_acl() const
       throw(fs::error);
 
   }; // class gpfs
-  
+    
 }; // namespace fs
 
 

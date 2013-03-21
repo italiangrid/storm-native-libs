@@ -29,6 +29,8 @@ static const char* const RCSID="$Id: gpfs.cpp,v 1.10 2007/04/17 10:30:16 lmagnon
 
 
 #include "gpfs.hpp"
+#include "gpfs_fcntl.h"
+
 #include "fs_errors.hpp"
 
 #include <cassert>
@@ -45,6 +47,72 @@ static const char* const RCSID="$Id: gpfs.cpp,v 1.10 2007/04/17 10:30:16 lmagnon
 #include <unistd.h>
 #include <iostream>
 #include <stdio.h>
+
+/** GPFS struct used to retrieve the fileset name out of a file **/
+typedef struct {
+  gpfsFcntlHeader_t hdr;
+  gpfsGetFilesetName_t fileset;
+  gpfsGetStoragePool_t pool;
+} gpfs_fileset_info;
+
+typedef struct {
+  std::string name;
+  int id;
+} fileset_name;
+
+/** This function initializes the gpfs_fileset_info struct so that it can be
+ ** used with the gpfs_fcntl call **/ 
+static void init_gpfs_fileset_info(gpfs_fileset_info* i){
+  i->hdr.totalLength = sizeof(i->hdr) + sizeof(i->fileset) + sizeof(i->pool);
+  i->hdr.fcntlVersion = GPFS_FCNTL_CURRENT_VERSION;
+  i->hdr.fcntlReserved = 0;
+
+  i->fileset.structLen = sizeof(i->fileset);
+  i->fileset.structType = GPFS_FCNTL_GET_FILESETNAME;
+
+  i->pool.structLen = sizeof(i->pool);
+  i->pool.structType = GPFS_FCNTL_GET_STORAGEPOOL;
+}
+
+static 
+fileset_name 
+get_fileset_name(const std::string& fileset_root){
+
+  fileset_name fs_name;
+  int fd = ::open(fileset_root.c_str(),0);
+
+  if (fd < 0){
+    std::ostringstream msg;
+    msg << "Error opening file '" << fileset_root << "'.";
+    throw fs::system_error(msg.str(), errno);
+  }
+
+  gpfs_fileset_info i;
+  init_gpfs_fileset_info(&i);
+
+  int retval = gpfs_fcntl(fd, &i);
+  if (retval){
+    std::ostringstream msg;
+    msg << "Error getting fileset information from file " << fileset_root;
+    throw fs::system_error(msg.str(),errno);
+  }
+
+  int fileset_id;
+  retval = gpfs_getfilesetid(const_cast<char*>(fileset_root.c_str()),
+    i.fileset.buffer,
+    &fileset_id);
+
+  if (retval){
+    std::ostringstream msg;
+    msg << "Error translating fileset name '" << i.fileset.buffer << " to numerical id.";
+    throw fs::system_error(msg.str(),errno);
+  }
+
+  fs_name.name = std::string(i.fileset.buffer);
+  fs_name.id = fileset_id;
+
+  return fs_name;
+}
 
 // --- module local functions --- //
 
@@ -221,6 +289,58 @@ fs::gpfs::get_number_of_blocks(const std::string& filename){
   }
 }
 
+fs::quota_info
+fs::gpfs::get_fileset_quota_info(const std::string& fileset_root){
+  
+  gpfs_quotaInfo_t gpfs_quota_info;
+  fs::quota_info quota_info;
+
+  fileset_name fs_name = get_fileset_name(fileset_root);
+
+  if (gpfs_quotactl(const_cast<char*>(fileset_root.c_str()),
+      GPFS_QCMD(Q_GETQUOTA,GPFS_FILESETQUOTA),
+      fs_name.id,
+      &gpfs_quota_info)){
+    
+    std::ostringstream msg;
+
+    if (errno == GPFS_E_NO_QUOTA_INST){
+
+      msg << "This file system does not support quotas. Fileset root: " 
+          << fileset_root;
+      throw quota_not_supported(msg.str());
+
+    }else {
+
+      msg << "Error getting quota information out of filesystem. Fileset root: "
+          << fileset_root;
+      throw system_error(msg.str(),errno);
+
+    }
+  }
+
+  quota_info.fileset_name = fs_name.name;
+  quota_info.fileset_id = fs_name.id;
+  quota_info.block_usage = gpfs_quota_info.blockUsage;
+  quota_info.block_hard_limit = gpfs_quota_info.blockHardLimit;
+  quota_info.block_soft_limit = gpfs_quota_info.blockSoftLimit;
+
+  return quota_info;
+}
+
+bool
+fs::gpfs::is_quota_enabled(const std::string& fileset_root){
+
+  try{
+
+    get_fileset_quota_info(fileset_root);
+    
+  }catch(const quota_not_supported& ex){
+    return false;
+  }
+
+  return true;
+}
 /**
  *  Truncate the specified file to the desired size
  * @return 0 if success, -1 if error occours.
