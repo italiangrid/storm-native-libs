@@ -146,31 +146,30 @@ public abstract class BaseFSUtil {
 			break;
 		case GET_SIZE:
 			argsLengthCheck(args, 2, "get-size <filename>");
-			fileSanityChecks(args[1]);
+			
 			System.out.format("file size: %d\n", fs.get_size(args[1]));
 			break;
 		case GET_LAST_MODIFICATION_TIME:
 			argsLengthCheck(args, 2, "get-last-modification-time <filename>");
-			fileSanityChecks(args[1]);
+			
 			System.out.format("file last modification time: %d\n", fs.get_last_modification_time(args[1]));
 			break;
 			
 		case TRUNCATE:
 			argsLengthCheck(args, 3, "truncate <filename> <size>");
-			fileSanityChecks(args[1]);
+			
 			fs.truncate_file(args[1], longSanityChecks(args[2]));
 			System.out.format("file %s truncate to size: %s\n", args[1], args[2]);
 			break;
 			
 		case PRINT_ACL:
 			argsLengthCheck(args, 2, "print-acl <filename>");
-			fileSanityChecks(args[1]);
+			
 			printACL(args[1]);
 			break;
 			
 		case PRINT_ATTRS:
 			argsLengthCheck(args, 2, "print-attrs <filename>");
-			fileSanityChecks(args[1]);
 			printAttrs(args[1]);
 			break;
 		default:
