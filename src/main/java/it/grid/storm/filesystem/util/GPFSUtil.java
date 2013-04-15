@@ -50,7 +50,6 @@ public class GPFSUtil extends BaseFSUtil {
 		
 		if (cmd.equals("PRINT_QUOTA_INFO")){
 			argsLengthCheck(args, 2, "print-quota-info <fileset_root>");
-			fileSanityChecks(args[1]);
 			printQuotaInfo(args[1]);
 		}else
 			super.executeCommand(args);
