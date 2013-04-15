@@ -37,15 +37,6 @@ RCSID = "$Id: fs_errors.cpp,v 1.2 2006/04/04 15:19:22 rmurri Exp $";
 #include <stdexcept>
 
 /* this is needed for strerror_r to have POSIX semantics */
-
-#ifndef _XOPEN_SOURCE
-#define _XOPEN_SOURCE 600
-#endif
-
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 200112L
-#endif
-
 #include <string.h>
 
 
@@ -63,18 +54,8 @@ std::string
 fs::system_error::error_message (const int errnum)
 {
   char buf[1024];
-
-  if (strerror_r (errnum, buf, 1024)){
-    if (errno == EINVAL)
-      return "Unknown error code.";
-
-    if (errno == ERANGE)
-      return "Insufficient storage was supplied to contain the error description string";
-  }
-
-  int msg_len = strlen(buf);
-
-  return std::string(buf, buf+msg_len);
+  char* cerr_msg = strerror_r (errnum, buf, 1024);
+  return std::string(cerr_msg);
 }
 
 

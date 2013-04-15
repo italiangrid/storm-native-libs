@@ -358,7 +358,6 @@ fs::gpfs::truncate_file (const std::string& filename,
 {
 	  			
   int res = truncate (filename.c_str(), desired_size);
-  //int res = truncate("/tmp/testfile", 3000);       
   if (-1 == res)
     {
   	  int err = errno;

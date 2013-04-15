@@ -63,8 +63,7 @@ fs::xstat(const std::string& filename, struct stat64& output)
     {
       int err = errno;
       std::ostringstream msg;
-      msg <<"Errno:"<<errno<< "failed stat(" << filename << ")";
-
+      msg <<"stat failed on file '" << filename << "'";
       throw fs::system_error(msg.str(), err);
     }
 }
@@ -90,7 +89,7 @@ fs::xstatvfs(const std::string& filename, struct statvfs& output)
     {
       int err = errno;
       std::ostringstream msg;
-      msg << "failed stat(" << filename << ")";
+      msg <<"stat failed on file '" << filename << "'";
       throw fs::system_error(msg.str(), err);
     }
 }

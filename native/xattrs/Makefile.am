@@ -14,6 +14,8 @@ else
 libstorm_xattrs_la_CXXFLAFS =  -DNDEBUG
 endif
 
+libstorm_xattrs_la_LIBADD = $(ATTR_LIBS)
+
 libstorm_xattrs_la_SOURCES= \
     storm_xattrs_wrap.cxx \
     extended_attrs.cpp \

@@ -48,10 +48,6 @@ AC_ARG_ENABLE([gpfs],
       esac],
     [build_gpfs="no"])
 
-if test x"$build_gpfs" = x$yes; then
-    GPFS_CFLAGS="-I$with_gpfs_prefix/include"
-    GPFS_LIBS="-L$with_gpfs_prefix/lib -lgpfs"
-fi
 
 AC_ARG_ENABLE([regen],
     [  --enable-regen  Regenerate C++ and Java SWIG stubs ],
@@ -132,7 +128,7 @@ AC_CHECK_HEADER([attr/xattr.h],
 
 AC_CHECK_LIB([attr],
      [getxattr],
-     [],
+     [ATTR_LIBS=-lattr],
      [AC_MSG_ERROR("Error checking libattr. Please install the libacl-devel package.")]
      )
 
@@ -149,7 +145,7 @@ AC_CHECK_HEADER([acl/libacl.h],
 
 AC_CHECK_LIB([acl],
     [acl_create_entry],
-    [],
+    [ACL_LIBS=-lacl],
     [AC_MSG_ERROR("Error checking libacl. Please install the libacl-devel package.")]
     )
 
@@ -162,21 +158,29 @@ AC_CHECK_HEADER([lcmaps/lcmaps.h],
 ## Check lcmaps-without-gsi
 PKG_CHECK_MODULES([LCMAPS],[lcmaps-return-poolindex-without-gsi])
 
-if test x$build_gpfs = xyes; then
+if test "x$build_gpfs" = "xyes"; then
+    GPFS_CFLAGS="-I$with_gpfs_prefix/include"
+    GPFS_LIBS="-L$with_gpfs_prefix/lib -lgpfs"
+
     CPPFLAGS_SAVE=$CPPFLAGS
     CPPFLAGS=$GPFS_CFLAGS
-    AC_CHECK_HEADER([gpfs.h], [], [AC_MSG_ERROR("Error checking gpfs headers. Install the gpfs development packages on this machine.")],[])
+    AC_CHECK_HEADER([gpfs.h], [ : ], [AC_MSG_ERROR("Error checking gpfs headers. Install the gpfs development packages on this machine.")],[])
     CPPFLAGS=$CPPFLAGS_SAVE
 
     CPPFLAGS_SAVE=$CPPFLAGS
     CPPFLAGS=$GPFS_LIBS
-    AC_CHECK_LIB([gpfs],[gpfs_stat],[],[AC_MSG_ERROR("Error checking gpfs library. Install the gpfs development packages on this machine.")],[])
+    AC_CHECK_LIB([gpfs],[gpfs_stat],[ : ],[AC_MSG_ERROR("Error checking gpfs library. Install the gpfs development packages on this machine.")],[])
     CPPFLAGS=$CPPFLAGS_SAVE
+
+    AC_SUBST(GPFS_CFLAGS)
+    AC_SUBST(GPFS_LIBS)
 fi
 
 fi
 
 AC_SUBST(JNI_CFLAGS)
+AC_SUBST(ATTR_LIBS)
+AC_SUBST(ACL_LIBS)
 
 AC_CONFIG_FILES([Makefile 
                  common/Makefile
