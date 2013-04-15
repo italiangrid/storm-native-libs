@@ -12,7 +12,7 @@ public class wrong_filesystem_type extends error {
   private long swigCPtr;
 
   protected wrong_filesystem_type(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.wrong_filesystem_type_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.wrong_filesystem_type_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class wrong_filesystem_type extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_wrong_filesystem_type(swigCPtr);
+        gpfsapi_interfaceJNI.delete_wrong_filesystem_type(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,7 +36,7 @@ public class wrong_filesystem_type extends error {
   }
 
   public wrong_filesystem_type(String reason) {
-    this(posixapi_interfaceJNI.new_wrong_filesystem_type(reason), true);
+    this(gpfsapi_interfaceJNI.new_wrong_filesystem_type(reason), true);
   }
 
 }

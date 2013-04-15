@@ -12,7 +12,7 @@ public class invalid_path extends error {
   private long swigCPtr;
 
   protected invalid_path(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.invalid_path_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.invalid_path_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class invalid_path extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_invalid_path(swigCPtr);
+        gpfsapi_interfaceJNI.delete_invalid_path(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,7 +36,7 @@ public class invalid_path extends error {
   }
 
   public invalid_path(String reason) {
-    this(posixapi_interfaceJNI.new_invalid_path(reason), true);
+    this(gpfsapi_interfaceJNI.new_invalid_path(reason), true);
   }
 
 }

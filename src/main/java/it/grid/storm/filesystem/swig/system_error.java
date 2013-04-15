@@ -12,7 +12,7 @@ public class system_error extends error {
   private long swigCPtr;
 
   protected system_error(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.system_error_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.system_error_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class system_error extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_system_error(swigCPtr);
+        gpfsapi_interfaceJNI.delete_system_error(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,19 +36,19 @@ public class system_error extends error {
   }
 
   public system_error(String msg, int errnum) {
-    this(posixapi_interfaceJNI.new_system_error__SWIG_0(msg, errnum), true);
+    this(gpfsapi_interfaceJNI.new_system_error__SWIG_0(msg, errnum), true);
   }
 
   public system_error(String msg) {
-    this(posixapi_interfaceJNI.new_system_error__SWIG_1(msg), true);
+    this(gpfsapi_interfaceJNI.new_system_error__SWIG_1(msg), true);
   }
 
   public String getMessage() {
-    return posixapi_interfaceJNI.system_error_getMessage(swigCPtr, this);
+    return gpfsapi_interfaceJNI.system_error_getMessage(swigCPtr, this);
   }
 
   public String error_message(int errnum) {
-    return posixapi_interfaceJNI.system_error_error_message(swigCPtr, this, errnum);
+    return gpfsapi_interfaceJNI.system_error_error_message(swigCPtr, this, errnum);
   }
 
 }

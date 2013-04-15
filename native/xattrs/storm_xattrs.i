@@ -1,7 +1,7 @@
 %module storm_xattrs
 %include <std_string.i>
-// %include <std_vector.i>
 
+%include "exception.i"
 %include "string_vector.i"
 
 %pragma(java) jniclasscode=%{
@@ -14,6 +14,19 @@
     }
   }
 %}
+
+// Exception handling
+
+%exception {
+  try {
+    $action
+  }
+  SWIG_CATCH_STDEXCEPT // catch std::exception
+  catch (...) {
+
+    SWIG_exception(SWIG_UnknownError, "Unknown exception");
+  }
+}
 
 %{
 #include "extended_attrs.hpp"

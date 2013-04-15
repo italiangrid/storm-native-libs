@@ -272,7 +272,8 @@ fs::gpfs::get_exact_size (const std::string& filename)
 }
 
 size_t
-fs::gpfs::get_number_of_blocks(const std::string& filename){
+fs::gpfs::get_number_of_blocks(const std::string& filename)
+  throw(fs::error,std::logic_error){
   
   stat64_t st;
   xgpfs_stat (filename, st);
@@ -290,7 +291,8 @@ fs::gpfs::get_number_of_blocks(const std::string& filename){
 }
 
 fs::quota_info
-fs::gpfs::get_fileset_quota_info(const std::string& fileset_root){
+fs::gpfs::get_fileset_quota_info(const std::string& fileset_root)
+  throw(fs::error){
   
   gpfs_quotaInfo_t gpfs_quota_info;
   fs::quota_info quota_info;
@@ -329,7 +331,8 @@ fs::gpfs::get_fileset_quota_info(const std::string& fileset_root){
 }
 
 bool
-fs::gpfs::is_quota_enabled(const std::string& fileset_root){
+fs::gpfs::is_quota_enabled(const std::string& fileset_root)
+  throw(fs::error){
 
   try{
 

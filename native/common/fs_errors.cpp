@@ -37,9 +37,15 @@ RCSID = "$Id: fs_errors.cpp,v 1.2 2006/04/04 15:19:22 rmurri Exp $";
 #include <stdexcept>
 
 /* this is needed for strerror_r to have POSIX semantics */
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE=200112L
+
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE 600
 #endif
+
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200112L
+#endif
+
 #include <string.h>
 
 
@@ -56,13 +62,19 @@ RCSID = "$Id: fs_errors.cpp,v 1.2 2006/04/04 15:19:22 rmurri Exp $";
 std::string
 fs::system_error::error_message (const int errnum)
 {
-  // FIXME: should look for ERANGE error code from strerror_r,
-  // and realloc() buf and retry...  But this is so quickier ;-)
-  char buf[512];
-  
-  strerror_r (errnum, buf, 512);
+  char buf[1024];
 
-  return std::string(buf);
+  if (strerror_r (errnum, buf, 1024)){
+    if (errno == EINVAL)
+      return "Unknown error code.";
+
+    if (errno == ERANGE)
+      return "Insufficient storage was supplied to contain the error description string";
+  }
+
+  int msg_len = strlen(buf);
+
+  return std::string(buf, buf+msg_len);
 }
 
 

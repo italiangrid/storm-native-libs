@@ -210,8 +210,62 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 #define SWIG_contract_assert(nullreturn, expr, msg) if (!(expr)) {SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, msg); return nullreturn; } else
 
+/*  Errors in SWIG */
+#define  SWIG_UnknownError    	   -1 
+#define  SWIG_IOError        	   -2 
+#define  SWIG_RuntimeError   	   -3 
+#define  SWIG_IndexError     	   -4 
+#define  SWIG_TypeError      	   -5 
+#define  SWIG_DivisionByZero 	   -6 
+#define  SWIG_OverflowError  	   -7 
+#define  SWIG_SyntaxError    	   -8 
+#define  SWIG_ValueError     	   -9 
+#define  SWIG_SystemError    	   -10
+#define  SWIG_AttributeError 	   -11
+#define  SWIG_MemoryError    	   -12 
+#define  SWIG_NullReferenceError   -13
+
+
+
 
 #include <string>
+
+
+SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
+  SWIG_JavaExceptionCodes exception_code = SWIG_JavaUnknownError;
+  switch(code) {
+  case SWIG_MemoryError:
+    exception_code = SWIG_JavaOutOfMemoryError;
+    break;
+  case SWIG_IOError:
+    exception_code = SWIG_JavaIOException;
+    break;
+  case SWIG_SystemError:
+  case SWIG_RuntimeError:
+    exception_code = SWIG_JavaRuntimeException;
+    break;
+  case SWIG_OverflowError:
+  case SWIG_IndexError:
+    exception_code = SWIG_JavaIndexOutOfBoundsException;
+    break;
+  case SWIG_DivisionByZero:
+    exception_code = SWIG_JavaArithmeticException;
+    break;
+  case SWIG_SyntaxError:
+  case SWIG_ValueError:
+  case SWIG_TypeError:
+    exception_code = SWIG_JavaIllegalArgumentException;
+    break;
+  case SWIG_UnknownError:
+  default:
+    exception_code = SWIG_JavaUnknownError;
+    break;
+  }
+  SWIG_JavaThrowException(jenv, exception_code, msg);
+}
+
+
+#include <stdexcept>
 
 
 #include <vector>
@@ -411,7 +465,47 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_dele
   (void)jenv;
   (void)jcls;
   arg1 = *(std::vector< std::string > **)&jarg1; 
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return ; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return ; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return ; 
+      };
+    }
+  }
 }
 
 
@@ -431,7 +525,47 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_get
   std::string arg1_str(arg1_pstr);
   arg1 = &arg1_str;
   jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  result = fs::get_xattr_names((std::string const &)*arg1);
+  {
+    try {
+      result = fs::get_xattr_names((std::string const &)*arg1);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return 0; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return 0; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return 0; 
+      };
+    }
+  }
   *(std::vector< std::string > **)&jresult = new std::vector< std::string >((const std::vector< std::string > &)result); 
   return jresult;
 }
@@ -463,7 +597,47 @@ SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_g
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = fs::get_xattr_value((std::string const &)*arg1,(std::string const &)*arg2);
+  {
+    try {
+      result = fs::get_xattr_value((std::string const &)*arg1,(std::string const &)*arg2);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return 0; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return 0; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return 0; 
+      };
+    }
+  }
   jresult = jenv->NewStringUTF((&result)->c_str()); 
   return jresult;
 }
@@ -495,7 +669,47 @@ SWIGEXPORT jboolean JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (bool)fs::xattr_is_set((std::string const &)*arg1,(std::string const &)*arg2);
+  {
+    try {
+      result = (bool)fs::xattr_is_set((std::string const &)*arg1,(std::string const &)*arg2);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return 0; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return 0; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return 0; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return 0; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return 0; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return 0; 
+      };
+    }
+  }
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -525,7 +739,47 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_set_
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  fs::set_xattr((std::string const &)*arg1,(std::string const &)*arg2);
+  {
+    try {
+      fs::set_xattr((std::string const &)*arg1,(std::string const &)*arg2);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return ; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return ; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return ; 
+      };
+    }
+  }
 }
 
 
@@ -563,7 +817,47 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_set_
   std::string arg3_str(arg3_pstr);
   arg3 = &arg3_str;
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  fs::set_xattr((std::string const &)*arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+  {
+    try {
+      fs::set_xattr((std::string const &)*arg1,(std::string const &)*arg2,(std::string const &)*arg3);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return ; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return ; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return ; 
+      };
+    }
+  }
 }
 
 
@@ -591,7 +885,47 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_storm_1xattrsJNI_remo
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  fs::remove_xattr((std::string const &)*arg1,(std::string const &)*arg2);
+  {
+    try {
+      fs::remove_xattr((std::string const &)*arg1,(std::string const &)*arg2);
+    }
+    /*@SWIG:/usr/local/share/swig/2.0.9/exception.i,267,SWIG_CATCH_STDEXCEPT@*/  /* catching std::exception  */
+    catch (std::invalid_argument& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::domain_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_ValueError, e.what()); return ; 
+      };
+    } catch (std::overflow_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_OverflowError, e.what()); return ; 
+      };
+    } catch (std::out_of_range& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::length_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_IndexError, e.what()); return ; 
+      };
+    } catch (std::runtime_error& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_RuntimeError, e.what()); return ; 
+      };
+    } catch (std::exception& e) {
+      {
+        SWIG_JavaException(jenv, SWIG_SystemError, e.what()); return ; 
+      };
+    }
+    /*@SWIG@*/ // catch std::exception
+    catch (...) {
+      {
+        SWIG_JavaException(jenv, SWIG_UnknownError, "Unknown exception"); return ; 
+      };
+    }
+  }
 }
 
 

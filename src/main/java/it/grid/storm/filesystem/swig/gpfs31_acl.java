@@ -41,15 +41,15 @@ public class gpfs31_acl extends posixfs_acl {
     this(gpfsapi_interfaceJNI.new_gpfs31_acl(), true);
   }
 
-  public void load(String path, boolean delete_permission_too) {
+  public void load(String path, boolean delete_permission_too) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
     gpfsapi_interfaceJNI.gpfs31_acl_load__SWIG_0(swigCPtr, this, path, delete_permission_too);
   }
 
-  public void load(String path) {
+  public void load(String path) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
     gpfsapi_interfaceJNI.gpfs31_acl_load__SWIG_1(swigCPtr, this, path);
   }
 
-  public void enforce(String path) {
+  public void enforce(String path) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
     gpfsapi_interfaceJNI.gpfs31_acl_enforce(swigCPtr, this, path);
   }
 

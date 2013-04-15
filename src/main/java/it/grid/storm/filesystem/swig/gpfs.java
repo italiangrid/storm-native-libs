@@ -35,39 +35,39 @@ public class gpfs extends genericfs {
     super.delete();
   }
 
-  public gpfs(String mntpath) {
+  public gpfs(String mntpath) throws it.grid.storm.filesystem.WrongFilesystemType, it.grid.storm.filesystem.FilesystemError {
     this(gpfsapi_interfaceJNI.new_gpfs(mntpath), true);
   }
 
-  public void prealloc(String filename, long size) {
+  public void prealloc(String filename, long size) throws it.grid.storm.filesystem.FilesystemError {
     gpfsapi_interfaceJNI.gpfs_prealloc(swigCPtr, this, filename, size);
   }
 
-  public long get_exact_size(String filename) {
+  public long get_exact_size(String filename) throws it.grid.storm.filesystem.FilesystemError {
     return gpfsapi_interfaceJNI.gpfs_get_exact_size(swigCPtr, this, filename);
   }
 
-  public long get_exact_last_modification_time(String pathname) {
+  public long get_exact_last_modification_time(String pathname) throws it.grid.storm.filesystem.FilesystemError {
     return gpfsapi_interfaceJNI.gpfs_get_exact_last_modification_time(swigCPtr, this, pathname);
   }
 
-  public int truncate_file(String filename, long desired_size) {
+  public int truncate_file(String filename, long desired_size) throws it.grid.storm.filesystem.FilesystemError {
     return gpfsapi_interfaceJNI.gpfs_truncate_file(swigCPtr, this, filename, desired_size);
   }
 
-  public long get_number_of_blocks(String filename) {
+  public long get_number_of_blocks(String filename) throws it.grid.storm.filesystem.FilesystemError {
     return gpfsapi_interfaceJNI.gpfs_get_number_of_blocks(swigCPtr, this, filename);
   }
 
-  public boolean is_quota_enabled(String fileset_root) {
+  public boolean is_quota_enabled(String fileset_root) throws it.grid.storm.filesystem.FilesystemError {
     return gpfsapi_interfaceJNI.gpfs_is_quota_enabled(swigCPtr, this, fileset_root);
   }
 
-  public quota_info get_fileset_quota_info(String fileset_root) {
+  public quota_info get_fileset_quota_info(String fileset_root) throws it.grid.storm.filesystem.FilesystemError {
     return new quota_info(gpfsapi_interfaceJNI.gpfs_get_fileset_quota_info(swigCPtr, this, fileset_root), true);
   }
 
-  public fs_acl new_acl() {
+  public fs_acl new_acl() throws it.grid.storm.filesystem.FilesystemError {
     long cPtr = gpfsapi_interfaceJNI.gpfs_new_acl(swigCPtr, this);
     return (cPtr == 0) ? null : new fs_acl(cPtr, true);
   }

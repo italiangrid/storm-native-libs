@@ -406,7 +406,6 @@ struct SWIG_null_deleter {
 #define SWIG_NO_NULL_DELETER_SWIG_POINTER_OWN
 
 
-#include <stdexcept>
 #include "users_and_groups.hpp"
 
 
@@ -2678,9 +2677,12 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
     return 0; 
   }
   catch(std::runtime_error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::runtime_error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("java/lang/RuntimeException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   jresult = (jint)result; 
@@ -2713,9 +2715,12 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
     return 0; 
   }
   catch(std::runtime_error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::runtime_error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("java/lang/RuntimeException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   jresult = (jint)result; 

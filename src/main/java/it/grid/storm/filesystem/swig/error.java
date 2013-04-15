@@ -29,18 +29,18 @@ public class error extends it.grid.storm.filesystem.FilesystemError {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_error(swigCPtr);
+        gpfsapi_interfaceJNI.delete_error(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
   public error(String reason) {
-    this(posixapi_interfaceJNI.new_error(reason), true);
+    this(gpfsapi_interfaceJNI.new_error(reason), true);
   }
 
   public String getMessage() {
-    return posixapi_interfaceJNI.error_getMessage(swigCPtr, this);
+    return gpfsapi_interfaceJNI.error_getMessage(swigCPtr, this);
   }
 
 }

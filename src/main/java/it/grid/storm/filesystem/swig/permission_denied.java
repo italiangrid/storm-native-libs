@@ -12,7 +12,7 @@ public class permission_denied extends error {
   private long swigCPtr;
 
   protected permission_denied(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.permission_denied_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.permission_denied_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class permission_denied extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_permission_denied(swigCPtr);
+        gpfsapi_interfaceJNI.delete_permission_denied(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,7 +36,7 @@ public class permission_denied extends error {
   }
 
   public permission_denied(String reason) {
-    this(posixapi_interfaceJNI.new_permission_denied(reason), true);
+    this(gpfsapi_interfaceJNI.new_permission_denied(reason), true);
   }
 
 }

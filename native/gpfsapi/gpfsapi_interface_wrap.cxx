@@ -378,6 +378,9 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 #include "fs_errors.hpp"
 
 
+#include "fs_errors.hpp"
+
+
 #include "gpfs31_acl.hpp"
 
 
@@ -397,6 +400,313 @@ struct SWIG_null_deleter {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1error(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::error *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::error *)new fs::error((std::string const &)*arg1);
+  *(fs::error **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1error(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::error *arg1 = (fs::error *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::error **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_error_1getMessage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  fs::error *arg1 = (fs::error *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::error **)&jarg1; 
+  result = (char *)((fs::error const *)arg1)->what();
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1system_1error_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  int arg2 ;
+  fs::system_error *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  arg2 = (int)jarg2; 
+  result = (fs::system_error *)new fs::system_error((std::string const &)*arg1,arg2);
+  *(fs::system_error **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1system_1error_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::system_error *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::system_error *)new fs::system_error((std::string const &)*arg1);
+  *(fs::system_error **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1system_1error(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::system_error *arg1 = (fs::system_error *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::system_error **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_system_1error_1getMessage(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  fs::system_error *arg1 = (fs::system_error *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::system_error **)&jarg1; 
+  result = (char *)((fs::system_error const *)arg1)->what();
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_system_1error_1error_1message(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jstring jresult = 0 ;
+  fs::system_error *arg1 = (fs::system_error *) 0 ;
+  int arg2 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::system_error **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (arg1)->error_message(arg2);
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1acl_1not_1supported_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  fs::acl_not_supported *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (fs::acl_not_supported *)new fs::acl_not_supported();
+  *(fs::acl_not_supported **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1acl_1not_1supported_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::acl_not_supported *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::acl_not_supported *)new fs::acl_not_supported((std::string const &)*arg1);
+  *(fs::acl_not_supported **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1acl_1not_1supported(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::acl_not_supported *arg1 = (fs::acl_not_supported *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::acl_not_supported **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1invalid_1path(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::invalid_path *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::invalid_path *)new fs::invalid_path((std::string const &)*arg1);
+  *(fs::invalid_path **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1invalid_1path(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::invalid_path *arg1 = (fs::invalid_path *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::invalid_path **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1permission_1denied(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::permission_denied *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::permission_denied *)new fs::permission_denied((std::string const &)*arg1);
+  *(fs::permission_denied **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1permission_1denied(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::permission_denied *arg1 = (fs::permission_denied *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::permission_denied **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1wrong_1filesystem_1type(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::wrong_filesystem_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::wrong_filesystem_type *)new fs::wrong_filesystem_type((std::string const &)*arg1);
+  *(fs::wrong_filesystem_type **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1wrong_1filesystem_1type(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::wrong_filesystem_type *arg1 = (fs::wrong_filesystem_type *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::wrong_filesystem_type **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1quota_1not_1supported(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  fs::quota_not_supported *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (fs::quota_not_supported *)new fs::quota_not_supported((std::string const &)*arg1);
+  *(fs::quota_not_supported **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_delete_1quota_1not_1supported(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  fs::quota_not_supported *arg1 = (fs::quota_not_supported *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(fs::quota_not_supported **)&jarg1; 
+  delete arg1;
+}
+
 
 SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_new_1gpfs31_1acl(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
@@ -438,29 +748,44 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
     (arg1)->load((std::string const &)*arg2,arg3);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::invalid_path &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::invalid_path exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::permission_denied &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::permission_denied exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::acl_not_supported &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::acl_not_supported exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(std::exception &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::exception exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("java/lang/RuntimeException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   
 }
@@ -490,29 +815,44 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
     (arg1)->load((std::string const &)*arg2);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::invalid_path &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::invalid_path exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::permission_denied &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::permission_denied exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::acl_not_supported &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::acl_not_supported exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(std::exception &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::exception exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("java/lang/RuntimeException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   
 }
@@ -542,29 +882,44 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
     ((gpfs31_acl const *)arg1)->enforce((std::string const &)*arg2);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::invalid_path &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::invalid_path exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::permission_denied &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::permission_denied exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(fs::acl_not_supported &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::acl_not_supported exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   catch(std::exception &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::exception exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("java/lang/RuntimeException");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   
 }
@@ -700,14 +1055,20 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
     result = (fs::gpfs *)new fs::gpfs((std::string const &)*arg1);
   }
   catch(fs::wrong_filesystem_type &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::wrong_filesystem_type exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/WrongFilesystemType");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   *(fs::gpfs **)&jresult = result; 
@@ -738,9 +1099,12 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
     (arg1)->prealloc((std::string const &)*arg2,arg3);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return ; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
   }
   
 }
@@ -769,9 +1133,12 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
     result = (size_t)(arg1)->get_exact_size((std::string const &)*arg2);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   catch(std::logic_error &_e) {
     (void)_e;
@@ -807,9 +1174,12 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
     result = (time_t)(arg1)->get_exact_last_modification_time((std::string const &)*arg2);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   jresult = (jlong)result; 
@@ -842,9 +1212,12 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
     result = (int)(arg1)->truncate_file((std::string const &)*arg2,arg3);
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   jresult = (jint)result; 
@@ -871,7 +1244,23 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (size_t)(arg1)->get_number_of_blocks((std::string const &)*arg2);
+  try {
+    result = (size_t)(arg1)->get_number_of_blocks((std::string const &)*arg2);
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
+  }
+  catch(std::logic_error &_e) {
+    (void)_e;
+    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ std::logic_error exception thrown");
+    return 0; 
+  }
+  
   jresult = (jlong)result; 
   return jresult;
 }
@@ -896,7 +1285,18 @@ SWIGEXPORT jboolean JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfac
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (bool)(arg1)->is_quota_enabled((std::string const &)*arg2);
+  try {
+    result = (bool)(arg1)->is_quota_enabled((std::string const &)*arg2);
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -921,7 +1321,18 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (arg1)->get_fileset_quota_info((std::string const &)*arg2);
+  try {
+    result = (arg1)->get_fileset_quota_info((std::string const &)*arg2);
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
+  }
+  
   *(fs::quota_info **)&jresult = new fs::quota_info((const fs::quota_info &)result); 
   return jresult;
 }
@@ -940,9 +1351,12 @@ SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJN
     result = ((fs::gpfs const *)arg1)->new_acl();
   }
   catch(fs::error &_e) {
-    (void)_e;
-    SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "C++ fs::error exception thrown");
-    return 0; 
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
   }
   
   *(fs::fs_acl_ptr **)&jresult = result ? new fs::fs_acl_ptr(result) : 0; 
@@ -959,6 +1373,54 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   delete arg1;
 }
 
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_system_1error_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::system_error **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_acl_1not_1supported_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::acl_not_supported **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_invalid_1path_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::invalid_path **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_permission_1denied_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::permission_denied **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_wrong_1filesystem_1type_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::wrong_filesystem_type **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_quota_1not_1supported_1SWIGUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(fs::error **)&baseptr = *(fs::quota_not_supported **)&jarg1;
+    return baseptr;
+}
 
 SWIGEXPORT jlong JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI_gpfs31_1acl_1SWIGSmartPtrUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;

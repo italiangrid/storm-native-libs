@@ -78,13 +78,16 @@ namespace fs {
       throw(fs::error);
     
     /** Returns the number of blocks allocated to the file. **/
-    virtual size_t get_number_of_blocks(const std::string& filename);
+    virtual size_t get_number_of_blocks(const std::string& filename)
+      throw(fs::error, std::logic_error);
 
     /** Checks whether quota is enabled on the fileset rooted at fileset_root **/
-    bool is_quota_enabled(const std::string& fileset_root);
+    bool is_quota_enabled(const std::string& fileset_root)
+      throw(fs::error);
 
     /** Returns quota information for the fileset root at fileset_root **/
-    quota_info get_fileset_quota_info(const std::string& fileset_root);
+    quota_info get_fileset_quota_info(const std::string& fileset_root)
+      throw(fs::error);
 
     virtual fs_acl_ptr new_acl() const
       throw(fs::error);

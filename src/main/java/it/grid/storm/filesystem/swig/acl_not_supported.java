@@ -12,7 +12,7 @@ public class acl_not_supported extends error {
   private long swigCPtr;
 
   protected acl_not_supported(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.acl_not_supported_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.acl_not_supported_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class acl_not_supported extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_acl_not_supported(swigCPtr);
+        gpfsapi_interfaceJNI.delete_acl_not_supported(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,11 +36,11 @@ public class acl_not_supported extends error {
   }
 
   public acl_not_supported() {
-    this(posixapi_interfaceJNI.new_acl_not_supported__SWIG_0(), true);
+    this(gpfsapi_interfaceJNI.new_acl_not_supported__SWIG_0(), true);
   }
 
   public acl_not_supported(String reason) {
-    this(posixapi_interfaceJNI.new_acl_not_supported__SWIG_1(reason), true);
+    this(gpfsapi_interfaceJNI.new_acl_not_supported__SWIG_1(reason), true);
   }
 
 }

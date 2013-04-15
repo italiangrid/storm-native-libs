@@ -12,7 +12,7 @@ public class quota_not_supported extends error {
   private long swigCPtr;
 
   protected quota_not_supported(long cPtr, boolean cMemoryOwn) {
-    super(posixapi_interfaceJNI.quota_not_supported_SWIGUpcast(cPtr), cMemoryOwn);
+    super(gpfsapi_interfaceJNI.quota_not_supported_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -28,7 +28,7 @@ public class quota_not_supported extends error {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        posixapi_interfaceJNI.delete_quota_not_supported(swigCPtr);
+        gpfsapi_interfaceJNI.delete_quota_not_supported(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -36,7 +36,7 @@ public class quota_not_supported extends error {
   }
 
   public quota_not_supported(String reason) {
-    this(posixapi_interfaceJNI.new_quota_not_supported(reason), true);
+    this(gpfsapi_interfaceJNI.new_quota_not_supported(reason), true);
   }
 
 }

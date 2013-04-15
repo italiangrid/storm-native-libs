@@ -45,11 +45,11 @@ public class posixapi_interface {
     return posixapi_interfaceJNI.getuid();
   }
 
-  public static int uid_from_username(String name) {
+  public static int uid_from_username(String name) throws java.lang.RuntimeException {
     return posixapi_interfaceJNI.uid_from_username(name);
   }
 
-  public static int gid_from_groupname(String name) {
+  public static int gid_from_groupname(String name) throws java.lang.RuntimeException {
     return posixapi_interfaceJNI.gid_from_groupname(name);
   }
 

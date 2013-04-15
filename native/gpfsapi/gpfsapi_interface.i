@@ -21,7 +21,7 @@
 LOAD_NATIVE_LIB_IN_JNICLASS(gpfsapi_interface)
 
 %include "types.i"
-%include "exception.i"
+%include "storm_exceptions.i"
 
 %{
 #include "fs_errors.hpp"
