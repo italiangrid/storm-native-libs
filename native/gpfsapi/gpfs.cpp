@@ -91,6 +91,9 @@ get_fileset_name(const std::string& fileset_root){
   init_gpfs_fileset_info(&i);
 
   int retval = gpfs_fcntl(fd, &i);
+  
+  ::close(fd);
+
   if (retval){
     std::ostringstream msg;
     msg << "Error getting fileset information from file " << fileset_root;
