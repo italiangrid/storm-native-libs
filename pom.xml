@@ -4,7 +4,7 @@
 
   <groupId>org.italiangrid</groupId>
   <artifactId>storm-native-interface</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>storm-native-interface</name>
