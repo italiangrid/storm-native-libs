@@ -24,6 +24,7 @@ public abstract class BaseFSUtil {
 		GET_EXACT_SIZE,
 		GET_LAST_MODIFICATION_TIME,
 		GET_EXACT_LAST_MODIFICATION_TIME,
+		CHANGE_GROUP_OWNERSHIP,
 		TRUNCATE,
 		PRINT_ACL,
 		SET_ACL,
@@ -172,11 +173,22 @@ public abstract class BaseFSUtil {
 			argsLengthCheck(args, 2, "print-attrs <filename>");
 			printAttrs(args[1]);
 			break;
+		
+		case CHANGE_GROUP_OWNERSHIP:
+			argsLengthCheck(args, 3, "change-group-ownership <filename> <groupname>");
+			changeGroupOwnership(args[1], args[2]);
+			
 		default:
 			throw new IllegalArgumentException("Unsupported command! "+args[0]);
 		}
 		
 		System.exit(0);
+		
+	}
+
+	protected void changeGroupOwnership(String filename, String groupname) {
+		
+		fs.change_group_ownership(filename, groupname);
 		
 	}
 
