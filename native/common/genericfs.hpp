@@ -21,7 +21,6 @@ typedef unsigned long alloc_size_t;
 
 // Separate abstract interface definition from 
 // posix specific implementation
-// #include "posixfs_acl.hpp"
 
 #include <string>
 #include <stdexcept>
@@ -79,7 +78,8 @@ namespace fs {
       throw(fs::error);
 
     /** Changes the group ownership for the given file **/
-    virtual void change_group_ownership(const std::string& filename, const std::string& groupname);
+    virtual void change_group_ownership(const std::string& filename, const std::string& groupname)
+      throw(fs::error);
      
     /** Return a new instance of an %fs_acl subclass suitable for
         manipulating the ACLs on this filesystem. */

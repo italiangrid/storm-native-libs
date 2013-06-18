@@ -2287,7 +2287,18 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
   std::string arg3_str(arg3_pstr);
   arg3 = &arg3_str;
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
-  (arg1)->change_group_ownership((std::string const &)*arg2,(std::string const &)*arg3);
+  try {
+    (arg1)->change_group_ownership((std::string const &)*arg2,(std::string const &)*arg3);
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
+  }
+  
 }
 
 

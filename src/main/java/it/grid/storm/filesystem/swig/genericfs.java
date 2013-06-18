@@ -63,7 +63,7 @@ public class genericfs {
     return posixapi_interfaceJNI.genericfs_truncate_file(swigCPtr, this, filename, desired_size);
   }
 
-  public void change_group_ownership(String filename, String groupname) {
+  public void change_group_ownership(String filename, String groupname) throws it.grid.storm.filesystem.FilesystemError {
     posixapi_interfaceJNI.genericfs_change_group_ownership(swigCPtr, this, filename, groupname);
   }
 

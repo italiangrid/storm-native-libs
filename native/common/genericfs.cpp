@@ -132,7 +132,8 @@ fs::genericfs::get_number_of_blocks(const std::string& path){
 
 void
 fs::genericfs::change_group_ownership(const std::string& filename, 
-    const std::string& groupname){
+    const std::string& groupname)
+    throw(fs::error){
 
     struct group *gr = getgrnam(groupname.c_str());
 
@@ -149,12 +150,13 @@ fs::genericfs::change_group_ownership(const std::string& filename,
     int ret = chown(filename.c_str(), -1, gr->gr_gid);
 
     if (chown(filename.c_str(), -1, gr->gr_gid)){
+        int err = errno;
         std::ostringstream msg;
         msg << "Error setting file '" << filename
             << "' group ownership to group '" 
             << groupname << "'.";
 
-        throw system_error(msg.str(), errno);
+        throw system_error(msg.str(), err);
     }
 }
 /**
