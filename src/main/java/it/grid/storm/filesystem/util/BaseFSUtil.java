@@ -177,6 +177,7 @@ public abstract class BaseFSUtil {
 		case CHANGE_GROUP_OWNERSHIP:
 			argsLengthCheck(args, 3, "change-group-ownership <filename> <groupname>");
 			changeGroupOwnership(args[1], args[2]);
+			break;
 			
 		default:
 			throw new IllegalArgumentException("Unsupported command! "+args[0]);
