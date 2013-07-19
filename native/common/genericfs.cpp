@@ -147,8 +147,6 @@ fs::genericfs::change_group_ownership(const std::string& filename,
         throw std::logic_error(msg.str());
     }
 
-    int ret = chown(filename.c_str(), -1, gr->gr_gid);
-
     if (chown(filename.c_str(), -1, gr->gr_gid)){
         int err = errno;
         std::ostringstream msg;
