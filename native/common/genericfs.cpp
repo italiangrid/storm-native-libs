@@ -152,7 +152,7 @@ fs::genericfs::change_group_ownership(const std::string& filename,
         std::ostringstream msg;
         msg << "Error setting file '" << filename
             << "' group ownership to group '" 
-            << groupname << "'.";
+            << groupname << "(" << gr->gr_gid << ")" << '.";
 
         throw system_error(msg.str(), err);
     }
