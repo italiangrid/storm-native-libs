@@ -20,7 +20,7 @@ yum install epel-release
 
 ### Building
 
-You need git to get the code, and ant (libtool, automake, autoconf) and gcc and gcc-c++ to build it.
+You need git to get the code, and maven and autotools to build it.
 
 The other dependcies are
 
