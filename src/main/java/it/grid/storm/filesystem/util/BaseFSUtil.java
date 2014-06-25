@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import it.grid.storm.filesystem.FilesystemError;
 import it.grid.storm.filesystem.swig.fs_acl;
 import it.grid.storm.filesystem.swig.genericfs;
 import it.grid.storm.filesystem.swig.posixapi_interface;
@@ -30,7 +31,8 @@ public abstract class BaseFSUtil {
 		SET_ACL,
 		PRINT_ATTRS,
 		SET_ATTR,
-		REMOVE_ATTR;
+		REMOVE_ATTR,
+		IS_FILE_ON_DISK;
 	}
 	
 	protected BaseFSUtil() {
@@ -179,6 +181,10 @@ public abstract class BaseFSUtil {
 			changeGroupOwnership(args[1], args[2]);
 			break;
 			
+		case IS_FILE_ON_DISK:
+		  argsLengthCheck(args, 2, "is-file-on-disk <filename>");
+		  isFileOnDisk(args[1]);
+		  
 		default:
 			throw new IllegalArgumentException("Unsupported command! "+args[0]);
 		}
@@ -187,7 +193,24 @@ public abstract class BaseFSUtil {
 		
 	}
 
-	protected void changeGroupOwnership(String filename, String groupname) {
+	protected void isFileOnDisk(String filename) {
+
+	  try{
+	    
+	    boolean isOnDisk = fs.is_file_on_disk(filename);
+	    
+	    System.out.format("File '%s' is %s on disk.\n", 
+	      filename,
+	      (isOnDisk ? "" : "not"));
+	  
+	  }catch(FilesystemError e){
+	    System.err.println(e.getMessage());
+	    System.exit(1);
+	  }
+    
+  }
+
+  protected void changeGroupOwnership(String filename, String groupname) {
 		
 		fs.change_group_ownership(filename, groupname);
 		
