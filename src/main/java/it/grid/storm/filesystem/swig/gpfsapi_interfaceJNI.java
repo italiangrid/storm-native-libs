@@ -73,6 +73,7 @@ public class gpfsapi_interfaceJNI {
   public final static native boolean gpfs_is_quota_enabled(long jarg1, gpfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long gpfs_get_fileset_quota_info(long jarg1, gpfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native long gpfs_new_acl(long jarg1, gpfs jarg1_) throws it.grid.storm.filesystem.FilesystemError;
+  public final static native boolean gpfs_is_file_on_disk(long jarg1, gpfs jarg1_, String jarg2) throws it.grid.storm.filesystem.FilesystemError;
   public final static native void delete_gpfs(long jarg1);
   public final static native long system_error_SWIGUpcast(long jarg1);
   public final static native long acl_not_supported_SWIGUpcast(long jarg1);

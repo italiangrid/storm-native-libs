@@ -1,4 +1,4 @@
-AC_INIT([storm-native-libs], [1.0.1], andrea.ceccanti@cnaf.infn.it)
+AC_INIT([storm-native-libs], [1.0.2], andrea.ceccanti@cnaf.infn.it)
 AC_PREFIX_DEFAULT([/usr])
 
 AC_CONFIG_AUX_DIR([./aux])
@@ -170,6 +170,11 @@ if test "x$build_gpfs" = "xyes"; then
     CPPFLAGS_SAVE=$CPPFLAGS
     CPPFLAGS=$GPFS_LIBS
     AC_CHECK_LIB([gpfs],[gpfs_stat],[ : ],[AC_MSG_ERROR("Error checking gpfs library. Install the gpfs development packages on this machine.")],[])
+    CPPFLAGS=$CPPFLAGS_SAVE
+
+    CPPFLAGS_SAVE=$CPPFLAGS
+    CPPFLAGS=$GPFS_LIBS
+    AC_CHECK_LIB([gpfs],[gpfs_get_winattrs_path],[ : ],[AC_MSG_ERROR("Error checking gpfs library. gpfs_get_winattrs_path not found. Please install gpfs development package >= 3.3.")],[])
     CPPFLAGS=$CPPFLAGS_SAVE
 
     AC_SUBST(GPFS_CFLAGS)
