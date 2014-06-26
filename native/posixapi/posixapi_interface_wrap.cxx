@@ -2260,6 +2260,42 @@ SWIGEXPORT jint JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJN
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_genericfs_1is_1file_1on_1disk(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  fs::genericfs *arg1 = (fs::genericfs *) 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(fs::genericfs **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  try {
+    result = (bool)(arg1)->is_file_on_disk((std::string const &)*arg2);
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return 0;
+    }
+  }
+  
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_posixapi_1interfaceJNI_genericfs_1change_1group_1ownership(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
   fs::genericfs *arg1 = (fs::genericfs *) 0 ;
   std::string *arg2 = 0 ;

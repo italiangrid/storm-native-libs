@@ -61,7 +61,7 @@ typedef struct {
 } fileset_name;
 
 /** This function initializes the gpfs_fileset_info struct so that it can be
- ** used with the gpfs_fcntl call **/ 
+ ** used with the gpfs_fcntl call **/
 static void init_gpfs_fileset_info(gpfs_fileset_info* i){
   i->hdr.totalLength = sizeof(i->hdr) + sizeof(i->fileset) + sizeof(i->pool);
   i->hdr.fcntlVersion = GPFS_FCNTL_CURRENT_VERSION;
@@ -74,8 +74,8 @@ static void init_gpfs_fileset_info(gpfs_fileset_info* i){
   i->pool.structType = GPFS_FCNTL_GET_STORAGEPOOL;
 }
 
-static 
-fileset_name 
+static
+fileset_name
 get_fileset_name(const std::string& fileset_root){
 
   fileset_name fs_name;
@@ -91,7 +91,7 @@ get_fileset_name(const std::string& fileset_root){
   init_gpfs_fileset_info(&i);
 
   int retval = gpfs_fcntl(fd, &i);
-  
+
   ::close(fd);
 
   if (retval){
@@ -133,7 +133,7 @@ get_fileset_name(const std::string& fileset_root){
  * call.
  */
 static void
-xgpfs_stat(const std::string& pathname, 
+xgpfs_stat(const std::string& pathname,
            stat64_t& output)
   throw(fs::error)
 {
@@ -141,7 +141,7 @@ xgpfs_stat(const std::string& pathname,
   if (-1 == rc)
     {
       std::ostringstream msg;
-      msg << __FILE__ 
+      msg << __FILE__
           << ": gpfs_stat(" << pathname << ") failed";
       throw fs::system_error(msg.str(), errno);
     }
@@ -152,12 +152,12 @@ xgpfs_stat(const std::string& pathname,
 // --- exported functions --- //
 
 /** Constructor, taking pathname of the filesystem mount point.
- * 
+ *
  * @throw fs::system_error if a system call fails;
  * fs::wrong_filesystem_type if given path does not point to a GPFS
  * filesystem
  */
-fs::gpfs::gpfs(const std::string& mntpath) 
+fs::gpfs::gpfs(const std::string& mntpath)
   throw(fs::wrong_filesystem_type, fs::error)
   : genericfs(mntpath)
 {
@@ -173,7 +173,7 @@ fs::gpfs::gpfs(const std::string& mntpath)
     } else { // ENOSYS, ENOENT, EPERM
       int err = errno;
       std::ostringstream msg;
-      msg << __FILE__ 
+      msg << __FILE__
           << ": gpfs_stat(" << mntpath << ") failed";
       throw system_error(msg.str(), err);
     }
@@ -199,19 +199,19 @@ fs::gpfs::gpfs(const std::string& mntpath)
  * @throw  fs::error, if a system call fails.
  */
 void
-fs::gpfs::prealloc (const std::string& filename, 
-                    const alloc_size_t size) 
+fs::gpfs::prealloc (const std::string& filename,
+                    const alloc_size_t size)
   throw(fs::error)
 {
-  int fd = open (filename.c_str(), 
-                 O_WRONLY|O_CREAT|O_LARGEFILE, 
+  int fd = open (filename.c_str(),
+                 O_WRONLY|O_CREAT|O_LARGEFILE,
                  S_IRUSR|S_IWUSR);
   if (-1 == fd)
     {
       int err = errno;
       std::ostringstream msg;
-      msg << __FILE__ 
-          << ": open(" << filename 
+      msg << __FILE__
+          << ": open(" << filename
           << ",O_WRONLY|O_CREAT|O_LARGEFILE,S_IRUSR|S_IWUSR) failed";
       throw system_error(msg.str(), err);
     }
@@ -221,7 +221,7 @@ fs::gpfs::prealloc (const std::string& filename,
     {
       int err = errno;
       std::ostringstream msg;
-      msg << __FILE__ 
+      msg << __FILE__
           << ": gpfs_prealloc(" << filename << "," << size << ") failed";
       close(fd);
      throw system_error(msg.str(), err);
@@ -243,7 +243,7 @@ fs::gpfs::prealloc (const std::string& filename,
  *
  * @param  filename  Pathname of the file whose size is to be returned.
  *
- * @return           Size of the file, or negative value if some error 
+ * @return           Size of the file, or negative value if some error
  *                   occurred.
  *
  * @throw fs::error, if a system call fails; std::logic_error if
@@ -255,20 +255,20 @@ fs::gpfs::get_exact_size (const std::string& filename)
 {
   stat64_t st;
   xgpfs_stat (filename, st); /* dereference symlinks */
-  
-  // when debugging, stop at this point 
+
+  // when debugging, stop at this point
   // if called with a directory name
   assert(S_ISREG(st.st_mode));
-  
-  if (S_ISREG(st.st_mode)) 
+
+  if (S_ISREG(st.st_mode))
     return st.st_size;
   else
     {
       // should not be called with a directory name,
       // throw @c std::logic_error
       std::ostringstream msg;
-      msg << "gpfs::get_size(" << filename 
-          << "): argument is a directory;" 
+      msg << "gpfs::get_size(" << filename
+          << "): argument is a directory;"
         "cannot return size of a directory.";
       throw std::logic_error(msg.str());
     }
@@ -277,7 +277,7 @@ fs::gpfs::get_exact_size (const std::string& filename)
 size_t
 fs::gpfs::get_number_of_blocks(const std::string& filename)
   throw(fs::error,std::logic_error){
-  
+
   stat64_t st;
   xgpfs_stat (filename, st);
 
@@ -286,8 +286,8 @@ fs::gpfs::get_number_of_blocks(const std::string& filename)
   }else{
 
       std::ostringstream msg;
-      msg << "gpfs::get_number_of_blocks(" << filename 
-          << "): argument is a directory;" 
+      msg << "gpfs::get_number_of_blocks(" << filename
+          << "): argument is a directory;"
         "cannot return the number of allocated blocks for a directory.";
       throw std::logic_error(msg.str());
   }
@@ -296,7 +296,7 @@ fs::gpfs::get_number_of_blocks(const std::string& filename)
 fs::quota_info
 fs::gpfs::get_fileset_quota_info(const std::string& fileset_root)
   throw(fs::error){
-  
+
   gpfs_quotaInfo_t gpfs_quota_info;
   fs::quota_info quota_info;
 
@@ -306,12 +306,12 @@ fs::gpfs::get_fileset_quota_info(const std::string& fileset_root)
       GPFS_QCMD(Q_GETQUOTA,GPFS_FILESETQUOTA),
       fs_name.id,
       &gpfs_quota_info)){
-    
+
     std::ostringstream msg;
 
     if (errno == GPFS_E_NO_QUOTA_INST){
 
-      msg << "This file system does not support quotas. Fileset root: " 
+      msg << "This file system does not support quotas. Fileset root: "
           << fileset_root;
       throw quota_not_supported(msg.str());
 
@@ -340,7 +340,7 @@ fs::gpfs::is_quota_enabled(const std::string& fileset_root)
   try{
 
     get_fileset_quota_info(fileset_root);
-    
+
   }catch(const quota_not_supported& ex){
     return false;
   }
@@ -350,16 +350,16 @@ fs::gpfs::is_quota_enabled(const std::string& fileset_root)
 /**
  *  Truncate the specified file to the desired size
  * @return 0 if success, -1 if error occours.
- * 
+ *
  * @throw fs::error, if the truncate system call fails.
- */ 
+ */
 
 int
-fs::gpfs::truncate_file (const std::string& filename, 
-                     size_t desired_size) 
+fs::gpfs::truncate_file (const std::string& filename,
+                     size_t desired_size)
   throw(fs::error)
 {
-	  			
+
   int res = truncate (filename.c_str(), desired_size);
   if (-1 == res)
     {
@@ -369,7 +369,7 @@ fs::gpfs::truncate_file (const std::string& filename,
       << desired_size << ") failed";
       throw system_error(msg.str(), err);
     }
-   
+
   return res;
 
 }
@@ -392,7 +392,7 @@ fs::gpfs::truncate_file (const std::string& filename,
  * @throw  fs::error, if a system call fails.
  */
 time_t
-fs::gpfs::get_exact_last_modification_time (const std::string& pathname) 
+fs::gpfs::get_exact_last_modification_time (const std::string& pathname)
   throw(fs::error)
 {
   stat64_t st;
@@ -400,10 +400,27 @@ fs::gpfs::get_exact_last_modification_time (const std::string& pathname)
   return st.st_mtime;
 }
 
-fs::fs_acl_ptr 
+fs::fs_acl_ptr
 fs::gpfs::new_acl () const
   throw(fs::error)
 {
    fs_acl_ptr p(new gpfs31_acl);
    return p;
+}
+
+bool
+fs::gpfs::is_file_on_disk(const std::string& filename)
+  throw(fs::error)
+{
+  gpfs_winattr_t wt;
+  if (gpfs_get_winattrs_path(const_cast<char*>(filename.c_str()), &wt))
+  {
+    int err = errno;
+    std::ostringstream msg;
+    msg << "gpfs::is_file_on_disk( " << filename
+        << " ): error invoking gpfs_get_winattrs_path";
+    throw system_error(msg.str(), err);
+  }
+
+  return !(wt.winAttrs & GPFS_WINATTR_OFFLINE);
 }
