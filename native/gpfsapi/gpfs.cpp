@@ -418,14 +418,9 @@ fs::gpfs::is_file_on_disk(const std::string& filename)
     int err = errno;
     std::ostringstream msg;
     msg << "gpfs::is_file_on_disk( " << filename
-      << " ): error invoking gpfs_get_winattrs_path";
+        << " ): error invoking gpfs_get_winattrs_path";
     throw system_error(msg.str(), err);
   }
 
-  if (wt.winAttrs & GPFS_WINATTR_OFFLINE)
-  {
-    return false;
-  }
-
-  return true;
+  return !(wt.winAttrs & GPFS_WINATTR_OFFLINE);
 }
