@@ -47,6 +47,8 @@ static const char* const RCSID="$Id: gpfs.cpp,v 1.10 2007/04/17 10:30:16 lmagnon
 #include <unistd.h>
 #include <iostream>
 #include <stdio.h>
+#include <cstdlib>
+
 
 /** GPFS struct used to retrieve the fileset name out of a file **/
 typedef struct {
@@ -117,6 +119,17 @@ get_fileset_name(const std::string& fileset_root){
   return fs_name;
 }
 
+static
+void delete_gpfs_fssnap_handle(gpfs_fssnap_handle_t* ptr){
+  if (ptr) ::free(ptr);
+}
+
+static 
+void delete_gpfs_iscan_handle(gpfs_iscan_t* ptr){
+  if (ptr) ::free(ptr);
+}
+
+
 // --- module local functions --- //
 
 /** Wrapper around gpfs_stat() call from libgpfs; throws a
@@ -147,7 +160,46 @@ xgpfs_stat(const std::string& pathname,
     }
 }
 
+static
+gpfs_iattr_t 
+get_gpfs_inode_attrs(const std::string& filename){
+  
+  const gpfs_iattr_t* inode_attrs;
+  gpfs_ino_t inode_num;
+  gpfs_ino_t max_inode_num;
+  
+  stat64_t stat_buf;
+  xgpfs_stat(filename, stat_buf);
 
+  inode_num = stat_buf.st_ino;
+  std::tr1::shared_ptr<gpfs_fssnap_handle_t> fs_ptr(
+    gpfs_get_fssnaphandle_by_path(filename.c_str()),
+    delete_gpfs_fssnap_handle);
+
+  if (!fs_ptr) {
+    std::ostringstream msg;
+    msg << "gpfs_get_fssnaphandle_by_path(' " << filename << "')";
+    throw fs::system_error(msg.str(), errno);
+  }
+  
+  std::tr1::shared_ptr<gpfs_iscan_t> iscan_ptr(
+      gpfs_open_inodescan(fs_ptr.get(), 0, &max_inode_num),
+      delete_gpfs_iscan_handle);
+
+  if (!iscan_ptr){
+    throw fs::system_error("gpfs_open_inodescan", errno);
+  }
+
+  if (gpfs_stat_inode(iscan_ptr.get(), inode_num, max_inode_num, &inode_attrs)){
+    throw fs::system_error("gpfs_stat_inode", errno);
+  }
+
+  if (!inode_attrs){
+    throw fs::error("gpfs_stat_inode: inode not found.");
+  }
+  
+  return *inode_attrs;
+}
 
 // --- exported functions --- //
 
@@ -423,4 +475,18 @@ fs::gpfs::is_file_on_disk(const std::string& filename)
   }
 
   return !(wt.winAttrs & GPFS_WINATTR_OFFLINE);
+}
+
+
+bool
+fs::gpfs::is_file_on_tape(const std::string& filename)
+  throw(fs::error)
+{
+  gpfs_iattr_t attrs = get_gpfs_inode_attrs(filename);
+  
+  return ( 
+    attrs.ia_flags & GPFS_IAFLAG_TRUNCMANAGED &&
+    attrs.ia_flags & GPFS_IAFLAG_READMANAGED &&
+    attrs.ia_flags & GPFS_IAFLAG_WRITEMANAGED);
+    
 }

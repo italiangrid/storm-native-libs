@@ -95,6 +95,9 @@ namespace fs {
     virtual bool is_file_on_disk(const std::string& filename)
       throw(fs::error);
 
+    virtual bool is_file_on_tape(const std::string& filename)
+      throw(fs::error);
+
   }; // class gpfs
 }; // namespace fs
 
