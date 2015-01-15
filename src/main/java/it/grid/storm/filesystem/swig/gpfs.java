@@ -72,4 +72,8 @@ public class gpfs extends genericfs {
     return (cPtr == 0) ? null : new fs_acl(cPtr, true);
   }
 
+  public boolean is_file_on_disk(String filename) throws it.grid.storm.filesystem.FilesystemError {
+    return gpfsapi_interfaceJNI.gpfs_is_file_on_disk(swigCPtr, this, filename);
+  }
+
 }

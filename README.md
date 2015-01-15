@@ -20,15 +20,37 @@ yum install epel-release
 
 ### Building
 
-You need git to get the code, and ant (libtool, automake, autoconf) and gcc and gcc-c++ to build it.
+#### Build-time dependencies
 
-The other dependcies are
+In order to build the storm native libs you will need the following packages
+installed:
 
+* autotools
+* pkgconfig
+* maven
+* swig >= 2.0.9
+* libacl-devel
 * lcmaps-without-gsi-devel
+* lcmaps-interface
+* java 1.6
+* gpfs.base >= 3.3
+
+
+To build the native part of the library:
 
 Build command:
 ```bash
 ./bootstrap
-./configure --with-java_home=%{java_home} --enable-gpfs
+./configure --with-java_home=${JAVA_HOME} --enable-gpfs
 make
+```
+
+If the stubs interface has changed you will also need the `--eneable-regen` flag.
+Stubs are committed in the repository as on SL the SWIG version is quite old
+and does not support smart pointers.
+
+To build the java part (to be built after the native part), just use:
+
+```
+mvn package
 ```

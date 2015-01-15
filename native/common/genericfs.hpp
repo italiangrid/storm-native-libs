@@ -19,7 +19,7 @@ typedef unsigned long alloc_size_t;
 #include "fs_errors.hpp"
 #include "fs_acl.hpp"
 
-// Separate abstract interface definition from 
+// Separate abstract interface definition from
 // posix specific implementation
 
 #include <string>
@@ -36,7 +36,7 @@ namespace fs {
   class genericfs {
   public:
     /** Constructor, taking path to the filesystem mount point. */
-    genericfs(const std::string& mountpoint) 
+    genericfs(const std::string& mountpoint)
       throw(fs::acl_not_supported, fs::error);
 
     /** Destructor. */
@@ -45,31 +45,31 @@ namespace fs {
     /** Return size of the available space on this filesystem (in
         bytes). */
     virtual size_t get_free_space () throw(fs::error);
-  
+
     /** Returns the number of blocks allocated to the file. **/
     virtual size_t get_number_of_blocks(const std::string& filename);
 
     /** Return the named file size in bytes; cached information may be
         returned, which can be not up-to-date. */
-    virtual size_t get_size (const std::string& filename) 
+    virtual size_t get_size (const std::string& filename)
       throw(fs::error, std::logic_error);
-  
+
     /** Return the last modification time (as UNIX epoch value) of the
         given file or directory; cached information may be returned, which
         can be not up-to-date. */
-    virtual time_t get_last_modification_time (const std::string& pathname) 
+    virtual time_t get_last_modification_time (const std::string& pathname)
       throw(fs::error);
-  
+
     /** Return the named file size in bytes; up-to-date information is
         returned, at the cost of forcing a cluster-wide flushing of
         metadata. */
-    virtual size_t get_exact_size (const std::string& filename) 
+    virtual size_t get_exact_size (const std::string& filename)
       throw(fs::error, std::logic_error);
-  
+
     /** Return the last modification time (as UNIX epoch value) of the
         passed file or directory; up-to-date information is returned, at
         the cost of forcing a cluster-wide flushing of metadata. */
-    virtual time_t get_exact_last_modification_time (const std::string& pathname) 
+    virtual time_t get_exact_last_modification_time (const std::string& pathname)
       throw(fs::error);
 
 	/** Truncate the specified file to the desired size in bytes.
@@ -77,10 +77,16 @@ namespace fs {
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
 
+    /** Returns false if a file present on disk was migrated to tape, true otherwise **/
+    /** For non-GPFS filesystems it always returns true **/
+    /** fs::error is raised if there's a problem accessing the filesystem or the file is **/
+    /** not found  **/
+    virtual bool is_file_on_disk(const std::string& filename)
+      throw(fs::error);
+
     /** Changes the group ownership for the given file **/
     virtual void change_group_ownership(const std::string& filename, const std::string& groupname)
       throw(fs::error);
-     
     /** Return a new instance of an %fs_acl subclass suitable for
         manipulating the ACLs on this filesystem. */
     virtual fs_acl_ptr new_acl() const
@@ -88,7 +94,7 @@ namespace fs {
 
   private:
     /** Path to the mount point of this filesystem. */
-    std::string mountpoint; 
+    std::string mountpoint;
   };
 
 };  // namespace fs
@@ -118,12 +124,12 @@ fs::genericfs::~genericfs() {
  * @throw fs::error, if a system call fails; std::logic_error if
  * argument is not a regular file.
  */
-inline size_t 
-fs::genericfs::get_exact_size (const std::string& filename) 
+inline size_t
+fs::genericfs::get_exact_size (const std::string& filename)
      throw(fs::error, std::logic_error)
 {
   // no metadata caching for the generic filesystem
-  return get_size(filename); 
+  return get_size(filename);
 }
 
 /**
@@ -141,7 +147,7 @@ fs::genericfs::get_exact_size (const std::string& filename)
  *
  * @throw  fs::error, if a system call fails.
  */
-inline time_t 
+inline time_t
 fs::genericfs::get_exact_last_modification_time(const std::string& pathname)
      throw(fs::error)
 {

@@ -119,7 +119,7 @@ fs::genericfs::get_number_of_blocks(const std::string& path){
    if (S_ISREG(st.st_mode)){
        return st.st_blocks;
    }else {
-       
+
       std::ostringstream msg;
       msg << "get_number_of_blocks(" << path
           << "): argument is a directory;"
@@ -131,7 +131,7 @@ fs::genericfs::get_number_of_blocks(const std::string& path){
 
 
 void
-fs::genericfs::change_group_ownership(const std::string& filename, 
+fs::genericfs::change_group_ownership(const std::string& filename,
     const std::string& groupname)
     throw(fs::error){
 
@@ -140,7 +140,7 @@ fs::genericfs::change_group_ownership(const std::string& filename,
     if (gr == 0){
         std::ostringstream msg;
         msg << "change_group_ownership("
-            << filename 
+            << filename
             << ","
             << groupname << "): groupname was not found.";
 
@@ -151,7 +151,7 @@ fs::genericfs::change_group_ownership(const std::string& filename,
         int err = errno;
         std::ostringstream msg;
         msg << "Error setting file '" << filename
-            << "' group ownership to group '" 
+            << "' group ownership to group '"
             << groupname << "(" << gr->gr_gid << ")" << "'.";
 
         throw system_error(msg.str(), err);
@@ -183,25 +183,21 @@ fs::genericfs::get_last_modification_time (const std::string& path)
  *
  * @throw fs::error, if the truncate system call fails.
  */
-
 int
-fs::genericfs::truncate_file (const std::string& filename,
-                     size_t desired_size)
-  throw(fs::error)
+fs::genericfs::truncate_file (const std::string& filename, size_t desired_size)
+throw(fs::error)
 {
   int res =  truncate (filename.c_str(),
-                 desired_size);
-
+      desired_size);
 
   if (-1 == res)
-    {
-      int err = errno;
-      std::ostringstream msg;
-      msg << __FILE__
-          << ": truncate(" << filename<<"," << desired_size << ") failed";
-      throw system_error(msg.str(), err);
-    }
-
+  {
+    int err = errno;
+    std::ostringstream msg;
+    msg << __FILE__
+      << ": truncate(" << filename<<"," << desired_size << ") failed";
+    throw system_error(msg.str(), err);
+  }
 }
 
 
@@ -218,4 +214,14 @@ fs::genericfs::get_free_space()
   struct statvfs st;
   xstatvfs (mountpoint, st);
   return st.f_bavail*st.f_bsize;
+}
+
+
+bool
+fs::genericfs::is_file_on_disk(const std::string& filename)
+  throw(fs::error)
+{
+  struct stat64 st;
+  xstat(filename, st);
+  return true;
 }

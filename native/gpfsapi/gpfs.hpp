@@ -33,7 +33,7 @@ namespace fs {
   typedef struct gpfs_fileset_quota_info {
     /** The fileset name **/
     std::string fileset_name;
-    
+
     /** The fileset id **/
     int fileset_id;
 
@@ -65,7 +65,7 @@ namespace fs {
         metadata. */
     virtual size_t get_exact_size (const std::string& filename)
       throw(fs::error, std::logic_error);
-    
+
     /** Return the last modification time (as UNIX epoch value) of the
         passed file or directory; up-to-date information is returned, at
         the cost of forcing a cluster-wide flushing of metadata. */
@@ -76,7 +76,7 @@ namespace fs {
         On success, zero is returned. On error, -1 is returned, and errno is set appropriately.  */
     virtual int truncate_file(const std::string&  filename, size_t desired_size)
       throw(fs::error);
-    
+
     /** Returns the number of blocks allocated to the file. **/
     virtual size_t get_number_of_blocks(const std::string& filename)
       throw(fs::error, std::logic_error);
@@ -92,8 +92,10 @@ namespace fs {
     virtual fs_acl_ptr new_acl() const
       throw(fs::error);
 
+    virtual bool is_file_on_disk(const std::string& filename)
+      throw(fs::error);
+
   }; // class gpfs
-    
 }; // namespace fs
 
 
