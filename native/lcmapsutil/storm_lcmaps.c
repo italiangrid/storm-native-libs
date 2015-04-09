@@ -22,7 +22,7 @@ signed int map_user(char* logfile, char *user_dn, char **fqan_list, int nfqan, i
 
 	//initialize lcmaps logging (must be done at each mapping)
 	int rc = lcmaps_init_and_logfile(logfile, NULL,
-							(unsigned short) 0x0003);
+							(unsigned short) 0x0001);
 	if (rc != 0)
 	{
 			//error, lcmaps initialization failed
