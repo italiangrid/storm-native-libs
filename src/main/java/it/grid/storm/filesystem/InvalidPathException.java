@@ -17,21 +17,11 @@
 
 /**
  * @file   InvalidPathException.java
- * @author Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri &lt;riccardo.murri@ictp.it&gt;
  *
  * Source code for class InvalidPathException
  *
  */
-/* 
- * Copyright (c) 2006, Riccardo Murri <riccardo.murri@ictp.it>
- * for the EGRID/INFN joint project StoRM.
- * 
- * You may copy, distribute and modify this file under the terms of
- * the LICENSE.txt file at the root of the StoRM backend source tree.
- *
- * $Id: InvalidPathException.java,v 1.1 2006/03/31 13:35:01 rmurri Exp $
- */
-
 package it.grid.storm.filesystem;
 
 /**
@@ -40,9 +30,8 @@ package it.grid.storm.filesystem;
  * exception thrown by C++ filesystem code, but the name has been retained from
  * the old it.grid.storm.wrapper package.
  *
- * @see fs::invalid_path
  * 
- * @author Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri &lt;riccardo.murri@ictp.it&gt;
  * @version $Revision: 1.1 $
  */
 public class InvalidPathException extends FilesystemError {

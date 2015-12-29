@@ -41,10 +41,9 @@ package it.grid.storm.filesystem;
  * Corresponds in usage to fs::acl_not_supported exception thrown by C++
  * filesystem code.
  *
- * @see fs::acl_not_supported
+ *
+ * @author Riccardo Murri &lt;riccardo.murri@ictp.it&gt;
  * 
- * @author Riccardo Murri <riccardo.murri@ictp.it>
- * @version $Revision: 1.1 $
  */
 public class AclNotSupported extends FilesystemError {
 
