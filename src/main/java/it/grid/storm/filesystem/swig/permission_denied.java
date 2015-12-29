@@ -9,22 +9,27 @@
 package it.grid.storm.filesystem.swig;
 
 public class permission_denied extends error {
+
   private long swigCPtr;
 
   protected permission_denied(long cPtr, boolean cMemoryOwn) {
+
     super(gpfsapi_interfaceJNI.permission_denied_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(permission_denied obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,6 +41,7 @@ public class permission_denied extends error {
   }
 
   public permission_denied(String reason) {
+
     this(gpfsapi_interfaceJNI.new_permission_denied(reason), true);
   }
 

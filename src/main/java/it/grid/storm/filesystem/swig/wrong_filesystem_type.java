@@ -9,22 +9,28 @@
 package it.grid.storm.filesystem.swig;
 
 public class wrong_filesystem_type extends error {
+
   private long swigCPtr;
 
   protected wrong_filesystem_type(long cPtr, boolean cMemoryOwn) {
-    super(gpfsapi_interfaceJNI.wrong_filesystem_type_SWIGUpcast(cPtr), cMemoryOwn);
+
+    super(gpfsapi_interfaceJNI.wrong_filesystem_type_SWIGUpcast(cPtr),
+      cMemoryOwn);
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(wrong_filesystem_type obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,6 +42,7 @@ public class wrong_filesystem_type extends error {
   }
 
   public wrong_filesystem_type(String reason) {
+
     this(gpfsapi_interfaceJNI.new_wrong_filesystem_type(reason), true);
   }
 

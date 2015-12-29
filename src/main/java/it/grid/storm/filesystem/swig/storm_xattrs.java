@@ -9,27 +9,34 @@
 package it.grid.storm.filesystem.swig;
 
 public class storm_xattrs {
+
   public static StringVector get_xattr_names(String path) {
+
     return new StringVector(storm_xattrsJNI.get_xattr_names(path), true);
   }
 
   public static String get_xattr_value(String path, String attr_name) {
+
     return storm_xattrsJNI.get_xattr_value(path, attr_name);
   }
 
   public static boolean xattr_is_set(String path, String attr_name) {
+
     return storm_xattrsJNI.xattr_is_set(path, attr_name);
   }
 
   public static void set_xattr(String path, String name) {
+
     storm_xattrsJNI.set_xattr__SWIG_0(path, name);
   }
 
   public static void set_xattr(String path, String name, String value) {
+
     storm_xattrsJNI.set_xattr__SWIG_1(path, name, value);
   }
 
   public static void remove_xattr(String path, String name) {
+
     storm_xattrsJNI.remove_xattr(path, name);
   }
 

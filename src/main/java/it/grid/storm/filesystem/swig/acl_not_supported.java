@@ -9,22 +9,27 @@
 package it.grid.storm.filesystem.swig;
 
 public class acl_not_supported extends error {
+
   private long swigCPtr;
 
   protected acl_not_supported(long cPtr, boolean cMemoryOwn) {
+
     super(gpfsapi_interfaceJNI.acl_not_supported_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(acl_not_supported obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,10 +41,12 @@ public class acl_not_supported extends error {
   }
 
   public acl_not_supported() {
+
     this(gpfsapi_interfaceJNI.new_acl_not_supported__SWIG_0(), true);
   }
 
   public acl_not_supported(String reason) {
+
     this(gpfsapi_interfaceJNI.new_acl_not_supported__SWIG_1(reason), true);
   }
 

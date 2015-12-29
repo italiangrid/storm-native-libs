@@ -9,22 +9,27 @@
 package it.grid.storm.filesystem.swig;
 
 public class system_error extends error {
+
   private long swigCPtr;
 
   protected system_error(long cPtr, boolean cMemoryOwn) {
+
     super(gpfsapi_interfaceJNI.system_error_SWIGUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(system_error obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,19 +41,24 @@ public class system_error extends error {
   }
 
   public system_error(String msg, int errnum) {
+
     this(gpfsapi_interfaceJNI.new_system_error__SWIG_0(msg, errnum), true);
   }
 
   public system_error(String msg) {
+
     this(gpfsapi_interfaceJNI.new_system_error__SWIG_1(msg), true);
   }
 
   public String getMessage() {
+
     return gpfsapi_interfaceJNI.system_error_getMessage(swigCPtr, this);
   }
 
   public String error_message(int errnum) {
-    return gpfsapi_interfaceJNI.system_error_error_message(swigCPtr, this, errnum);
+
+    return gpfsapi_interfaceJNI.system_error_error_message(swigCPtr, this,
+      errnum);
   }
 
 }

@@ -17,222 +17,218 @@ import it.grid.storm.filesystem.swig.storm_xattrs;
 
 public abstract class BaseFSUtil {
 
-	genericfs fs;
+  genericfs fs;
 
-	public static enum Command{
-		GET_FREE_SPACE,
-		GET_SIZE,
-		GET_EXACT_SIZE,
-		GET_LAST_MODIFICATION_TIME,
-		GET_EXACT_LAST_MODIFICATION_TIME,
-		CHANGE_GROUP_OWNERSHIP,
-		TRUNCATE,
-		PRINT_ACL,
-		SET_ACL,
-		PRINT_ATTRS,
-		SET_ATTR,
-		REMOVE_ATTR,
-		IS_FILE_ON_DISK;
-	}
+  public static enum Command {
+    GET_FREE_SPACE,
+    GET_SIZE,
+    GET_EXACT_SIZE,
+    GET_LAST_MODIFICATION_TIME,
+    GET_EXACT_LAST_MODIFICATION_TIME,
+    CHANGE_GROUP_OWNERSHIP,
+    TRUNCATE,
+    PRINT_ACL,
+    SET_ACL,
+    PRINT_ATTRS,
+    SET_ATTR,
+    REMOVE_ATTR,
+    IS_FILE_ON_DISK;
+  }
 
-	protected BaseFSUtil() {
+  protected BaseFSUtil() {
 
-	}
+  }
 
-	protected void fileSanityChecks(String fileName)
-			throws FileNotFoundException {
-				File f = new File(fileName);
+  protected void fileSanityChecks(String fileName) throws FileNotFoundException {
 
-				if (!f.exists()){
-					throw new FileNotFoundException(fileName);
-				}
-			}
+    File f = new File(fileName);
 
-	protected long longSanityChecks(String longStr) {
-		Long l = Long.parseLong(longStr);
-		return l;
-	}
+    if (!f.exists()) {
+      throw new FileNotFoundException(fileName);
+    }
+  }
 
-	protected boolean test(int bits, int permission) {
-		int result = bits & permission;
+  protected long longSanityChecks(String longStr) {
 
-		return (result == permission);
-	}
+    Long l = Long.parseLong(longStr);
+    return l;
+  }
 
-	protected String permissionString(int bits) {
+  protected boolean test(int bits, int permission) {
 
-		if ( test(bits, PERM_ALL))
-			return "ALL";
+    int result = bits & permission;
 
-		StringBuilder str = new StringBuilder();
-		if ( test(bits, PERM_READ_DATA))
-			str.append("r");
-		else
-			str.append("-");
+    return (result == permission);
+  }
 
-		if ( test(bits, PERM_WRITE_DATA) )
-			str.append("w");
-		else
-			str.append("-");
+  protected String permissionString(int bits) {
 
-		if ( test(bits, PERM_EXECUTE) )
-			str.append("x");
-		else
-			str.append("-");
+    if (test(bits, PERM_ALL))
+      return "ALL";
 
-		return str.toString();
-	}
+    StringBuilder str = new StringBuilder();
+    if (test(bits, PERM_READ_DATA))
+      str.append("r");
+    else
+      str.append("-");
 
-	protected void printACL(String file) {
+    if (test(bits, PERM_WRITE_DATA))
+      str.append("w");
+    else
+      str.append("-");
 
-		fs_acl acl = fs.new_acl();
-		acl.load(file);
+    if (test(bits, PERM_EXECUTE))
+      str.append("x");
+    else
+      str.append("-");
 
-		int ownerUid = acl.get_owner_uid();
-		int groupOwnerId = acl.get_group_owner_gid();
+    return str.toString();
+  }
 
-		String ownerName = posixapi_interface.username_from_uid(ownerUid);
-		String groupName = posixapi_interface.groupname_from_gid(groupOwnerId);
+  protected void printACL(String file) {
 
-		String ownerPerms = permissionString(acl.get_owner_perm());
-		String groupOwnerPerms = permissionString(acl.get_group_owner_perm());
-		String otherPerms = permissionString(acl.get_other_perm());
+    fs_acl acl = fs.new_acl();
+    acl.load(file);
 
-		System.out.format("# file: %s\n# owner: %s\n# group: %s\n",
-				file,
-				ownerName,
-				groupName);
+    int ownerUid = acl.get_owner_uid();
+    int groupOwnerId = acl.get_group_owner_gid();
 
+    String ownerName = posixapi_interface.username_from_uid(ownerUid);
+    String groupName = posixapi_interface.groupname_from_gid(groupOwnerId);
 
-		System.out.format("user::%s\n", ownerPerms);
+    String ownerPerms = permissionString(acl.get_owner_perm());
+    String groupOwnerPerms = permissionString(acl.get_group_owner_perm());
+    String otherPerms = permissionString(acl.get_other_perm());
 
+    System.out.format("# file: %s\n# owner: %s\n# group: %s\n", file,
+      ownerName, groupName);
 
-		for (int uid: acl.get_uid_list()){
+    System.out.format("user::%s\n", ownerPerms);
 
-			int perms = acl.get_user_perm(uid);
-			String name = posixapi_interface.username_from_uid(uid);
-			System.out.format("user:%s:%s\n",
-					name,
-					permissionString(perms));
-		}
+    for (int uid : acl.get_uid_list()) {
 
-		System.out.format("group::%s\n", groupOwnerPerms);
+      int perms = acl.get_user_perm(uid);
+      String name = posixapi_interface.username_from_uid(uid);
+      System.out.format("user:%s:%s\n", name, permissionString(perms));
+    }
 
-		for (int gid: acl.get_gid_list()){
-			int perms = acl.get_group_perm(gid);
-			String name = posixapi_interface.groupname_from_gid(gid);
-			System.out.format("group:%s:%s\n",
-					name,
-					permissionString(perms));
+    System.out.format("group::%s\n", groupOwnerPerms);
 
-		}
+    for (int gid : acl.get_gid_list()) {
+      int perms = acl.get_group_perm(gid);
+      String name = posixapi_interface.groupname_from_gid(gid);
+      System.out.format("group:%s:%s\n", name, permissionString(perms));
 
-		if (acl.get_uid_list().length > 0 || acl.get_gid_list().length > 0){
-			String maskPermString  = permissionString(acl.get_mask());
-			if (!maskPermString.equals("")){
-				System.out.format("mask::%s\n", maskPermString);
-			}
-		}
+    }
 
-		System.out.format("other:::%s\n", otherPerms);
+    if (acl.get_uid_list().length > 0 || acl.get_gid_list().length > 0) {
+      String maskPermString = permissionString(acl.get_mask());
+      if (!maskPermString.equals("")) {
+        System.out.format("mask::%s\n", maskPermString);
+      }
+    }
 
-	}
+    System.out.format("other:::%s\n", otherPerms);
 
-	protected void executeCommand(String[] args) throws FileNotFoundException {
-		String cmd = args[0].toUpperCase().replace("-", "_");
-		Command c = Command.valueOf(cmd);
+  }
 
-		switch(c){
+  protected void executeCommand(String[] args) throws FileNotFoundException {
 
-		case GET_FREE_SPACE:
-			System.out.format("free space: %d\n", fs.get_free_space());
-			break;
-		case GET_SIZE:
-			argsLengthCheck(args, 2, "get-size <filename>");
+    String cmd = args[0].toUpperCase().replace("-", "_");
+    Command c = Command.valueOf(cmd);
 
-			System.out.format("file size: %d\n", fs.get_size(args[1]));
-			break;
-		case GET_LAST_MODIFICATION_TIME:
-			argsLengthCheck(args, 2, "get-last-modification-time <filename>");
+    switch (c) {
 
-			System.out.format("file last modification time: %d\n", fs.get_last_modification_time(args[1]));
-			break;
+    case GET_FREE_SPACE:
+      System.out.format("free space: %d\n", fs.get_free_space());
+      break;
+    case GET_SIZE:
+      argsLengthCheck(args, 2, "get-size <filename>");
 
-		case TRUNCATE:
-			argsLengthCheck(args, 3, "truncate <filename> <size>");
+      System.out.format("file size: %d\n", fs.get_size(args[1]));
+      break;
+    case GET_LAST_MODIFICATION_TIME:
+      argsLengthCheck(args, 2, "get-last-modification-time <filename>");
 
-			fs.truncate_file(args[1], longSanityChecks(args[2]));
-			System.out.format("file %s truncate to size: %s\n", args[1], args[2]);
-			break;
-
-		case PRINT_ACL:
-			argsLengthCheck(args, 2, "print-acl <filename>");
-
-			printACL(args[1]);
-			break;
-
-		case PRINT_ATTRS:
-			argsLengthCheck(args, 2, "print-attrs <filename>");
-			printAttrs(args[1]);
-			break;
-
-		case CHANGE_GROUP_OWNERSHIP:
-			argsLengthCheck(args, 3, "change-group-ownership <filename> <groupname>");
-			changeGroupOwnership(args[1], args[2]);
-			break;
-
-		case IS_FILE_ON_DISK:
-		  argsLengthCheck(args, 2, "is-file-on-disk <filename>");
-		  isFileOnDisk(args[1]);
+      System.out.format("file last modification time: %d\n",
+        fs.get_last_modification_time(args[1]));
       break;
 
-		default:
-			throw new IllegalArgumentException("Unsupported command! "+args[0]);
-		}
+    case TRUNCATE:
+      argsLengthCheck(args, 3, "truncate <filename> <size>");
 
-		System.exit(0);
+      fs.truncate_file(args[1], longSanityChecks(args[2]));
+      System.out.format("file %s truncate to size: %s\n", args[1], args[2]);
+      break;
 
-	}
+    case PRINT_ACL:
+      argsLengthCheck(args, 2, "print-acl <filename>");
 
-	protected void isFileOnDisk(String filename) {
+      printACL(args[1]);
+      break;
 
-	  try{
+    case PRINT_ATTRS:
+      argsLengthCheck(args, 2, "print-attrs <filename>");
+      printAttrs(args[1]);
+      break;
 
-	    boolean isOnDisk = fs.is_file_on_disk(filename);
+    case CHANGE_GROUP_OWNERSHIP:
+      argsLengthCheck(args, 3, "change-group-ownership <filename> <groupname>");
+      changeGroupOwnership(args[1], args[2]);
+      break;
 
-	    System.out.format("File '%s' is %s on disk.\n",
-	      filename,
-	      (isOnDisk ? "" : "not"));
+    case IS_FILE_ON_DISK:
+      argsLengthCheck(args, 2, "is-file-on-disk <filename>");
+      isFileOnDisk(args[1]);
+      break;
 
-	  }catch(FilesystemError e){
-	    System.err.println(e.getMessage());
-	    System.exit(1);
-	  }
+    default:
+      throw new IllegalArgumentException("Unsupported command! " + args[0]);
+    }
+
+    System.exit(0);
+
+  }
+
+  protected void isFileOnDisk(String filename) {
+
+    try {
+
+      boolean isOnDisk = fs.is_file_on_disk(filename);
+
+      System.out.format("File '%s' is %s on disk.\n", filename, (isOnDisk ? ""
+        : "not"));
+
+    } catch (FilesystemError e) {
+      System.err.println(e.getMessage());
+      System.exit(1);
+    }
 
   }
 
   protected void changeGroupOwnership(String filename, String groupname) {
 
-		fs.change_group_ownership(filename, groupname);
+    fs.change_group_ownership(filename, groupname);
 
-	}
+  }
 
-	protected void printAttrs(String file) {
+  protected void printAttrs(String file) {
 
-		List<String> attrNames = storm_xattrs.get_xattr_names(file);
+    List<String> attrNames = storm_xattrs.get_xattr_names(file);
 
-		for (String attrName: attrNames){
+    for (String attrName : attrNames) {
 
-			String attrValue = storm_xattrs.get_xattr_value(file, attrName);
-			System.out.format("%s : %s\n", attrName, attrValue);
-		}
-	}
+      String attrValue = storm_xattrs.get_xattr_value(file, attrName);
+      System.out.format("%s : %s\n", attrName, attrValue);
+    }
+  }
 
-	protected void argsLengthCheck(String[] args, int lenght, String message) {
-		if (args.length < lenght){
-			System.err.format("Usage: FSUtil %s", message);
-			System.exit(1);
-		}
-	}
+  protected void argsLengthCheck(String[] args, int lenght, String message) {
+
+    if (args.length < lenght) {
+      System.err.format("Usage: FSUtil %s", message);
+      System.exit(1);
+    }
+  }
 
 }

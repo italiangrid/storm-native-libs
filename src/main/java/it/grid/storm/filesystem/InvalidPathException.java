@@ -34,24 +34,21 @@
 
 package it.grid.storm.filesystem;
 
-
 /**
- * Thrown when some filesystem operation is requested on a
- * non-existent or otherwise invalid path name.  Corresponds in usage
- * to fs::inavlid_path exception thrown by C++ filesystem code, but
- * the name has been retained from the old it.grid.storm.wrapper
- * package.
+ * Thrown when some filesystem operation is requested on a non-existent or
+ * otherwise invalid path name. Corresponds in usage to fs::inavlid_path
+ * exception thrown by C++ filesystem code, but the name has been retained from
+ * the old it.grid.storm.wrapper package.
  *
  * @see fs::invalid_path
  * 
- * @author  Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri <riccardo.murri@ictp.it>
  * @version $Revision: 1.1 $
  */
-public class InvalidPathException 
-    extends FilesystemError
-{
-    public InvalidPathException(final String msg) {
-        super(msg);
-    }
-}
+public class InvalidPathException extends FilesystemError {
 
+  public InvalidPathException(final String msg) {
+
+    super(msg);
+  }
+}

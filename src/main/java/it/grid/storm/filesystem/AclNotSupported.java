@@ -34,26 +34,22 @@
 
 package it.grid.storm.filesystem;
 
-
-
 /**
- * Thrown when some ACL manipulation is requested on a filesystem that
- * does not support ACLs, or when ACL support is not enabled in the
- * kernel.
+ * Thrown when some ACL manipulation is requested on a filesystem that does not
+ * support ACLs, or when ACL support is not enabled in the kernel.
  *
- * Corresponds in usage to fs::acl_not_supported exception thrown
- * by C++ filesystem code.
+ * Corresponds in usage to fs::acl_not_supported exception thrown by C++
+ * filesystem code.
  *
  * @see fs::acl_not_supported
  * 
- * @author  Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri <riccardo.murri@ictp.it>
  * @version $Revision: 1.1 $
  */
-public class AclNotSupported 
-    extends FilesystemError
-{
-    public AclNotSupported(final String msg) {
-        super(msg);
-    }
-}
+public class AclNotSupported extends FilesystemError {
 
+  public AclNotSupported(final String msg) {
+
+    super(msg);
+  }
+}

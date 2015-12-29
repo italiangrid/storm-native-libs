@@ -34,24 +34,22 @@
 
 package it.grid.storm.filesystem;
 
-
 /**
- * Thrown when an operation is attempted on the filesystem, for which
- * the StoRM process has insufficient privileges (see ENOPERM system
- * error code).  Corresponds in usage fs::permission_denied exception
- * thrown by the C++ filesystem code, but the name has been retained
- * from old it.grid.storm.wrapper code.
+ * Thrown when an operation is attempted on the filesystem, for which the StoRM
+ * process has insufficient privileges (see ENOPERM system error code).
+ * Corresponds in usage fs::permission_denied exception thrown by the C++
+ * filesystem code, but the name has been retained from old
+ * it.grid.storm.wrapper code.
  *
  * @see fs::permission_denied
  *
- * @author  Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri <riccardo.murri@ictp.it>
  * @version $Revision: 1.1 $
  */
-public class InvalidPermissionOnFileException 
-    extends FilesystemError
-{
-    public InvalidPermissionOnFileException(final String msg) {
-        super(msg);
-    }
-}
+public class InvalidPermissionOnFileException extends FilesystemError {
 
+  public InvalidPermissionOnFileException(final String msg) {
+
+    super(msg);
+  }
+}
