@@ -9,23 +9,28 @@
 package it.grid.storm.filesystem.swig;
 
 public class quota_info {
+
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
   protected quota_info(long cPtr, boolean cMemoryOwn) {
+
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(quota_info obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,26 +41,32 @@ public class quota_info {
   }
 
   public String getFileset_name() {
+
     return gpfsapi_interfaceJNI.quota_info_fileset_name_get(swigCPtr, this);
   }
 
   public int getFileset_id() {
+
     return gpfsapi_interfaceJNI.quota_info_fileset_id_get(swigCPtr, this);
   }
 
   public long getBlock_usage() {
+
     return gpfsapi_interfaceJNI.quota_info_block_usage_get(swigCPtr, this);
   }
 
   public long getBlock_hard_limit() {
+
     return gpfsapi_interfaceJNI.quota_info_block_hard_limit_get(swigCPtr, this);
   }
 
   public long getBlock_soft_limit() {
+
     return gpfsapi_interfaceJNI.quota_info_block_soft_limit_get(swigCPtr, this);
   }
 
   public quota_info() {
+
     this(gpfsapi_interfaceJNI.new_quota_info(), true);
   }
 

@@ -9,21 +9,40 @@
 package it.grid.storm.filesystem.swig;
 
 public class storm_xattrsJNI {
+
   public final static native long new_StringVector__SWIG_0();
+
   public final static native long new_StringVector__SWIG_1(long jarg1);
-  public final static native long StringVector_size_impl(long jarg1, StringVector jarg1_);
-  public final static native long StringVector_capacity(long jarg1, StringVector jarg1_);
-  public final static native void StringVector_reserve(long jarg1, StringVector jarg1_, long jarg2);
-  public final static native boolean StringVector_isEmpty(long jarg1, StringVector jarg1_);
-  public final static native void StringVector_clear(long jarg1, StringVector jarg1_);
-  public final static native void StringVector_push_back(long jarg1, StringVector jarg1_, String jarg2);
-  public final static native String StringVector_get_impl(long jarg1, StringVector jarg1_, int jarg2);
-  public final static native void StringVector_set_impl(long jarg1, StringVector jarg1_, int jarg2, String jarg3);
+
+  public final static native long StringVector_size_impl(long jarg1,
+    StringVector jarg1_);
+
+  public final static native long StringVector_capacity(long jarg1,
+    StringVector jarg1_);
+
+  public final static native void StringVector_reserve(long jarg1,
+    StringVector jarg1_, long jarg2);
+
+  public final static native boolean StringVector_isEmpty(long jarg1,
+    StringVector jarg1_);
+
+  public final static native void StringVector_clear(long jarg1,
+    StringVector jarg1_);
+
+  public final static native void StringVector_push_back(long jarg1,
+    StringVector jarg1_, String jarg2);
+
+  public final static native String StringVector_get_impl(long jarg1,
+    StringVector jarg1_, int jarg2);
+
+  public final static native void StringVector_set_impl(long jarg1,
+    StringVector jarg1_, int jarg2, String jarg3);
+
   public final static native void delete_StringVector(long jarg1);
 
   static {
     try {
-        System.loadLibrary("storm-xattrs");
+      System.loadLibrary("storm-xattrs");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. \n" + e);
       System.exit(1);
@@ -31,9 +50,15 @@ public class storm_xattrsJNI {
   }
 
   public final static native long get_xattr_names(String jarg1);
+
   public final static native String get_xattr_value(String jarg1, String jarg2);
+
   public final static native boolean xattr_is_set(String jarg1, String jarg2);
+
   public final static native void set_xattr__SWIG_0(String jarg1, String jarg2);
-  public final static native void set_xattr__SWIG_1(String jarg1, String jarg2, String jarg3);
+
+  public final static native void set_xattr__SWIG_1(String jarg1, String jarg2,
+    String jarg3);
+
   public final static native void remove_xattr(String jarg1, String jarg2);
 }

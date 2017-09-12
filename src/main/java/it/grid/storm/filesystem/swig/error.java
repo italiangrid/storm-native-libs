@@ -9,23 +9,28 @@
 package it.grid.storm.filesystem.swig;
 
 public class error extends it.grid.storm.filesystem.FilesystemError {
+
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
   protected error(long cPtr, boolean cMemoryOwn) {
+
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(error obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,10 +41,12 @@ public class error extends it.grid.storm.filesystem.FilesystemError {
   }
 
   public error(String reason) {
+
     this(gpfsapi_interfaceJNI.new_error(reason), true);
   }
 
   public String getMessage() {
+
     return gpfsapi_interfaceJNI.error_getMessage(swigCPtr, this);
   }
 

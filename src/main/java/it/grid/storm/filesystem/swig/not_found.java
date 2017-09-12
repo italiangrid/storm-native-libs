@@ -9,23 +9,28 @@
 package it.grid.storm.filesystem.swig;
 
 public class not_found {
+
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
   protected not_found(long cPtr, boolean cMemoryOwn) {
+
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(not_found obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
@@ -36,6 +41,7 @@ public class not_found {
   }
 
   public not_found(String msg) {
+
     this(posixapi_interfaceJNI.new_not_found(msg), true);
   }
 

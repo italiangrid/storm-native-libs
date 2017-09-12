@@ -9,24 +9,29 @@
 package it.grid.storm.filesystem.swig;
 
 public class posixfs_acl extends fs_acl {
+
   private long swigCPtr;
   private boolean swigCMemOwnDerived;
 
   protected posixfs_acl(long cPtr, boolean cMemoryOwn) {
+
     super(posixapi_interfaceJNI.posixfs_acl_SWIGSmartPtrUpcast(cPtr), true);
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
   protected static long getCPtr(posixfs_acl obj) {
+
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
   protected void finalize() {
+
     delete();
   }
 
   public synchronized void delete() {
+
     if (swigCPtr != 0) {
       if (swigCMemOwnDerived) {
         swigCMemOwnDerived = false;
@@ -38,26 +43,45 @@ public class posixfs_acl extends fs_acl {
   }
 
   public posixfs_acl() {
+
     this(posixapi_interfaceJNI.new_posixfs_acl(), true);
   }
 
-  public void load(String path, boolean delete_also) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
-    posixapi_interfaceJNI.posixfs_acl_load__SWIG_0(swigCPtr, this, path, delete_also);
+  public void load(String path, boolean delete_also)
+    throws it.grid.storm.filesystem.FilesystemError,
+    it.grid.storm.filesystem.InvalidPathException,
+    it.grid.storm.filesystem.InvalidPermissionOnFileException,
+    it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
+
+    posixapi_interfaceJNI.posixfs_acl_load__SWIG_0(swigCPtr, this, path,
+      delete_also);
   }
 
-  public void load(String path) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
+  public void load(String path)
+    throws it.grid.storm.filesystem.FilesystemError,
+    it.grid.storm.filesystem.InvalidPathException,
+    it.grid.storm.filesystem.InvalidPermissionOnFileException,
+    it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
+
     posixapi_interfaceJNI.posixfs_acl_load__SWIG_1(swigCPtr, this, path);
   }
 
-  public void enforce(String path) throws it.grid.storm.filesystem.FilesystemError, it.grid.storm.filesystem.InvalidPathException, it.grid.storm.filesystem.InvalidPermissionOnFileException, it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
+  public void enforce(String path)
+    throws it.grid.storm.filesystem.FilesystemError,
+    it.grid.storm.filesystem.InvalidPathException,
+    it.grid.storm.filesystem.InvalidPermissionOnFileException,
+    it.grid.storm.filesystem.AclNotSupported, java.lang.RuntimeException {
+
     posixapi_interfaceJNI.posixfs_acl_enforce(swigCPtr, this, path);
   }
 
   public static int to_permission_t(int perm) {
+
     return posixapi_interfaceJNI.posixfs_acl_to_permission_t(perm);
   }
 
   public static int from_permission_t(int perm) {
+
     return posixapi_interfaceJNI.posixfs_acl_from_permission_t(perm);
   }
 

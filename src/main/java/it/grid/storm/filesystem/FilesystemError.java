@@ -31,28 +31,30 @@
 
 package it.grid.storm.filesystem;
 
-/** Root class for all exceptions thrown by classes in the {@link
- * it.grid.storm.filesystem} package.
+/**
+ * Root class for all exceptions thrown by classes in the
+ * {@link it.grid.storm.filesystem} package.
  * 
- * @author Riccardo Murri <riccardo.murri@ictp.it>
+ * @author Riccardo Murri &lt;riccardo.murri@ictp.it&gt;
  * @version $Revision: 1.1 $
  */
-public class FilesystemError 
-    extends RuntimeException
-{
-    /** Constructor, taking error message. Chains the parameter to the
-     * superclass. 
-     */
-    public FilesystemError(final String msg)
-    {
-        super(msg);
-    }
+public class FilesystemError extends RuntimeException {
 
-    /** Constructor with no parameters; for subclasses that implement
-     * their own getMessage() method only.
-     */
-    protected FilesystemError()
-    {
-        // subclasses need to implement getMessage()
-    }
+  /**
+   * Constructor, taking error message. Chains the parameter to the superclass.
+   * @param msg the error message
+   */
+  public FilesystemError(final String msg) {
+
+    super(msg);
+  }
+
+  /**
+   * Constructor with no parameters; for subclasses that implement their own
+   * getMessage() method only.
+   */
+  protected FilesystemError() {
+
+    // subclasses need to implement getMessage()
+  }
 }
