@@ -9,24 +9,34 @@ pipeline {
   triggers { cron('@daily') }
 
   stages {
-	stage('prepare'){
-	  steps {
-	    checkout scm
-	  }
-	}
-
 	stage('analysis'){
 	  steps {
-		script {
-		  def cobertura_opts = 'cobertura:cobertura -Dmaven.test.failure.ignore -DfailIfNoTests=false -Dcobertura.report.format=xml'
-		  def checkstyle_opts = 'checkstyle:check -Dcheckstyle.config.location=google_checks.xml'
+	    container('maven-runner'){
+		  script {
+		    def cobertura_opts = 'cobertura:cobertura -Dmaven.test.failure.ignore -DfailIfNoTests=false -Dcobertura.report.format=xml'
+		    def checkstyle_opts = 'checkstyle:check -Dcheckstyle.config.location=google_checks.xml'
 
-		  withSonarQubeEnv{ sh "mvn clean -U ${cobertura_opts} ${checkstyle_opts} ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_AUTH_TOKEN}" }
+		    withSonarQubeEnv{ sh "mvn clean -U ${cobertura_opts} ${checkstyle_opts} ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_AUTH_TOKEN}" }
+		  }
 		}
 	  }
 	}
 
-	stage('deploy'){ steps { sh "mvn clean -U -B deploy" } }
+	stage('deploy'){
+	  steps {
+	    container('maven-runner'){ 
+	      sh "mvn clean -U -B deploy" 
+	    } 
+	  }
+	}
+	
+	stage('result'){
+      steps {
+        script {
+          currentBuild.result = 'SUCCESS'
+        }
+      }
+    }
   }
 
   post {
