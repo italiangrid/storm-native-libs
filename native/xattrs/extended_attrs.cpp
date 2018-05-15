@@ -2,7 +2,7 @@
 // added include sys/types to solve the following error
 // on EL7 
 // /usr/include/attr/xattr.h:43:8: error: 'ssize_t' does not name a type
-#include <sys/types.h>
+# #include <sys/types.h>
 #include <attr/xattr.h>
 #include <iostream>
 #include <sstream>
