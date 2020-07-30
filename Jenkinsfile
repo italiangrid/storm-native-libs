@@ -24,10 +24,8 @@ pipeline {
       steps {
         script {
           def cobertura_opts = 'cobertura:cobertura -Dmaven.test.failure.ignore -DfailIfNoTests=false -Dcobertura.report.format=xml'
-	  def checkstyle_opts = 'checkstyle:check -Dcheckstyle.config.location=google_checks.xml'
-          withSonarQubeEnv {
-            sh "mvn clean -U ${cobertura_opts} ${checkstyle_opts} ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_AUTH_TOKEN}"
-          }
+          def checkstyle_opts = 'checkstyle:check -Dcheckstyle.config.location=google_checks.xml'
+          sh "mvn clean -U ${cobertura_opts} ${checkstyle_opts}"
         }
       }
     }
