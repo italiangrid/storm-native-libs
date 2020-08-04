@@ -1,4 +1,5 @@
 #include "extended_attrs.hpp"
+#include <sys/types.h>
 #include <attr/xattr.h>
 #include <iostream>
 #include <sstream>
