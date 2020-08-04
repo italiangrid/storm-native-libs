@@ -404,7 +404,7 @@ fs::fs_acl_ptr
 fs::gpfs::new_acl () const
   throw(fs::error)
 {
-   fs_acl_ptr p(new gpfs31_acl);
+   fs_acl_ptr p(new posixfs_acl);
    return p;
 }
 
