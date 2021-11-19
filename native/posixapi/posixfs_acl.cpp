@@ -320,8 +320,8 @@ posixfs_acl::load (const string& pathname, const bool delete_permission_too)
         set_group_owner_perm (to_permission_t(perm));
       else if (ACL_OTHER == tag)
         set_other_perm(to_permission_t(perm));
-      else if (ACL_MASK == tag)
-        set_mask(to_permission_t(perm));
+      //else if (ACL_MASK == tag)
+      //  set_mask(to_permission_t(perm));
       else if(ACL_USER == tag)
         {
           uid_t *uid_p = (uid_t*)acl_get_qualifier (entry);

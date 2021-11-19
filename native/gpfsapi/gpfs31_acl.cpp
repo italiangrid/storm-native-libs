@@ -246,7 +246,7 @@ gpfs31_acl::load(const string& path, const bool delete_permission_too)
         set_other_perm(gpfs_perm_to_permission_t(perm));
         break;
       case GPFS_ACL_MASK:
-        set_mask(gpfs_perm_to_permission_t(perm));
+        //set_mask(gpfs_perm_to_permission_t(perm));
         break;
       case GPFS_ACL_USER:
         set_user_perm((uid_t) who, gpfs_perm_to_permission_t(perm));
