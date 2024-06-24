@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS=-I m4
 
 if BUILD_ALL
-SUBDIRS = common posixapi xattrs gpfsapi lcmapsutil
+SUBDIRS = common posixapi xattrs gpfsapi
 else
 SUBDIRS = posixapi gpfsapi xattrs
 endif
