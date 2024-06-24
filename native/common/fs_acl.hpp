@@ -135,14 +135,13 @@ class fs_acl {
       ACL.*/
   virtual void clear();
 
-  /** Load ACL from a given file or directory, and store it in current object. */
-  virtual void load(const std::string& pathname, 
-                    const bool delete_also = false) 
-    throw(fs::error, std::exception) = 0;
+  /** Load ACL from a given file or directory, and store it in current object.
+   */
+  virtual void load(const std::string& pathname,
+                    const bool delete_also = false) = 0;
 
   /** Store current ACL into the given file or directory. */
-  virtual void enforce(const std::string& pathname) const
-    throw(fs::error, std::exception) = 0;
+  virtual void enforce(const std::string& pathname) const = 0;
 
   /** Default constructor. All fields are initialized to null values,
      which is a fairly restrictive default, resulting in denying any

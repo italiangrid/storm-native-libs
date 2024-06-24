@@ -56,7 +56,6 @@ const char* const RCSID="$Id: genericfs.cpp,v 1.10 2007/04/17 10:30:16 lmagnoni 
  * @throw  fs::error, if a system call fails.
  */
 fs::genericfs::genericfs(const std::string& mntpath)
-  throw(fs::acl_not_supported, fs::error)
   : mountpoint(mntpath)
 {
     ; // empty
@@ -77,7 +76,6 @@ fs::genericfs::genericfs(const std::string& mntpath)
  */
 size_t
 fs::genericfs::get_size (const std::string& path)
-  throw(fs::error, std::logic_error)
 {
   struct stat64 st;
   xstat(path, st);
@@ -133,7 +131,7 @@ fs::genericfs::get_number_of_blocks(const std::string& path){
 void
 fs::genericfs::change_group_ownership(const std::string& filename,
     const std::string& groupname)
-    throw(fs::error){
+{
 
     struct group *gr = getgrnam(groupname.c_str());
 
@@ -170,7 +168,6 @@ fs::genericfs::change_group_ownership(const std::string& filename,
  */
 time_t
 fs::genericfs::get_last_modification_time (const std::string& path)
-  throw(fs::error)
 {
   struct stat64 st;
   xstat(path, st);
@@ -185,7 +182,6 @@ fs::genericfs::get_last_modification_time (const std::string& path)
  */
 int
 fs::genericfs::truncate_file (const std::string& filename, size_t desired_size)
-throw(fs::error)
 {
   int res =  truncate (filename.c_str(),
       desired_size);
@@ -198,6 +194,8 @@ throw(fs::error)
       << ": truncate(" << filename<<"," << desired_size << ") failed";
     throw system_error(msg.str(), err);
   }
+
+  return res;
 }
 
 
@@ -209,7 +207,6 @@ throw(fs::error)
  */
 size_t
 fs::genericfs::get_free_space()
-  throw(fs::error)
 {
   struct statvfs st;
   xstatvfs (mountpoint, st);
@@ -219,7 +216,6 @@ fs::genericfs::get_free_space()
 
 bool
 fs::genericfs::is_file_on_disk(const std::string& filename)
-  throw(fs::error)
 {
   struct stat64 st;
   xstat(filename, st);

@@ -281,9 +281,6 @@ make_perm_from_permset (const acl_permset_t &permset)
  */
 void
 posixfs_acl::load (const string& pathname, const bool delete_permission_too)
-  throw(fs::error, fs::invalid_path,
-        fs::permission_denied, fs::acl_not_supported,
-        std::exception)
 {
   const char *const path = pathname.c_str();
 
@@ -435,11 +432,7 @@ add_to_acl (acl_t *acl_p,
  *          if some system call failed.
  */
 void
-posixfs_acl::enforce(const string& pathname)
-  const
-  throw(fs::error, fs::invalid_path,
-        fs::permission_denied, fs::acl_not_supported,
-        std::exception)
+posixfs_acl::enforce(const string& pathname) const
 {
   // create an acl_t (suitable for passing to the libacl functions)
   // containing the ACL specified stored in this object

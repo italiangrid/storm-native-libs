@@ -54,7 +54,6 @@
  */
 helper_command::helper_command(const std::string& cmd, 
                                const std::string& path) 
-  throw (std::length_error) 
   : 
       terminated(false),
       cmd_stdin(NULL), 
@@ -92,7 +91,6 @@ helper_command::~helper_command()
 /** Run the helper command and return a std::istream for reading the command STDOUT. */
 std::istream&
 helper_command::run_and_return_stdout()
-  throw(helper_command::cannot_run)
 {
 #ifdef HAVE_STDIO_FILEBUF
   // see http://www.codecomments.com/archive272-2005-5-508094.html
@@ -111,7 +109,6 @@ helper_command::run_and_return_stdout()
 /** Run the helper command and return a std::ostream for writing to the command STDIN. */
 std::ostream&
 helper_command::run_and_return_stdin()
-  throw(helper_command::cannot_run)
 {
 #ifdef HAVE_STDIO_FILEBUF
   // see http://www.codecomments.com/archive272-2005-5-508094.html

@@ -56,7 +56,6 @@ RCSID = "$Id: util.cpp,v 1.4 2006/03/28 08:24:52 rmurri Exp $";
  */
 void
 fs::xstat(const std::string& filename, struct stat64& output)
-  throw(fs::system_error)
 {
   int rc = stat64(filename.c_str(), &output);
   if (-1 == rc)
@@ -81,7 +80,6 @@ fs::xstat(const std::string& filename, struct stat64& output)
  */
 void
 fs::xstatvfs(const std::string& filename, struct statvfs& output)
-  throw(fs::system_error)
 
 {
   int rc = statvfs(filename.c_str(), &output);

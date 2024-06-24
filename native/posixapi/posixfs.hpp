@@ -31,11 +31,9 @@ namespace fs {
   class posixfs : public fs::genericfs {
   public:
     /** Constructor, taking pathname of the filesystem mount point. */
-      posixfs(const std::string& mntpath)
-      throw(fs::acl_not_supported, fs::error);
+      posixfs(const std::string& mntpath);
 
-      virtual fs_acl_ptr new_acl() const
-      throw(fs::error);
+      virtual fs_acl_ptr new_acl() const;
   }; // class posixfs
   
 }; // namespace fs

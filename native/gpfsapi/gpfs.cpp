@@ -135,7 +135,6 @@ get_fileset_name(const std::string& fileset_root){
 static void
 xgpfs_stat(const std::string& pathname,
            stat64_t& output)
-  throw(fs::error)
 {
   int rc = gpfs_stat(const_cast<char*>(pathname.c_str()), &output);
   if (-1 == rc)
@@ -158,7 +157,6 @@ xgpfs_stat(const std::string& pathname,
  * filesystem
  */
 fs::gpfs::gpfs(const std::string& mntpath)
-  throw(fs::wrong_filesystem_type, fs::error)
   : genericfs(mntpath)
 {
   // check if given mountpoint is gpfs, by calling 'gpfs_stat'
@@ -201,7 +199,6 @@ fs::gpfs::gpfs(const std::string& mntpath)
 void
 fs::gpfs::prealloc (const std::string& filename,
                     const alloc_size_t size)
-  throw(fs::error)
 {
   int fd = open (filename.c_str(),
                  O_WRONLY|O_CREAT|O_LARGEFILE,
@@ -251,7 +248,6 @@ fs::gpfs::prealloc (const std::string& filename,
  */
 size_t
 fs::gpfs::get_exact_size (const std::string& filename)
-  throw(fs::error, std::logic_error)
 {
   stat64_t st;
   xgpfs_stat (filename, st); /* dereference symlinks */
@@ -276,7 +272,7 @@ fs::gpfs::get_exact_size (const std::string& filename)
 
 size_t
 fs::gpfs::get_number_of_blocks(const std::string& filename)
-  throw(fs::error,std::logic_error){
+{
 
   stat64_t st;
   xgpfs_stat (filename, st);
@@ -295,7 +291,7 @@ fs::gpfs::get_number_of_blocks(const std::string& filename)
 
 fs::quota_info
 fs::gpfs::get_fileset_quota_info(const std::string& fileset_root)
-  throw(fs::error){
+{
 
   gpfs_quotaInfo_t gpfs_quota_info;
   fs::quota_info quota_info;
@@ -335,7 +331,7 @@ fs::gpfs::get_fileset_quota_info(const std::string& fileset_root)
 
 bool
 fs::gpfs::is_quota_enabled(const std::string& fileset_root)
-  throw(fs::error){
+{
 
   try{
 
@@ -357,7 +353,6 @@ fs::gpfs::is_quota_enabled(const std::string& fileset_root)
 int
 fs::gpfs::truncate_file (const std::string& filename,
                      size_t desired_size)
-  throw(fs::error)
 {
 
   int res = truncate (filename.c_str(), desired_size);
@@ -393,7 +388,6 @@ fs::gpfs::truncate_file (const std::string& filename,
  */
 time_t
 fs::gpfs::get_exact_last_modification_time (const std::string& pathname)
-  throw(fs::error)
 {
   stat64_t st;
   xgpfs_stat (pathname, st); /* dereference symlinks */
@@ -402,7 +396,6 @@ fs::gpfs::get_exact_last_modification_time (const std::string& pathname)
 
 fs::fs_acl_ptr
 fs::gpfs::new_acl () const
-  throw(fs::error)
 {
    fs_acl_ptr p(new posixfs_acl);
    return p;
@@ -410,7 +403,6 @@ fs::gpfs::new_acl () const
 
 bool
 fs::gpfs::is_file_on_disk(const std::string& filename)
-  throw(fs::error)
 {
   gpfs_winattr_t wt;
   if (gpfs_get_winattrs_path(const_cast<char*>(filename.c_str()), &wt))

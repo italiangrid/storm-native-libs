@@ -28,23 +28,19 @@
 namespace fs {
 /** Return the UID associated with the given user name, or throw an
 	exception if not found. */
-uid_t uid_from_username (const std::string& name)
-	 throw(fs::system_error, std::runtime_error);
+uid_t uid_from_username (const std::string& name);
 
 /** Return the GID associated with the given group name, or throw an
 	exception if not found. */
-gid_t gid_from_groupname (const std::string& name)
-	 throw(fs::system_error, std::runtime_error);
+gid_t gid_from_groupname (const std::string& name);
   
 /** Append the user name associated with the given UID to the string
 	pointed by @a output. */
-std::string username_from_uid (const uid_t uid)
-	 throw(fs::system_error);
+std::string username_from_uid (const uid_t uid);
   
 /** Append the group name associated with the given GID to the
 	string pointed by @a output.  */
-std::string groupname_from_gid (const gid_t gid)
-	 throw(fs::system_error);
+std::string groupname_from_gid (const gid_t gid);
 
 
 /** Thrown when any of the above functions cannot map a username to

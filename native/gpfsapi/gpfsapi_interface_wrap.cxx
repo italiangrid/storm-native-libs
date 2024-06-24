@@ -747,14 +747,6 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   try {
     (arg1)->load((std::string const &)*arg2,arg3);
   }
-  catch(fs::error &_e) {
-    {
-      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
-      if (excep)
-      jenv->ThrowNew(excep, (&_e)->what());
-      return ;
-    }
-  }
   catch(fs::invalid_path &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
@@ -774,6 +766,14 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   catch(fs::acl_not_supported &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
       if (excep)
       jenv->ThrowNew(excep, (&_e)->what());
       return ;
@@ -814,14 +814,6 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   try {
     (arg1)->load((std::string const &)*arg2);
   }
-  catch(fs::error &_e) {
-    {
-      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
-      if (excep)
-      jenv->ThrowNew(excep, (&_e)->what());
-      return ;
-    }
-  }
   catch(fs::invalid_path &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
@@ -841,6 +833,14 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   catch(fs::acl_not_supported &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
       if (excep)
       jenv->ThrowNew(excep, (&_e)->what());
       return ;
@@ -881,14 +881,6 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   try {
     ((gpfs31_acl const *)arg1)->enforce((std::string const &)*arg2);
   }
-  catch(fs::error &_e) {
-    {
-      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
-      if (excep)
-      jenv->ThrowNew(excep, (&_e)->what());
-      return ;
-    }
-  }
   catch(fs::invalid_path &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/InvalidPathException");
@@ -908,6 +900,14 @@ SWIGEXPORT void JNICALL Java_it_grid_storm_filesystem_swig_gpfsapi_1interfaceJNI
   catch(fs::acl_not_supported &_e) {
     {
       jclass excep = jenv->FindClass("it/grid/storm/filesystem/AclNotSupported");
+      if (excep)
+      jenv->ThrowNew(excep, (&_e)->what());
+      return ;
+    }
+  }
+  catch(fs::error &_e) {
+    {
+      jclass excep = jenv->FindClass("it/grid/storm/filesystem/FilesystemError");
       if (excep)
       jenv->ThrowNew(excep, (&_e)->what());
       return ;

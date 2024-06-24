@@ -37,10 +37,10 @@ namespace fs {
 
     /** Destructor.  Does nothing, but declared here because the @c
         std::exception one has a no-throw clause. */
-    virtual ~error() throw() { }
+    virtual ~error() { }
 
     /** Return error message as <code>const char*</code>. */
-    virtual const char* what() const throw() { return errmsg.c_str(); }
+    virtual const char* what() const noexcept { return errmsg.c_str(); }
 
   protected:
 
@@ -69,10 +69,10 @@ namespace fs {
 
     /** Destructor.  Does nothing, but declared here because the @c
         std::exception one has a no-throw clause. */
-    virtual ~system_error() throw() { }
+    virtual ~system_error() { }
 
     /** Return error message as <code>const char*</code>. */
-    virtual const char* what() const throw() { return errmsg.c_str(); }
+    virtual const char* what() const noexcept { return errmsg.c_str(); }
 
     /** Returns error description, given the error code. */
     std::string error_message (const int errnum);
