@@ -149,6 +149,11 @@ AC_CHECK_LIB([acl],
     [AC_MSG_ERROR("Error checking libacl. Please install the libacl-devel package.")]
     )
 
+AC_CHECK_HEADER([lcmaps/lcmaps.h],
+    [],
+    [AC_MSG_ERROR("Could not find lcmaps.h. Please install the lcmaps-interface package.")],
+    [])
+
 if test "x$build_gpfs" = "xyes"; then
     GPFS_CFLAGS="-I$with_gpfs_prefix/include"
     GPFS_LIBS="-L$with_gpfs_prefix/lib -lgpfs"
@@ -182,5 +187,6 @@ AC_CONFIG_FILES([Makefile
                  common/Makefile
                  posixapi/Makefile
                  xattrs/Makefile
-                 gpfsapi/Makefile])
+                 gpfsapi/Makefile
+                 lcmapsutil/Makefile])
 AC_OUTPUT

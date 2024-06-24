@@ -27,6 +27,8 @@ installed:
 * maven
 * swig >= 2.0.9
 * libacl-devel
+* libattr-devel
+* lcmaps-interface
 * java 11
 * gpfs.base >= 5.1.9
 
