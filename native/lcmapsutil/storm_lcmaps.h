@@ -26,3 +26,4 @@
 signed int map_user(char* logfile, char *user_dn, char **fqan_list, int nfqan, int *uid, int *gid);
 
 #endif /* STORM_LCMAPS_H_ */
+
