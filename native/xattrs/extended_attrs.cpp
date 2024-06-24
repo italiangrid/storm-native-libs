@@ -139,7 +139,7 @@ fs::xattr_is_set(const string& file, const string& attr_name){
 
     if (attr_value_length < 0){
 
-        if (errno == ENOATTR)
+        if (errno == ENODATA)
             return false;
 
         raise_error("Error retrieving extended attribute", file.c_str(), attr_name.c_str());
