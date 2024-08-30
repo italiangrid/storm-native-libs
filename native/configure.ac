@@ -1,4 +1,4 @@
-AC_INIT([storm-native-libs], [2.0.0], enrico.vianelloi@cnaf.infn.it)
+AC_INIT([storm-native-libs], [2.1.0], enrico.vianelloi@cnaf.infn.it)
 AC_PREFIX_DEFAULT([/usr])
 
 AC_CONFIG_AUX_DIR([./aux])
