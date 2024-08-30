@@ -1,16 +1,6 @@
-@Library('sd')_
-def kubeLabel = getKubeLabel()
-
 pipeline {
 
-  agent {
-    kubernetes {
-      label "${kubeLabel}"
-      cloud 'Kube mwdevel'
-      defaultContainer 'runner'
-      inheritFrom 'ci-template'
-    }
-  }
+  agent { label 'java17' }
 
   options {
 	buildDiscarder(logRotator(numToKeepStr: '5'))
