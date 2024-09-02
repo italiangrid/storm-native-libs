@@ -154,6 +154,9 @@ AC_CHECK_HEADER([lcmaps/lcmaps.h],
     [AC_MSG_ERROR("Could not find lcmaps.h. Please install the lcmaps-interface package.")],
     [])
 
+## Check lcmaps-without-gsi
+PKG_CHECK_MODULES([LCMAPS],[lcmaps-return-poolindex-without-gsi])
+
 if test "x$build_gpfs" = "xyes"; then
     GPFS_CFLAGS="-I$with_gpfs_prefix/include"
     GPFS_LIBS="-L$with_gpfs_prefix/lib -lgpfs"
