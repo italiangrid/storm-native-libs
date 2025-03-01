@@ -15,6 +15,15 @@
 #ifndef STORM_LCMAPS_H_
 #define STORM_LCMAPS_H_
 
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <lcmaps/lcmaps.h>
+#include <lcmaps/lcmaps_account.h>
+#include <lcmaps/lcmaps_return_poolindex_without_gsi.h>
+
 /*
  * return codes: 0 success
  * 				 1 error, lcmaps initialization failed
