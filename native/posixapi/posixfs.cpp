@@ -49,8 +49,7 @@ static const char* const RCSID="$Id: posixfs.cpp,v 1.1 2006/05/26 09:24:58 amess
  * fs::wrong_filesystem_type if given path does not point to a POSIXFS
  * filesystem
  */
-fs::posixfs::posixfs (const std::string& mntpath) 
-  throw(fs::acl_not_supported, fs::error)
+fs::posixfs::posixfs (const std::string& mntpath)
   : genericfs(mntpath)
 {
   acl_t acl;
@@ -81,7 +80,6 @@ fs::posixfs::posixfs (const std::string& mntpath)
 
 fs::fs_acl_ptr
 fs::posixfs::new_acl() const
-  throw(fs::error)
 {
   fs_acl_ptr p(new posixfs_acl);
   return p;

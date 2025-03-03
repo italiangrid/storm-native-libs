@@ -52,48 +52,38 @@ namespace fs {
   class gpfs : public fs::genericfs {
   public:
     /** Constructor, taking pathname of the filesystem mount point. */
-    gpfs(const std::string& mntpath)
-      throw(fs::wrong_filesystem_type, fs::error);
+    gpfs(const std::string& mntpath);
 
     /** Preallocate filesystem blocks on a inode.  The file is created, if
         it does not exist. */
-    virtual void prealloc (const std::string& filename, const alloc_size_t size)
-      throw(fs::error);
+    virtual void prealloc (const std::string& filename, const alloc_size_t size);
 
     /** Return the named file size in bytes; up-to-date information is
         returned, at the cost of forcing a cluster-wide flushing of
         metadata. */
-    virtual size_t get_exact_size (const std::string& filename)
-      throw(fs::error, std::logic_error);
+    virtual size_t get_exact_size (const std::string& filename);
 
     /** Return the last modification time (as UNIX epoch value) of the
         passed file or directory; up-to-date information is returned, at
         the cost of forcing a cluster-wide flushing of metadata. */
-    virtual time_t get_exact_last_modification_time (const std::string& pathname)
-      throw(fs::error);
+    virtual time_t get_exact_last_modification_time (const std::string& pathname);
 
 	  /** Truncate the specified file to the desired size in bytes.
         On success, zero is returned. On error, -1 is returned, and errno is set appropriately.  */
-    virtual int truncate_file(const std::string&  filename, size_t desired_size)
-      throw(fs::error);
+    virtual int truncate_file(const std::string&  filename, size_t desired_size);
 
     /** Returns the number of blocks allocated to the file. **/
-    virtual size_t get_number_of_blocks(const std::string& filename)
-      throw(fs::error, std::logic_error);
+    virtual size_t get_number_of_blocks(const std::string& filename);
 
     /** Checks whether quota is enabled on the fileset rooted at fileset_root **/
-    bool is_quota_enabled(const std::string& fileset_root)
-      throw(fs::error);
+    bool is_quota_enabled(const std::string& fileset_root);
 
     /** Returns quota information for the fileset root at fileset_root **/
-    quota_info get_fileset_quota_info(const std::string& fileset_root)
-      throw(fs::error);
+    quota_info get_fileset_quota_info(const std::string& fileset_root);
 
-    virtual fs_acl_ptr new_acl() const
-      throw(fs::error);
+    virtual fs_acl_ptr new_acl() const;
 
-    virtual bool is_file_on_disk(const std::string& filename)
-      throw(fs::error);
+    virtual bool is_file_on_disk(const std::string& filename);
 
   }; // class gpfs
 }; // namespace fs

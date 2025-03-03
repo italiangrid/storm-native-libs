@@ -7,12 +7,11 @@ Native libraries used by the StoRM backend to access underlying file system func
 
 ### Supported platforms
 
-* Scientific Linux 6 on x86_64 architecture
+* Almalinux 9 on x86_64 architecture
 
 ### Repositories
 
-Some of the packages needed to build storm-native-libs are in the [EPEL](http://fedoraproject.org/wiki/EPEL) 
-repository. To enable it run
+Some of the packages needed to build storm-native-libs are in the [EPEL](http://fedoraproject.org/wiki/EPEL) repository. To enable it run
 
     yum install epel-release
 
@@ -28,10 +27,10 @@ installed:
 * maven
 * swig >= 2.0.9
 * libacl-devel
-* lcmaps-without-gsi-devel
+* libattr-devel
 * lcmaps-interface
-* java 1.8
-* gpfs.base >= 3.3
+* java 11
+* gpfs.base >= 5.1.9
 
 
 To build the native part of the library:

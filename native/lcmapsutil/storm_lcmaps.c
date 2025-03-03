@@ -5,17 +5,7 @@
  *      Author: Michele Dibenedetto
  */
 
-
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "storm_lcmaps.h"
-
-#include <lcmaps/lcmaps.h>
-#include <lcmaps/lcmaps_account.h>
-#include <lcmaps/lcmaps_return_poolindex_without_gsi.h>
 
 
 signed int map_user(char* logfile, char *user_dn, char **fqan_list, int nfqan, int *uid, int *gid) {

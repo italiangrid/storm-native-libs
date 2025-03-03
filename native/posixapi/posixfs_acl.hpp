@@ -34,17 +34,10 @@ public:
 
   /** Load ACL from the specified filesystem entry (file or directory). */
   virtual void load(const std::string& path, 
-                    const bool delete_also = false)
-    throw(fs::error, fs::invalid_path, 
-          fs::permission_denied, fs::acl_not_supported, 
-          std::exception);
+                    const bool delete_also = false);
 
   /** Set ACL on the specified filesystem entry (file or directory). */
-  virtual void enforce(const std::string& path) 
-    const
-    throw(fs::error, fs::invalid_path, 
-          fs::permission_denied, fs::acl_not_supported, 
-          std::exception);
+  virtual void enforce(const std::string& path) const;
 
   /** Convert a permission bitfield from POSIX
       (S_IROTH|S_IWOTH|S_IXOTH) to fs_acl::permission_t format. */

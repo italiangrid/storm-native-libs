@@ -51,7 +51,7 @@ public:
     error (const std::string& msg) : fs::error(msg) { }
     /** Destructor.  Does nothing, but declared here because the @c
         std::exception one has a no-throw clause. */
-    ~error() throw() { }
+    ~error() { }
   protected:
     /** Default constructor, for subclassing setting the error message
         otherwise. */
@@ -68,7 +68,7 @@ public:
                const char* const prefix = "Cannot run command");
     /** Destructor.  Does nothing, but declared here because the @c
         std::exception one has a no-throw clause. */
-    ~cannot_run() throw() { }
+    ~cannot_run() { }
     /** Return the system error code passed to the constructor. */
     int get_errno() const { return errnum; }
   private:
@@ -85,7 +85,7 @@ public:
     bad_termination(const helper_command& cmd);
     /** Destructor.  Does nothing, but declared here because the @c
         std::exception one has a no-throw clause. */
-    ~bad_termination() throw() { }
+    ~bad_termination() { }
   private:
     /** Command termination status */
     const int termination_status;
@@ -101,8 +101,7 @@ public:
 
   /** Constructor, taking pathname of @c mmgetacl / @c mmputacl command
       and pathname of file to invoke it on. */
-  helper_command(const std::string& cmd, const std::string& path) 
-    throw(std::length_error);
+  helper_command(const std::string& cmd, const std::string& path);
 
   /** Destructor.  Closes any input/output stream open by the @c
       run_*() methods. */
@@ -110,11 +109,11 @@ public:
 
   /** Run the helper command and return a std::istream for reading
       the command STDOUT. Call done() to wait for process termination. */
-  std::istream& run_and_return_stdout() throw(helper_command::cannot_run);
+  std::istream& run_and_return_stdout();
 
   /** Run the helper command and return a std::ostream for writing
       to the command STDIN. Call done() to wait for process termination. */
-  std::ostream& run_and_return_stdin() throw(helper_command::cannot_run);
+  std::ostream& run_and_return_stdin();
 
   /** Wait for command termination and collect termination status. */
   int done();

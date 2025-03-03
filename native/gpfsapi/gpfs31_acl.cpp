@@ -136,9 +136,6 @@ gpfs31_acl::permission_t_to_gpfs_perm(const fs_acl::permission_t perm)
  */
 void
 gpfs31_acl::load(const string& path, const bool delete_permission_too)
-  throw(fs::error, fs::invalid_path, 
-        fs::permission_denied, fs::acl_not_supported, 
-        std::exception)
 {
   gpfs_acl_t *acl;
   void *buffer;
@@ -351,11 +348,7 @@ gpfs31_acl::load_delete_permission(const string& pathname)
  * contents of this object.
  */
 void
-gpfs31_acl::enforce(const string& path)
-  const
-  throw(fs::error, fs::invalid_path, 
-        fs::permission_denied, fs::acl_not_supported, 
-        std::exception)
+gpfs31_acl::enforce(const string& path) const
 {
   void *buffer = NULL;
   gpfs_acl_t *acl;

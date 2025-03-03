@@ -1,4 +1,4 @@
-AC_INIT([storm-native-libs], [1.0.6], andrea.ceccanti@cnaf.infn.it)
+AC_INIT([storm-native-libs], [2.1.0], enrico.vianelloi@cnaf.infn.it)
 AC_PREFIX_DEFAULT([/usr])
 
 AC_CONFIG_AUX_DIR([./aux])
@@ -148,7 +148,6 @@ AC_CHECK_LIB([acl],
     [ACL_LIBS=-lacl],
     [AC_MSG_ERROR("Error checking libacl. Please install the libacl-devel package.")]
     )
-
 
 AC_CHECK_HEADER([lcmaps/lcmaps.h],
     [],

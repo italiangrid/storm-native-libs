@@ -71,8 +71,7 @@ const gid_t invalid_gid = static_cast<gid_t>(-1);
  * users database.
  */
 uid_t 
-uid_from_username (const std::string& name) 
-  throw(fs::system_error, std::runtime_error)
+uid_from_username (const std::string& name)
 { 
   assert (! name.empty());
 
@@ -125,8 +124,7 @@ uid_from_username (const std::string& name)
  * users database.
  */
 gid_t 
-gid_from_groupname (const std::string& name) 
-  throw(fs::system_error, std::runtime_error)
+gid_from_groupname (const std::string& name)
 {
   assert (! name.empty());
 
@@ -177,7 +175,6 @@ gid_from_groupname (const std::string& name)
  */
 std::string
 username_from_uid (const uid_t uid)
-  throw(fs::system_error)
 {
   struct passwd *result = NULL;
   struct passwd pwd = {
@@ -217,7 +214,6 @@ username_from_uid (const uid_t uid)
  */
 std::string
 groupname_from_gid (const gid_t gid)
-  throw(fs::system_error)
 {
   struct group *result = NULL;
   struct group grp = {
